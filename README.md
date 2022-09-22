@@ -104,23 +104,22 @@ http://域名/admin
  ```
 
 ### 页面展示
-![输入图片说明](https://gitee.com/multi-customer-open-source/multi-social/tree/master/ReadmeImages/1.png "1.png")
-![输入图片说明](https://gitee.com/multi-customer-open-source/multi-social/tree/master/ReadmeImages/2.png "2.png")
-![输入图片说明](https://gitee.com/multi-customer-open-source/multi-social/tree/master/ReadmeImages/3.png "3.png")
-![输入图片说明](https://gitee.com/multi-customer-open-source/multi-social/tree/master/ReadmeImages/4.png "4.png")
-![输入图片说明](https://gitee.com/multi-customer-open-source/multi-social/tree/master/ReadmeImages/5.png "5.png")
-![输入图片说明](https://gitee.com/multi-customer-open-source/multi-social/tree/master/ReadmeImages/6.png "6.png")
-![输入图片说明](https://gitee.com/multi-customer-open-source/multi-social/tree/master/ReadmeImages/7.png "7.png")
-![输入图片说明](https://gitee.com/multi-customer-open-source/multi-social/tree/master/ReadmeImages/8.png "8.png")
-![输入图片说明](https://gitee.com/multi-customer-open-source/multi-social/tree/master/ReadmeImages/9.png "9.png")
-![输入图片说明](https://gitee.com/multi-customer-open-source/multi-social/tree/master/ReadmeImages/10.png "10.png")
-![输入图片说明](https://gitee.com/multi-customer-open-source/multi-social/tree/master/ReadmeImages/11.png "11.png")
-![输入图片说明](https://gitee.com/multi-customer-open-source/multi-social/tree/master/ReadmeImages/12.png "12.png")
-![输入图片说明](https://gitee.com/multi-customer-open-source/multi-social/tree/master/ReadmeImages/13.png "13.png")
-![输入图片说明](https://gitee.com/multi-customer-open-source/multi-social/tree/master/ReadmeImages/14.png "14.png")
-![输入图片说明](https://gitee.com/multi-customer-open-source/multi-social/tree/master/ReadmeImages/15.png "15.png")
-![输入图片说明](https://gitee.com/multi-customer-open-source/multi-social/tree/master/ReadmeImages/16.png "16.png")
-
+![输入图片说明](ReadmeImages/1.jpg)
+![输入图片说明](ReadmeImages/2.jpg)
+![输入图片说明](ReadmeImages/3.jpg)
+![输入图片说明](ReadmeImages/4.jpg)
+![输入图片说明](ReadmeImages/5.jpg)
+![输入图片说明](ReadmeImages/6.jpg)
+![输入图片说明](ReadmeImages/7.jpg)
+![输入图片说明](ReadmeImages/8.jpg)
+![输入图片说明](ReadmeImages/9.jpg)
+![输入图片说明](ReadmeImages/10.jpg)
+![输入图片说明](ReadmeImages/11.jpg)
+![输入图片说明](ReadmeImages/12.jpg)
+![输入图片说明](ReadmeImages/13.jpg)
+![输入图片说明](ReadmeImages/14.jpg)
+![输入图片说明](ReadmeImages/15.jpg)
+![输入图片说明](ReadmeImages/16.jpg)
 
 ## 文档
 

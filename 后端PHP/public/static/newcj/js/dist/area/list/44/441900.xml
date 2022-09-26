@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<address>
+<city name="东莞" code="441900">
+<county name="东莞" code="441900001">
+    <street name="东城街道" code="441901003" />
+    <street name="南城街道" code="441901004" />
+    <street name="万江街道" code="441901005" />
+    <street name="莞城街道" code="441901006" />
+    <street name="石碣镇" code="441901101" />
+    <street name="石龙镇" code="441901102" />
+    <street name="茶山镇" code="441901103" />
+    <street name="石排镇" code="441901104" />
+    <street name="企石镇" code="441901105" />
+    <street name="横沥镇" code="441901106" />
+    <street name="桥头镇" code="441901107" />
+    <street name="谢岗镇" code="441901108" />
+    <street name="东坑镇" code="441901109" />
+    <street name="常平镇" code="441901110" />
+    <street name="寮步镇" code="441901111" />
+    <street name="樟木头镇" code="441901112" />
+    <street name="大朗镇" code="441901113" />
+    <street name="黄江镇" code="441901114" />
+    <street name="清溪镇" code="441901115" />
+    <street name="塘厦镇" code="441901116" />
+    <street name="凤岗镇" code="441901117" />
+    <street name="大岭山镇" code="441901118" />
+    <street name="长安镇" code="441901119" />
+    <street name="虎门镇" code="441901121" />
+    <street name="厚街镇" code="441901122" />
+    <street name="沙田镇" code="441901123" />
+    <street name="道滘镇" code="441901124" />
+    <street name="洪梅镇" code="441901125" />
+    <street name="麻涌镇" code="441901126" />
+    <street name="望牛墩镇" code="441901127" />
+    <street name="中堂镇" code="441901128" />
+    <street name="高埗镇" code="441901129" />
+    <street name="松山湖管委会" code="441901401" />
+    <street name="虎门港管委会" code="441901402" />
+    <street name="东莞生态园" code="441901403" />
+</county>
+</city>
+</address>

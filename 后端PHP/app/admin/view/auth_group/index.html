@@ -1,0 +1,40 @@
+{extend name="main" /}
+
+{block name="body"}
+{include file="breadcrumb" /}
+<div class="layui-fluid">
+    <table class="layui-table" style="margin-top: 0;">
+        <tr>
+            <th><b>用户组</b></th>
+            <th style="padding: 0 15px;line-height: 40px;"><b>操作</b>
+                <span style="float: right">
+                    <a href="{:url('add')}" data-width="400px" data-height="300px" class="layui-btn layui-btn-sm xn_open" title="添加用户组">
+                        添加权限
+                    </a>
+                </span>
+            </th>
+        </tr>
+
+        <tbody>
+        {foreach name="list" item="vo"}
+        <tr>
+            <td>{$vo.title}</td>
+            <td>
+                <a href="{:url('group_rule',array('id'=>$vo['id']))}" class="layui-btn layui-btn-xs xn_open" title="分配权限">
+                    分配权限
+                </a>
+                <a href="{:url('edit',array('id'=>$vo['id']))}" data-width="400px" data-height="300px" title="{$vo.title}" class="layui-btn layui-btn-normal layui-btn-xs xn_open">
+                    <i class="layui-icon layui-icon-edit"></i>修改
+                </a>
+                {if condition="$vo['id'] neq 1"}
+                <a href="{:Url('delete',array('id'=>$vo['id']))}" title="确认要删除【{$vo.title}】吗？" class="layui-btn layui-btn-danger layui-btn-xs xn_delete">
+                    <i class="layui-icon layui-icon-delete"></i>删除
+                </a>
+                {/if}
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+{/block}

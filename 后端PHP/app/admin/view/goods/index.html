@@ -1,0 +1,161 @@
+{extend name="main" /}
+
+{block name="body"}
+{include file="breadcrumb" /}
+<div class="layui-fluid">
+    <div class="layui-card">
+        <ul class="layui-nav layui-bg-green">
+            <li class="layui-nav-item layui-this"><a href="">帖子列表</a></li>
+            <!-- <li class="layui-nav-item"><a href="{:Url('add')}">添加商品</a></li> -->
+        </ul>
+        <div class=" layui-card-header layuiadmin-card-header-auto">
+            <form class="layui-form" method="get">
+                <input type="hidden" name="bcid" value="{:input('bcid')}"><!--保留当前位置的bcid参数-->
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">关键字</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="keywords" value="{:input('keywords')}" placeholder="请输入关键字" autocomplete="off" class="layui-input" >
+                        </div>
+                        <div class="layui-input-inline">
+                            <select name="cate_id" lay-verify="required">
+                                <option value="" >圈子</option>
+                                {foreach name="cate" item="vo"}
+                                <option value="{$vo.id}">{$vo.title}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                    </div>
+                    <!-- <br>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">商品价格</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="price_min" value="{:input('price_min')}" placeholder="最低价格min" autocomplete="off" class="layui-input" >
+                        </div>
+                        
+                        <div class="layui-input-inline">
+                            <input type="text" name="price_max"  value="{:input('price_max')}" placeholder="最高价格max" autocomplete="off" class="layui-input">
+                        </div>
+                    </div> -->
+                    <div class="layui-inline">
+                        <button class="layui-btn">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>筛选
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="layui-inline">
+            <a href="{:url('add')}"  title="添加帖子" class="layui-btn layui-btn-normal xn_open">
+                添加帖子
+            </a>
+        </div>
+        <div class="layui-card-body">
+            <table class="layui-table">
+                <tr>
+                    <th><b>ID</b></th>
+                    <th width="200"><b>内容</b></th>
+                    <th><b>用户</b></th>
+                    <th><b>圈子</b></th>
+                    <th><b>点赞数</b></th>
+                    <th><b>评论数</b></th>
+                    <th><b>是否推荐</b></th>
+                    <th><b>是否置顶</b></th>
+                    <th><b>审核状态</b></th>
+                    <th><b>发布时间</b></th>
+                    <th><b>操作</b></th>
+                </tr>
+
+                <tbody>
+                {foreach name="list" item="vo"}
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{:mb_substr($vo.content,0,42)}</td>
+                    <td><a href="javascript:;"  onClick="showImg(this)" data-href="{$vo.user.avatar}" ><img style="border-radius:50%" src="{$vo.user.avatar}" width="50" height="50"></a>&nbsp;&nbsp;&nbsp;{$vo.user.nickname}</td>
+                    
+                    <td>{$vo.cate.title}</td>
+                    <td>{$vo.like_num}</td>
+                    <td>{$vo.ping_num}</td>
+                    <td class="layui-form">
+                        <input type="checkbox" lay-verify="required" lay-filter="is_tuijian" name="is_tuijian" data-id="{$vo.id}"
+                               lay-skin="switch" lay-text="是|否" value="1" {if condition="$vo['is_tuijian'] eq 1"}checked{/if} >
+                    </td>
+                    <td class="layui-form">
+                        <input type="checkbox" lay-verify="required" lay-filter="is_ding" name="is_ding" data-id="{$vo.id}"
+                               lay-skin="switch" lay-text="是|否" value="1" {if condition="$vo['is_ding'] eq 1"}checked{/if} >
+                    </td>
+                    <td class="layui-form">
+                        <input type="checkbox" lay-verify="required" lay-filter="is_sh" name="is_sh" data-id="{$vo.id}"
+                               lay-skin="switch" lay-text="通过|拒绝" value="1" {if condition="$vo['is_sh'] eq 1"}checked{/if} >
+                    </td>
+                    <td>
+                        {$vo.create_time}
+                    </td>
+                    <td>
+                        <a href="{:url('info',array('id'=>$vo['id']))}"  title="详情" class="layui-btn layui-btn-normal layui-btn-xs xn_open">
+                            详情
+                        </a>
+                        <a href="{:url('showPing',array('id'=>$vo['id']))}"  data-width="90%" data-height="90%" title="查看评论" class="layui-btn layui-btn-normal layui-btn-xs xn_open">
+                            查看评论
+                        </a>
+                        <a href="{:Url('delete',array('id'=>$vo['id']))}" title="确认要删除【{$vo.goods_name}】吗？" class="layui-btn layui-btn-danger layui-btn-xs xn_delete">
+                            <i class="layui-icon layui-icon-delete"></i>删除
+                        </a>
+                    </td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="pages">{$list|raw}</div>
+</div>
+{/block}
+
+{block name="js"}
+<script>
+    layui.form.on('switch(is_tuijian)', function(data){
+        //layer.tips('开关checked：'+ (this.checked ? 'true' : 'false'), data.othis)
+        var val = this.checked ? 1 : 0;
+        var id = $(this).attr('data-id');
+        var url = "{:url('edit')}";
+        $.post(url,{id:id,is_tuijian:val},function (res) {
+            console.log(res);
+            layer.tips(res.msg, data.othis);
+        },'json')
+    });
+    layui.form.on('switch(is_ding)', function(data){
+        //layer.tips('开关checked：'+ (this.checked ? 'true' : 'false'), data.othis)
+        var val = this.checked ? 1 : 0;
+        var id = $(this).attr('data-id');
+        var url = "{:url('edit')}";
+        $.post(url,{id:id,is_ding:val},function (res) {
+            console.log(res);
+            layer.tips(res.msg, data.othis);
+        },'json')
+    });
+    layui.form.on('switch(is_sh)', function(data){
+        //layer.tips('开关checked：'+ (this.checked ? 'true' : 'false'), data.othis)
+        var val = this.checked ? 1 : 0;
+        var id = $(this).attr('data-id');
+        var url = "{:url('edit')}";
+        $.post(url,{id:id,is_sh:val},function (res) {
+            console.log(res);
+            layer.tips(res.msg, data.othis);
+        },'json')
+    });
+</script>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#start_date'
+        });
+        laydate.render({
+            elem: '#end_date'
+        });
+    });
+
+</script>
+{/block}

@@ -1,0 +1,95 @@
+{extend name="main" /}
+
+{block name="body"}
+{include file="breadcrumb" /}
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class=" layui-card-header layuiadmin-card-header-auto">
+            <form class="layui-form" method="get">
+                <input type="hidden" name="bcid" value="{:input('bcid')}"><!--保留当前位置的bcid参数-->
+                <input type="hidden" name="parent_id" value="{:input('parent_id')}">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">手机或昵称</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="keywords" value="{:input('keywords')}" placeholder="请输入手机号或者昵称" autocomplete="off" class="layui-input" >
+                        </div>
+                    </div>
+                    <input type="hidden" name="id" value="{$id}">
+                    <div class="layui-inline">
+                        <button class="layui-btn">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="layui-card-body">
+            <table class="layui-table">
+                <tr>
+                    <th><b>ID</b></th>
+                    <th><b>手机号</b></th>
+                    <th><b>昵称</b></th>
+                    <th><b>头像</b></th>
+                    <th><b>是否管理员</b></th>
+                </tr>
+
+                <tbody>
+                {foreach name="list" item="vo"}
+                <tr>
+                    <td>{$vo.fid}</td>
+                    <td>{$vo.user.mobile}</td>
+                    <td>{$vo.user.nickname}</td>
+                    <td><a href="javascript:;" onClick="showImg(this)" data-href="{$vo.user.avatar}" ><img src="{$vo.user.avatar}" width="50"></a></td>
+                    <td class="layui-form">
+                        <input type="checkbox" lay-verify="required" lay-filter="is_manage" name="is_manage" data-id="{$vo.fid}"
+                               lay-skin="switch" lay-text="是|否" value="1" {if condition="$vo['is_manage'] eq 1"}checked{/if} >
+                    </td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{/block}
+
+{block name="js"}
+<script>
+    layui.form.on('switch(is_manage)', function(data){
+        //layer.tips('开关checked：'+ (this.checked ? 'true' : 'false'), data.othis)
+        var val = this.checked ? 1 : 0;
+        var id = $(this).attr('data-id');
+        var url = "{:url('setManage')}";
+        $.post(url,{id:id,is_manage:val},function (res) {
+            console.log(res);
+            layer.tips(res.msg, data.othis);
+        },'json')
+    });
+    layui.form.on('switch(status)', function(data){
+        //layer.tips('开关checked：'+ (this.checked ? 'true' : 'false'), data.othis)
+        var val = this.checked ? 1 : 0;
+        var id = $(this).attr('data-id');
+        var url = "{:url('edit')}";
+        $.post(url,{id:id,status:val},function (res) {
+            console.log(res);
+            layer.tips(res.msg, data.othis);
+        },'json')
+    });
+</script>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#start_date'
+        });
+        laydate.render({
+            elem: '#end_date'
+        });
+    });
+
+</script>
+{/block}

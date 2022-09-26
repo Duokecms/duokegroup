@@ -1,0 +1,197 @@
+{extend name="iframe" /}
+
+{block name="body"}
+<div class="layui-form" lay-filter="layuiadmin-app-form-list" id="layuiadmin-app-form-list" style="padding: 20px 30px 0 0;">
+    <form action="{:request()->url()}" method="post" class="xn_ajax" data-type="open">
+        <div class="layui-form-item">
+            <label class="layui-form-label">标题名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" lay-verify="required" placeholder="" autocomplete="off" class="layui-input" value="{$info.name}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">标题简介</label>
+            <div class="layui-input-block">
+                <input type="text" name="brief" lay-verify="required" placeholder="" autocomplete="off" class="layui-input" value="{$info.brief}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">图标</label>
+            <div class="layui-input-block">
+                {:xn_upload_one($info['icon'],'icon',0)}
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">列表背景图</label>
+            <div class="layui-input-block">
+                {:xn_upload_one($info['image_bc'],'image_bc',0)}
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">字体颜色</label>
+            <div class="layui-input-inline">
+                <div class="layui-input-inline" style="width: 120px;">
+                    <input type="text" name="text_color" value="{$info.text_color}" placeholder="请选择颜色" class="layui-input" id="text_color-input">
+                </div>
+                <div class="layui-inline" style="left: -11px;">
+                     <div id="text_color"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">背景</label>
+            <div class="layui-input-block">
+                <input type="radio" name="is_background" value="1" title="主题颜色" lay-filter="is_background" {if condition="$info.is_background eq 1"}checked{/if}>
+                <input type="radio" name="is_background" value="2" title="背景颜色" lay-filter="is_background" {if condition="$info.is_background eq 2"}checked{/if}>
+            </div>
+        </div>
+        <div class="layui-form-item" id="background" style="display: none;">
+            <label class="layui-form-label">背景颜色</label>
+            <div class="layui-input-inline">
+                <div class="layui-input-inline" style="width: 120px;">
+                    <input type="text" name="background_color" value="{$info.background_color}" placeholder="请选择颜色" class="layui-input" id="background_color-input">
+                </div>
+                <div class="layui-inline" style="left: -11px;">
+                     <div id="background_color"></div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="layui-form-item">
+            <label class="layui-form-label">产品列表</label>
+            <div class="layui-input-block">
+                <input type="text" name="goods_ids" lay-verify="required" placeholder="" autocomplete="off" class="layui-input" value="{$info.goods_ids}">
+            </div>
+        </div> -->
+        <div class="layui-form-item">
+            <label class="layui-form-label">管理产品</label>
+            <div class="layui-input-inline">
+                <select class="form-control valid" id="keysel" lay-search>
+                    <option value="">请搜索</option>
+                    {foreach name="allGoods" item="vo"}
+                        <option value="{$vo.id}">{$vo.goods_name}</option>
+                    {/foreach}
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <button type="button" class="layui-btn" onclick="checksite()">确定选中</button>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">产品列表</label>
+            <div class="layui-input-block" id="selectlist">
+                {if condition="!empty($selectGoods)"}
+                    {foreach name="selectGoods" item="vo"}
+                        <span>
+                            <button type="button" class="layui-btn">{$vo.goods_name}&nbsp;&nbsp;<i class="layui-icon layui-icon-delete" onclick="deleteImg($(this))"></i></button>
+                            <input type="hidden" class="form-control" name="goods_list[]" value="{$vo.id}">
+                        </span>
+                    {/foreach}
+                {else}
+                    <span id="defaultSite">
+                        <button type="button" class="layui-btn">未选择产品</button>
+                        <input type="hidden" class="form-control" name="goods_list[]" value="0">
+                    </span>
+                {/if}
+            </div>
+        </div>
+        <input type="hidden" id="is_background" value="{$info.is_background}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-inline">
+                <input type="text" name="sort" lay-verify="required" placeholder="" autocomplete="off" class="layui-input" value="{$info.sort}">
+                <div class="layui-form-mid layui-word-aux"><span>数字越小排在越前</span></div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-inline">
+                <input type="checkbox" lay-verify="required" lay-filter="status" name="is_show" lay-skin="switch" lay-text="上架|下架" value="1" {if condition="$info['is_show'] eq 1 || !isset($data['is_show'])"}checked{/if} >
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" lay-submit class="layui-btn">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+{/block}
+
+{block name="js"}
+<script>
+    layui.use([ 'element', 'jquery', 'colorpicker', 'layer','form' ], function() {
+       var $ = layui.jquery;
+       var element = layui.element;
+       var colorpicker = layui.colorpicker;
+       var layer = layui.layer;
+       var form = layui.form;
+       console.log(form)
+       form.on('radio(is_background)', function(data) {
+            if (data.value == 2) {
+                $('#background').show();
+            }else{
+                $('#background').hide();
+            }
+        });
+       //常规使用
+       colorpicker.render({
+            elem : '#web_color',
+            change : function(color) { //颜色改变的回调
+                layer.tips('选择了：' + color, this.elem, {
+                    tips : 1
+                });
+            }
+       });
+       colorpicker.render({
+            elem: '#text_color'
+            ,color: '{$info.text_color}'
+            ,done: function(color){
+                $('#text_color-input').val(color);
+            }
+         });
+        colorpicker.render({
+            elem: '#background_color'
+            ,color: '{$info.background_color}'
+            ,done: function(color){
+                $('#background_color-input').val(color);
+            }
+        });
+        $(function(){
+           if ($('#is_background').val() == 2) {
+                $('#background').show();
+            }
+        })
+    });
+
+    function checksite(){
+        var id = $("#keysel").val();
+        var site_name = $("#keysel").find("option:selected").text();
+        if (site_name == '请搜索') {
+            layer.msg('请选择产品');
+            return false;
+        }
+        var result=[];//数组
+        $("input[type='hidden']").each(function(){
+            result.push($(this).val()); //把当前text下的内容追加到数组里面
+        });
+        var isIn = $.inArray(id, result); 
+        if(isIn != -1){
+            layer.msg('产品已选择');
+            return false;
+        }
+        $('#defaultSite').remove();
+        $('#selectlist').append('<span><button type="button" class="layui-btn">'+site_name+'&nbsp;&nbsp;<i class="layui-icon layui-icon-delete" onclick="deleteImg($(this))"></i></button><input type="hidden" class="form-control" name="goods_list[]" value="'+id+'"></span>&nbsp;&nbsp;');
+    } 
+    
+    
+    function deleteImg(obj){
+        obj.parent().parent().remove();
+        console.log($('#selectlist').children().length)
+        if ($('#selectlist').children().length == '0') {
+            $('#selectlist').append('<span id="defaultSite"><button type="button" class="layui-btn">未选择产品</button><input type="hidden" class="form-control" name="goods_list[]" value="0"></span>');
+        }
+    }
+    
+</script>
+{/block}

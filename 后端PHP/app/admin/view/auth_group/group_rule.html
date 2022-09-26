@@ -1,0 +1,83 @@
+{extend name="iframe" /}
+
+{block name="body"}
+<div class="layui-fluid">
+    <form action="" method="post" class="xn_ajax layui-form">
+        <input type="hidden" name="id" value="{$group_data['id']}">
+        <table class="layui-table" style="margin-top: 0;">
+            {foreach name="rule_data" item="v1"}
+            <empty name="v['_data']">
+                <tr class="b-group">
+                    <th>
+                        <input type="checkbox" name="rule_ids[]" value="{$v1['id']}" {if condition="in_array($v1['id'],$group_data['rules'])"} checked="checked"{/if} lay-skin="primary" title="{$v1['title']}" lay-filter="allChoose">
+                    </th>
+                    <td></td>
+                </tr>
+                <else />
+                <tr class="b-group">
+                    <th>
+                       <input type="checkbox" name="rule_ids[]" value="{$v1['id']}" {if condition="in_array($v1['id'],$group_data['rules'])"} checked="checked"{/if} lay-skin="primary" title="{$v1['title']}" lay-filter="allChoose">
+                    </th>
+                    <td class="b-child">
+                        {foreach name="v1['_data']" item="v2"}
+                        <table class="layui-table">
+                            <tr class="b-group">
+                                <th width="120">
+                                    <input type="checkbox" name="rule_ids[]" value="{$v2['id']}" {if condition="in_array($v2['id'],$group_data['rules'])"} checked="checked"{/if} lay-skin="primary" title="{$v2['title']}" lay-filter="allChoose">
+                                </th>
+                                <td>
+                                    {notempty name="v2['_data']"}
+                                    {volist name="v2['_data']" id="v3"}
+                                        {notempty name="v3['_data']"}
+                                        <table class="layui-table">
+                                            <tr class="b-group">
+                                            <th width="120">
+                                                <input type="checkbox" name="rule_ids[]" value="{$v3['id']}" {if condition="in_array($v3['id'],$group_data['rules'])"} checked="checked"{/if} lay-skin="primary" title="{$v3['title']}" lay-filter="allChoose">
+                                            </th>
+                                                <td>
+                                                    {volist name="v3['_data']" id="v4"}
+                                                    <input type="checkbox" name="rule_ids[]" value="{$v4['id']}" {if condition="in_array($v4['id'],$group_data['rules'])"} checked="checked"{/if} lay-skin="primary" title="{$v4['title']}">
+                                                    {/volist}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        {else/}
+                                            <input type="checkbox" name="rule_ids[]" value="{$v3['id']}" {if condition="in_array($v3['id'],$group_data['rules'])"} checked="checked"{/if} lay-skin="primary" title="{$v3['title']}">
+                                        {/notempty}
+                                    {/volist}
+                                    {/notempty}
+                                </td>
+                            </tr>
+                        </table>
+                        {/foreach}
+                    </td>
+                </tr>
+            </empty>
+            {/foreach}
+            <tr>
+                <th></th>
+                <td>
+                    <input class="layui-btn" type="submit" value="提交">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+{/block}
+
+{block name="js"}
+<script>
+    layui.use(['form','jquery'], function () {
+        var form = layui.form;
+        var $ = layui.jquery;
+        //点击全选, 勾选
+        form.on('checkbox(allChoose)', function (data) {
+            var child = $(this).parents('.b-group').eq(0).find("input[type='checkbox']");
+            child.each(function (index, item) {
+                item.checked = data.elem.checked;
+            });
+            form.render('checkbox');
+        });
+    });
+</script>
+{/block}

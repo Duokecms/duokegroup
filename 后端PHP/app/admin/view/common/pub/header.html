@@ -1,0 +1,16 @@
+<span v-if="isCollapse === false" @click="hideAside"><i class="el-icon-s-fold"></i> 隐藏菜单 </span>
+
+<span v-if="isCollapse === true" @click="showAside"><i class="el-icon-s-unfold" ></i> 展开菜单</span>
+
+<span><i class="el-icon-s-grid"></i> 控制台 </span>
+
+<el-dropdown>
+  <span><i class="el-icon-user-solid"></i> {$login_info.uname}</span>
+  <template #dropdown>
+    <el-dropdown-menu>
+      <el-dropdown-item>个人资料</el-dropdown-item>
+      <el-dropdown-item divided @click="onLogout">退出登陆</el-dropdown-item>
+    </el-dropdown-menu>
+  </template>
+</el-dropdown>
+<a href="{:url('index/index')}"><span class="el-right"><i class="el-icon-s-home"></i> 回到主页 </span></a>

@@ -1,0 +1,399 @@
+﻿html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+#videoBackground {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -2;
+}
+
+body::after {
+    width: 100%;
+    height: 100%;
+    content: '';
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: -2;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.main-container {
+    width: 100%;
+    height: 100%;
+    min-width: 1024px;
+    margin: 0;
+    padding: 0;
+}
+
+.main-container .nav-bar {
+    width: 100%;
+    max-width: 1600px;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    z-index: 9;
+    display: flex;
+    padding: 32px 128px;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+    transform: translateX(-50%);
+}
+
+.main-container .nav-bar .left {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-container .nav-bar .left .icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    overflow: hidden;
+    display: block;
+    margin-right: 10px;
+}
+
+.main-container .nav-bar .left .text img {
+    width: 36px;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.main-container .nav-bar .left .text div {
+    text-align: left;
+    font-size: 10px;
+    color: white;
+    line-height: normal;
+}
+
+.main-container .nav-bar .right {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
+.main-container .nav-bar .right .item {
+    position: relative;
+    margin-left: 50px;
+}
+
+.main-container .nav-bar .right .item:last-child {
+    margin-left: 50px;
+}
+
+.main-container .nav-bar .right .item .icon {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    display: block;
+    opacity: 0.7;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.main-container .nav-bar .right .item .content {
+    width: 180px;
+    position: absolute;
+    left: 50%;
+    top: 48px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, 3%);
+    transition: transform 0.3s, opacity 0.3s, visibility 0.3s;
+}
+
+.main-container .nav-bar .right .item:hover .icon {
+    opacity: 1;
+}
+
+.main-container .nav-bar .right .item:hover .content {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+}
+
+.main-container .block {
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.main-container .block .slogan {
+    width: 776px;
+    margin-bottom: 44px;
+    object-fit: contain;
+}
+
+.main-container .block .slogan-subtitle {
+    font-size: 32px;
+    color: white;
+    margin-bottom: 60px;
+}
+
+.main-container .block .button-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-container .block .button-block>div {
+    width: 128px;
+    height: 44px;
+    margin-right: 20px;
+    cursor: pointer;
+    position: relative;
+}
+
+.main-container .block .button-block>div::after {
+    width: 100%;
+    height: 100%;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+    background: transparent;
+}
+
+.main-container .block .button-block>div:not(.simple):hover::after {
+    background: radial-gradient(rgba(245, 216, 125, 0.4), rgba(245, 216, 125, 0.1));
+    box-shadow: 0 0 40px rgba(245, 216, 125, 0.3);
+}
+
+.main-container .block .button-block>div .main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid #F5D87D 1px;
+    border-radius: 10px;
+    filter: brightness(200%);
+    /* transition: filter 0.2s; */
+    box-sizing: border-box;
+}
+
+.main-container .block .button-block>div:hover .main {
+    filter: brightness(100%);
+}
+
+.main-container .block .button-block>div .main div {
+    font-size: 16px;
+    color: #F5D87D;
+}
+
+.main-container .block .button-block>div .main img {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    display: block;
+}
+
+.main-container .block .button-block>div.simple {
+    width: 44px;
+    position: relative;
+    margin-right: 0;
+}
+
+.main-container .block .button-block>div.simple .main img {
+    margin-right: 0;
+}
+
+.main-container .block .button-block>div.simple .main .qrcode {
+    width: 180px;
+    height: 180px;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: -2px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(calc(180px - 46px));
+    /* transition: opacity 0.3s, visibility 0.3s; */
+}
+
+.main-container .block .button-block>div.simple:hover .main .qrcode {
+    opacity: 1;
+    visibility: visible;
+}
+
+.main-container .bottom-info {
+    width: 100%;
+    font-size: 12px;
+    margin-bottom: 40px;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    color: white;
+}
+
+
+/* mobile */
+
+.main-container.mobile {
+    min-width: unset;
+    overflow: hidden;
+}
+
+.main-container.mobile .nav-bar {
+    max-width: 100%;
+    padding: .56rem;
+}
+
+.main-container.mobile .nav-bar .left .icon {
+    width: 1.33rem;
+    height: 1.33rem;
+    margin-right: .28rem;
+    border-radius: .16rem;
+}
+
+.main-container.mobile .nav-bar .left .text img {
+    width: 1.17rem;
+}
+
+.main-container.mobile .nav-bar .left .text div {
+    font-size: .33rem;
+}
+
+.main-container.mobile .right {
+    display: none;
+}
+
+.main-container .right-mobile {
+    display: none;
+}
+
+.main-container.mobile .right-mobile {
+    display: block;
+    position: relative;
+}
+
+.main-container.mobile .right-mobile .icon {
+    width: .64rem;
+    height: .64rem;
+    margin-right: .28rem;
+    display: block;
+    object-fit: contain;
+}
+
+.main-container.mobile .right-mobile .content {
+    width: auto;
+    white-space: nowrap;
+    position: absolute;
+    right: 0;
+    top: 1.1rem;
+    opacity: 0;
+    visibility: hidden;
+    background: white;
+    border-radius: .19rem;
+    padding: .61rem .5rem;
+    transform: translateY(-20%);
+    transition: transform 0.3s, opacity 0.3s, visibility 0.3s;
+}
+
+.main-container.mobile .right-mobile.active .content {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.main-container.mobile .right-mobile .content .arrow {
+    position: absolute;
+    right: .42rem;
+    top: 0;
+    width: .39rem;
+    height: .22rem;
+    display: block;
+    transform: translateY(-96%);
+}
+
+.main-container.mobile .right-mobile .content .item {
+    display: flex;
+    align-items: center;
+    margin-bottom: .53rem;
+}
+
+.main-container.mobile .right-mobile .content .item:last-child {
+    margin-bottom: 0;
+}
+
+.main-container.mobile .right-mobile .content .item img {
+    width: .56rem;
+    height: .56rem;
+    object-fit: contain;
+    display: block;
+    margin-right: .19rem;
+}
+
+.main-container.mobile .right-mobile .content .item div {
+    font-size: .39rem;
+}
+
+.main-container.mobile .block .slogan {
+    width: 8.17rem;
+    margin-bottom: .54rem;
+}
+
+.main-container.mobile .block .slogan-subtitle {
+    font-size: .5rem;
+    margin-bottom: 1.1rem;
+}
+
+.main-container.mobile .button-block {
+    display: none;
+}
+
+.main-container .download-mobile {
+    display: none;
+}
+
+.main-container .bottom-br {
+    display: none;
+}
+
+.main-container.mobile .bottom-br {
+    display: block;
+}
+
+.main-container.mobile .download-mobile {
+    display: inline-block;
+    font-size: .5rem;
+    color: white;
+    border: solid white 0.04rem;
+    border-radius: 100px;
+    padding: .34rem 1.78rem;
+    background: rgba(255, 255, 255, 0);
+    transition: background 0.2s;
+}
+
+.main-container.mobile .download-mobile:active {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.main-container.mobile .bottom-info {
+    position: fixed;
+    font-size: .28rem;
+    opacity: .6;
+    margin-bottom: .42rem;
+}

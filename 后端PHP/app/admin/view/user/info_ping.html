@@ -1,0 +1,144 @@
+{extend name="main" /}
+
+{block name="body"}
+{include file="breadcrumb" /}
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">贫困信息</div>
+                <div class="layui-card-body" pad15="">
+                    <form action="{:request()->url()}" method="post" class="xn_ajax" data-type="open">
+                        <div class="layui-form" wid100="" lay-filter="">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">姓名</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="user_name" lay-verify="" value="{$user_data.user_name}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">头像</label>
+                                <div class="layui-input-block">
+                                    {:xn_upload_one($data['ping_avatar'],'ping_avatar',0)}
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">身份证</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="card_id" lay-verify="" value="{$user_data.card_id}" class="layui-input">
+                                </div>
+                            </div>
+                            <!-- 
+                                ping_age 年龄
+                                family_population 家庭人口
+                                avg_income 人均收入
+                                poverty_reason 致贫原因
+                                poverty_attribute 贫困属性
+                                识别标准 固定
+                                house_size 房子面积
+                                family_info 家庭成员
+                                family_images 房子图片
+                             -->
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">电话</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="phone" lay-verify="" value="{$user_data.phone}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">家庭人口</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="family_population" lay-verify="" value="{$user_data.family_population}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">人均收入</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="avg_income" lay-verify="" value="{$user_data.avg_income}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">年龄</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="ping_age" lay-verify="" value="{$user_data.ping_age}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">致贫原因</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="poverty_reason" lay-verify="" value="{$user_data.poverty_reason}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">识别标准</label>
+                                <div class="layui-input-block">
+                                    <input type="text"  lay-verify="" value="国家标准" readonly class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">房子面积</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="house_size" lay-verify="" value="{$user_data.house_size}" class="layui-input">
+                                    <span>单位：平方</span>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">贫困类型</label>
+                                <div class="layui-input-inline">
+                                    <select name="level" lay-verify="required">
+                                        <option value="1" {if condition="$user_data.level eq 1"}selected{/if}>特困</option>
+                                        <option value="2" {if condition="$user_data.level eq 2"}selected{/if}>贫困</option>
+                                        <option value="3" {if condition="$user_data.level eq 3"}selected{/if}>一般困</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">家庭成员</label>
+                                <div class="layui-input-block">
+                                    <textarea name="family_info" style="width: 100%;height: 100px;">{$user_data.family_info}</textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">房子照片</label>
+                                <div class="layui-input-block">
+                                    {:xn_upload_one($data['family_images'],'family_images',0)}
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <input type="hidden" name="id" lay-verify="" value="{$user_data.id}" class="layui-input">
+                                    <button class="layui-btn" lay-submit="" lay-filter="set_website">确认保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--编辑器-->
+<script src="/static/admin/ueditor/ueditor.config.js"></script>
+<script src="/static/admin/ueditor/ueditor.all.min.js"></script>
+<script src="/static/admin/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script>
+    UE.getEditor('content',{
+        initialFrameWidth :800,// 设置编辑器宽度
+        initialFrameHeight:200,// 设置编辑器高度
+        scaleEnabled:true
+    });
+</script>
+<script>
+    function miaodian_zuobiao(){
+        layer.open({
+            type: 2,
+            skin: 'layui-layer-black',
+            area: ['950px', '600px'],
+            fixed: false, //不固定
+            maxmin: true,
+            content: "{:Url('map')}"
+        });
+
+    }
+</script>
+{/block}

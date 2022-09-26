@@ -1,0 +1,145 @@
+{extend name="main" /}
+
+{block name="body"}
+{include file="breadcrumb" /}
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body" pad15="">
+                    <form action="{:request()->url()}" method="post" class="xn_ajax">
+                        <div class="layui-form" wid100="" lay-filter="">
+                            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                                <legend>文件存储方式</legend>
+                            </fieldset>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">存储方式</label>
+                                <div class="layui-input-block">
+                                    <input type="radio" name="storage" lay-filter="radio_storage" class="radio_storage" value="0" title="本地" {if condition="$data['storage'] eq 0"}checked=""{/if}>
+                                    <input type="radio" name="storage" lay-filter="radio_storage" class="radio_storage" value="1" title="阿里云OSS" {if condition="$data['storage'] eq 1"}checked=""{/if}>
+                                    <input type="radio" name="storage" lay-filter="radio_storage" class="radio_storage" value="2" title="七牛云" {if condition="$data['storage'] eq 2"}checked=""{/if}>
+                                </div>
+                            </div>
+                            <div class="layui-form-item storage_setting storage_1" {if condition="$data['storage'] neq 1"}style="display: none"{/if}>
+                                <label class="layui-form-label">AccessKey</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="oss_ak" value="{$data.oss_ak}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item storage_setting storage_1" {if condition="$data['storage'] neq 1"}style="display: none"{/if}>
+                                <label class="layui-form-label">AccessKeySecret</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="oss_sk" value="{$data.oss_sk}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item storage_setting storage_1" {if condition="$data['storage'] neq 1"}style="display: none"{/if}>
+                                <label class="layui-form-label">Endpoint</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="oss_endpoint" value="{$data.oss_endpoint}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item storage_setting storage_1" {if condition="$data['storage'] neq 1"}style="display: none"{/if}>
+                                <label class="layui-form-label">Bucket</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="oss_bucket" value="{$data.oss_bucket}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item storage_setting storage_2" {if condition="$data['storage'] neq 2"}style="display: none"{/if}>
+                                <label class="layui-form-label">AccessKey</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="qiniu_ak" value="{$data.qiniu_ak}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item storage_setting storage_2" {if condition="$data['storage'] neq 2"}style="display: none"{/if}>
+                                <label class="layui-form-label">AccessKeySecret</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="qiniu_sk" value="{$data.qiniu_sk}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item storage_setting storage_2" {if condition="$data['storage'] neq 2"}style="display: none"{/if}>
+                                <label class="layui-form-label">域名</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="qiniu_domain" value="{$data.qiniu_domain}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item storage_setting storage_2" {if condition="$data['storage'] neq 2"}style="display: none"{/if}>
+                                <label class="layui-form-label">Bucket</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="qiniu_bucket" value="{$data.qiniu_bucket}" class="layui-input">
+                                </div>
+                            </div>
+                            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                                <legend>图片处理</legend>
+                            </fieldset>
+                            <!--<div class="layui-form-item">
+                                <label class="layui-form-label">生成缩略图</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="thumb" value="{$data.thumb}" class="layui-input" placeholder="例如：200,200 多个缩略图用“|”号隔开，不生成请留空">
+                                </div>
+                            </div>
+                            <hr>-->
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">图片水印</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="is_water" value="1" {if condition="$data['is_water'] eq 1"} checked{/if} lay-skin="switch" lay-text="开启|关闭">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">水印文件路径</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="water_img" value="{$data.water_img}" class="layui-input">
+                                    <div class="layui-form-mid layui-word-aux">不能是网络图片</div>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">水印位置</label>
+                                <div class="layui-input-inline">
+                                    <select name="water_locate">
+                                        <option value="1" {if $data.water_locate eq '1'}selected{/if}>左上角</option>
+                                        <option value="2" {if $data.water_locate eq '2'}selected{/if}>上居中</option>
+                                        <option value="3" {if $data.water_locate eq '3'}selected{/if}>右上角</option>
+                                        <option value="4" {if $data.water_locate eq '4'}selected{/if}>左居中</option>
+                                        <option value="5" {if $data.water_locate eq '5'}selected{/if}>居中</option>
+                                        <option value="6" {if $data.water_locate eq '6'}selected{/if}>右居中</option>
+                                        <option value="7" {if $data.water_locate eq '7'}selected{/if}>左下角</option>
+                                        <option value="8" {if $data.water_locate eq '8'}selected{/if}>下居中</option>
+                                        <option value="9" {if $data.water_locate eq '9'}selected{/if}>右下角</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">透明度</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="water_alpha" value="{$data.water_alpha}" autocomplete="off" class="layui-input" placeholder="">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">0~100，数字越小，透明度越高</div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit="" lay-filter="set_website">确认保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block name="js"}
+<script>
+    layui.use(['form','jquery'], function () {
+        var form = layui.form;
+        var $ = layui.jquery;
+        //点击勾选
+        form.on('radio(radio_storage)', function (data) {
+            var value = $(this).val();
+            $('.storage_setting').hide();
+            $('.storage_' + value).show();
+            form.render('radio');
+        });
+    });
+</script>
+{/block}

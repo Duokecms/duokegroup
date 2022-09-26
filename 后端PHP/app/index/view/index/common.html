@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+
+<script>
+
+    var API_URL = "http://chat.com/index.php/api/chat/";
+    var fromid ={$fromid};
+    var no_read;
+    ws =  new WebSocket("ws://127.0.0.1:8282");
+    ws.onmessage=function(e){
+        var message = eval("("+ e.data+")");
+
+        switch (message.type){
+            case  "init":
+                var bild = '{"type":"bind","fromid":"'+fromid+'"}';
+                ws.send(bild);
+                    getnoread()
+                return;
+            case "text":
+
+                return;
+            case "say_img":
+
+                return;
+
+
+
+        }
+    }
+
+    function getonread(){
+
+    }
+
+</script>
+
+
+</body>
+</html>

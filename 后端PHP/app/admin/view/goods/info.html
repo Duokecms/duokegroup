@@ -1,0 +1,35 @@
+{extend name="main" /}
+
+{block name="body"}
+{include file="breadcrumb" /}
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">帖子详情</div>
+                <div class="layui-card-body" pad15="">
+                    <div class="layui-form" lay-filter="">
+                        <form action="{:request()->url()}" method="post">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">图片</label>
+                            <div class="layui-input-block">
+                                {foreach name="user_data.images" item="vo"}
+                                <img src="{$vo}" width="200">
+                                {/foreach}
+                            </div>
+                        </div>
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">内容</label>
+                            <div class="layui-input-block">
+                                <textarea name="content" readonly placeholder="请输入内容" class="layui-textarea">{$user_data.content}</textarea>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}

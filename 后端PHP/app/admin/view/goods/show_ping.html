@@ -1,0 +1,77 @@
+{extend name="main" /}
+
+{block name="body"}
+{include file="breadcrumb" /}
+<div class="layui-fluid">
+    <div class="layui-card">
+
+        <div class="layui-card-body">
+            <table class="layui-table">
+                <tr>
+                    <th><b>ID</b></th>
+                    <th><b>昵称</b></th>
+                    <th><b>头像</b></th>
+                    <th><b>内容</b></th>
+                    <th><b>时间</b></th>
+                    <th><b>操作</b></th>
+                </tr>
+                <tbody>
+                {foreach name="list" item="vo"}
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.user.nickname}</td>
+                    <td><a href="javascript:;" onClick="showImg(this)" data-href="{$vo.user.avatar}" ><img src="{$vo.user.avatar}" width="50"></a></td>
+                    <td>{$vo.content}</td>
+                    <td>{:date('Y-m-d H:i:s',$vo.create_time)}</td>
+                    <td>
+                        <a href="{:Url('deletePing',array('id'=>$vo['id']))}" title="确认要删除此评论吗？" class="layui-btn layui-btn-danger layui-btn-xs xn_delete">
+                            <i class="layui-icon layui-icon-delete"></i>删除
+                        </a>
+                    </td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="pages">{$list|raw}</div>
+</div>
+{/block}
+
+{block name="js"}
+<script>
+    layui.form.on('switch(is_zhuan)', function(data){
+        //layer.tips('开关checked：'+ (this.checked ? 'true' : 'false'), data.othis)
+        var val = this.checked ? 1 : 0;
+        var id = $(this).attr('data-id');
+        var url = "{:url('edit')}";
+        $.post(url,{id:id,is_zhuan:val},function (res) {
+            console.log(res);
+            layer.tips(res.msg, data.othis);
+        },'json')
+    });
+    layui.form.on('switch(status)', function(data){
+        //layer.tips('开关checked：'+ (this.checked ? 'true' : 'false'), data.othis)
+        var val = this.checked ? 1 : 0;
+        var id = $(this).attr('data-id');
+        var url = "{:url('edit')}";
+        $.post(url,{id:id,status:val},function (res) {
+            console.log(res);
+            layer.tips(res.msg, data.othis);
+        },'json')
+    });
+</script>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#start_date'
+        });
+        laydate.render({
+            elem: '#end_date'
+        });
+    });
+
+</script>
+{/block}

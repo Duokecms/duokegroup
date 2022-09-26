@@ -1,0 +1,278 @@
+{extend name="main" /}
+{block name="body"}
+{load href="/static/element/plus/css/index.css,/static/backend/css/backend.css,/static/admin/css/element-plus.af9157cd.css,/static/admin/css/index.6fb45948.css" /}
+<style>
+.store-total-container {
+    font-size: 14px;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+.store-total-container .store-total-icon {
+    top: 45%;
+    right: 8%;
+    font-size: 65px;
+    position: absolute;
+    color: rgba(255, 255, 255, 1);
+}
+
+.store-total-container .store-total-item {
+    color: #fff;
+    line-height: 3em;
+    padding: 15px 25px;
+    position: relative;
+}
+
+.store-total-container .store-total-item > div:nth-child(2) {
+    font-size: 42px;
+    line-height: 42px;
+}
+
+</style>
+<div class="layui-fluid">
+    <div class="md:flex">
+        <div class="el-card is-never-shadow !border-none mb-4 md:mr-4">
+            <div class="el-card__header"><span class="card-title">版本信息</span></div>
+            <div class="el-card__body" style="">
+                <div>
+                    <div class="flex leading-9">
+                        <div class="w-20">当前版本</div>
+                        <span>1.2.1</span></div>
+                    <div class="flex leading-9">
+                        <div class="w-20">基于框架</div>
+                        <span>ThinkPhp6.0、Layui、MySQL</span></div>
+                    <div class="flex leading-9">
+                        <div class="w-20">获取渠道</div>
+                        <div><a href="http://www.51duoke.cn" target="_blank">
+                            <button class="el-button el-button--success el-button--small" aria-disabled="false"
+                                    type="button"><!--v-if--><span class="">官网</span></button>
+                        </a><a class="ml-3" href="http://bbs.siyibang.com/" target="_blank">
+                            <button class="el-button el-button--danger el-button--small" aria-disabled="false"
+                                    type="button"><!--v-if--><span class="">社区</span></button>
+                        </a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="el-card is-never-shadow !border-none mb-4 flex-1">
+            <div class="el-card__header">
+                <div><span class="card-title">总数据</span><span class="text-tx-secondary text-xs ml-4"> 更新时间：{$total.one}</span>
+                </div>
+            </div>
+            <div class="el-card__body" style="">
+                <div class="flex flex-wrap">
+                    <div class="w-1/2 md:w-1/4">
+                        <div class="leading-10">圈子数量(个)</div>
+                        <div class="text-6xl">{$total.two}</div>
+                        
+                    </div>
+                    <div class="w-1/2 md:w-1/4">
+                        <div class="leading-10">会员数(人)</div>
+                        <div class="text-6xl">{$total.three}</div>
+                        
+                    </div>
+                    <div class="w-1/2 md:w-1/4">
+                        <div class="leading-10">帖子数(个)</div>
+                        <div class="text-6xl">{$total.four}</div>
+                        
+                    </div>
+                    <div class="w-1/2 md:w-1/4">
+                        <div class="leading-10">活动数(个)</div>
+                        <div class="text-6xl">{$total.five}</div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="function mb-4">
+        <div class="el-card is-never-shadow flex-1 !border-none">
+            <div class="el-card__header"><span>常用功能</span></div>
+            <div class="el-card__body" style="">
+                <div class="flex flex-wrap">
+                    <div class="md:w-[12.5%] w-1/4 flex flex-col items-center">
+                        <a href="/admin/admin/index" class="mb-3 flex flex-col items-center">
+                        <div class="el-image" data-v-f49883a8="" style="width: 40px; height: 40px; border-radius: 0px;">
+                            <img width="0" height="0" radius="0" src="https://demo.likeadmin.cn/resource/image/adminapi/default/menu_admin.png"
+                                class="el-image__inner">
+                            </div>
+                        <div class="mt-2">管理员</div>
+                    </a></div>
+                    <div class="md:w-[12.5%] w-1/4 flex flex-col items-center">
+                        <a href="/admin/AuthGroup/index" class="mb-3 flex flex-col items-center">
+                        <div class="el-image" data-v-f49883a8="" style="width: 40px; height: 40px; border-radius: 0px;">
+                            <img
+                                width="0" height="0" radius="0"
+                                src="https://demo.likeadmin.cn/resource/image/adminapi/default/menu_role.png"
+                                class="el-image__inner">
+                        </div>
+                        <div class="mt-2">角色管理</div>
+                    </a></div>
+                    <div class="md:w-[12.5%] w-1/4 flex flex-col items-center">
+                        <a href="/admin/config/upload"
+                                                                                  class="mb-3 flex flex-col items-center">
+                        <div class="el-image" data-v-f49883a8="" style="width: 40px; height: 40px; border-radius: 0px;"><img
+                                width="0" height="0" radius="0"
+                                src="https://demo.likeadmin.cn/resource/image/adminapi/default/menu_dept.png"
+                                class="el-image__inner"><!--v-if--><!--v-if--></div>
+                        <div class="mt-2">上传配置</div>
+                    </a></div>
+                    <div class="md:w-[12.5%] w-1/4 flex flex-col items-center">
+                        <a href="/admin/config/base"
+                                                                                  class="mb-3 flex flex-col items-center">
+                        <div class="el-image" data-v-f49883a8="" style="width: 40px; height: 40px; border-radius: 0px;"><img
+                                width="0" height="0" radius="0"
+                                src="https://demo.likeadmin.cn/resource/image/adminapi/default/menu_dict.png"
+                                class="el-image__inner"><!--v-if--><!--v-if--></div>
+                        <div class="mt-2">基本设置</div>
+                    </a></div>
+                    <div class="md:w-[12.5%] w-1/4 flex flex-col items-center"><a href="/admin/category/index"
+                                                                                  class="mb-3 flex flex-col items-center">
+                        <div class="el-image" data-v-f49883a8="" style="width: 40px; height: 40px; border-radius: 0px;"><img
+                                width="0" height="0" radius="0"
+                                src="https://demo.likeadmin.cn/resource/image/adminapi/default/menu_auth.png"
+                                class="el-image__inner"><!--v-if--><!--v-if--></div>
+                        <div class="mt-2">圈子管理</div>
+                    </a></div>
+                    <div class="md:w-[12.5%] w-1/4 flex flex-col items-center">
+                        <a href="/admin/user/index"
+                                                                                  class="mb-3 flex flex-col items-center">
+                        <div class="el-image" data-v-f49883a8="" style="width: 40px; height: 40px; border-radius: 0px;"><img
+                                width="0" height="0" radius="0"
+                                src="https://demo.likeadmin.cn/resource/image/adminapi/default/menu_generator.png"
+                                class="el-image__inner"><!--v-if--><!--v-if--></div>
+                        <div class="mt-2">会员管理</div>
+                    </a></div>
+                    <div class="md:w-[12.5%] w-1/4 flex flex-col items-center">
+                        <a href="/admin/goods/index"
+                                                                                  class="mb-3 flex flex-col items-center">
+                        <div class="el-image" data-v-f49883a8="" style="width: 40px; height: 40px; border-radius: 0px;"><img
+                                width="0" height="0" radius="0"
+                                src="https://demo.likeadmin.cn/resource/image/adminapi/default/menu_file.png"
+                                class="el-image__inner"><!--v-if--><!--v-if--></div>
+                        <div class="mt-2">帖子</div>
+                    </a></div>
+                    
+                    <div class="md:w-[12.5%] w-1/4 flex flex-col items-center"><a href="/admin/active/index"
+                                                                                  class="mb-3 flex flex-col items-center">
+                        <div class="el-image" data-v-f49883a8="" style="width: 40px; height: 40px; border-radius: 0px;"><img
+                                width="0" height="0" radius="0"
+                                src="https://demo.likeadmin.cn/resource/image/adminapi/default/menu_web.png"
+                                class="el-image__inner"><!--v-if--><!--v-if--></div>
+                        <div class="mt-2">活动管理</div>
+                    </a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md9">
+            <div class="layui-card">
+                <div class="layui-card-header">数据概览</div>
+                <div class="layui-card-body layui-text">
+                    <div id="my_chart" style="width: 100%;height: 400px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md3">
+            <div class="el-card is-never-shadow !border-none mb-4">
+                <div class="el-card__header" style="height: 2.6rem;"><span>服务支持</span></div>
+                <div class="el-card__body" style="">
+                    <div>
+                        <div>
+                            <div class="flex items-center pb-10 pt-10 border-b border-br">
+                                <div class="el-image flex-none" data-v-f49883a8=""
+                                     style="width: 120px; height: 120px; border-radius: 0px;">
+                                     <img width="120" height="120" radius="0" src="/wechat.png" class="el-image__inner">
+                                    <!--v-if--><!--v-if-->
+                                </div>
+                                <div class="ml-2">
+                                    <div>扫码进入QQ交流群</div>
+                                    <div class="text-tx-regular text-xs mt-4">疑难疑点 进入QQ群</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-center pb-10 pt-10">
+                                <div class="el-image flex-none" data-v-f49883a8=""
+                                     style="width: 120px; height: 120px; border-radius: 0px;">
+                                     <img width="120" height="120" radius="0" src="/wechat.png" class="el-image__inner">
+                                    <!--v-if--><!--v-if-->
+                                </div>
+                                <div class="ml-2">
+                                    <div>添加企业客服微信</div>
+                                    <div class="text-tx-regular text-xs mt-4">想了解更多请添加客服</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-row ">
+        <div class="layui-col-md9">
+
+        </div>
+    </div>
+</div>
+{/block}
+
+{block name="js"}
+<script src="/static/admin/js/echarts.js"></script>
+<script>
+    var myChart = echarts.init(document.getElementById('my_chart'));
+    // var fatie = {$weeks};
+    option = {
+        title: {
+            text: '综合数据'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
+        legend: {
+            data: ['发帖量']
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: [
+            {
+                type: 'category',
+                boundaryGap: false,
+                data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                name: '发帖量',
+                type: 'line',
+                stack: '总量',
+                areaStyle: {},
+                data: [{$weeks}]
+            }
+        ]
+    };
+    myChart.setOption(option);
+</script>
+{/block}

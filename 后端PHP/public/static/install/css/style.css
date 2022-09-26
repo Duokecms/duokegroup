@@ -1,0 +1,11 @@
+body,html{padding: 0; margin: 0; font-size: 12px; color: #444444;}
+#app{height: 100%; width: 1000px; margin: 0 auto;}
+.el-install-main{ padding: 20px;webkit-box-shadow: 0 2px 8px #f0f1f2;box-shadow: 0px 2px 8px #f0f1f2; }
+.el-install-header{ line-height: 100px; font-weight: bold;webkit-box-shadow: 0 2px 8px #f0f1f2;box-shadow: 0px 2px 8px #f0f1f2;  padding: 0 20px; font-size: 14px; overflow: hidden;}
+.el-step__title{font-size: 12px;}
+.el-install-right{display: block;  float: right;}
+.bg-purple-light{color: #cccccc;}
+.el-install-step3{ text-align: center}
+.el-install-content{border: 1px solid #cccc77;width: 300px; margin:0 auto; text-align: left; padding: 20px}
+.el-install-step3 .el-install-button{ text-align: center; margin-top: 20px;}
+[v-cloak]{display: none;}

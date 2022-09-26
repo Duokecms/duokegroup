@@ -1,0 +1,47 @@
+{extend name="iframe" /}
+
+{block name="body"}
+<style type="">
+    .hide{
+        display: none;
+    }
+</style>
+<div class="layui-form" lay-filter="layuiadmin-app-form-list" id="layuiadmin-app-form-list" style="padding: 20px 30px 0 0;">
+    <form action="{:request()->url()}" method="post" class="xn_ajax" data-type="open">
+        <div class="layui-form-item">
+            <label class="layui-form-label">余额</label>
+            <div class="layui-input-inline">
+                <input type="text" name="money" lay-verify="" placeholder="请输入余额，负数为扣除" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">积分</label>
+            <div class="layui-input-inline">
+                <input type="text" name="score" lay-verify="" placeholder="请输入积分，负数为扣除" autocomplete="off" class="layui-input" >
+            </div>
+        </div>
+        <input type="hidden" name="id" value="{$user_data.id}">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" lay-submit class="layui-btn">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+{/block}
+
+{block name="js"}
+<script>
+    layui.use(['form','jquery'], function () {
+        var form = layui.form;
+        var $ = layui.jquery;
+        //点击勾选
+        form.on('radio(radio_storage)', function (data) {
+            var value = $(this).val();
+            $('.hide').hide();
+            $('.type' + value).show();
+            form.render('radio');
+        });
+    });
+</script>
+{/block}

@@ -1,0 +1,89 @@
+
+.fui-mask,
+.fui-mask-m,
+.order-list-page .fui-tab {
+    top: 2.2rem;
+}
+
+.fui-page-group.statusbar .fui-mask,
+.fui-page-group.statusbar .fui-mask-m,
+.fui-page-group.statusbar .order-list-page .fui-tab,
+.fui-page-group.statusbar .page-goods-list .sort {
+    top: 3.2rem;
+}
+
+.fui-page-group.statusbar .fui-statusbar {
+    height: 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #f7f7f7;
+    z-index: 9999;
+}
+
+.fui-page-group.statusbar .fui-header {
+    margin-top: 1rem;
+}
+
+
+.fui-header a {
+    display: inline-block;
+}
+
+.fui-page-group.statusbar .fui-header ~ .fui-content,
+.fui-page-group.statusbar .fui-header ~ .fui-content.margin {
+    top: 3.2rem;
+}
+
+.fui-page-group.statusbar .order-list-page .fui-content {
+    top: 5.2rem;
+}
+
+.fui-page-group.statusbar .page-goods-list .fui-content {
+    top: 5.4rem;
+}
+
+.fui-page-group.statusbar .page-goods-detail .detail-block {
+    top: 1rem;
+}
+
+.head-menu-mask {
+    background: rgba(0,0,0,0.7);
+    position: fixed;
+    top: 2.2rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    z-index: 9998;
+}
+
+.head-menu {
+    height: auto; width: 6.5rem; position: fixed; top: 2.65rem; right: 0.2rem; border-radius: 0.2rem; background: #fff; z-index: 9999;
+    padding: 0.2rem 0.5rem;
+    display: none;
+}
+.head-menu:before {
+    position: absolute;
+    content: "";
+    top: -0.2rem;
+    right: 1rem;
+    height: 0.5rem;
+    width: 0.5rem;
+    background: #fff;
+    transform:rotate(45deg);
+    -ms-transform:rotate(45deg);
+    -moz-transform:rotate(45deg);
+    -webkit-transform:rotate(45deg);
+    -o-transform:rotate(45deg);
+}
+.head-menu nav {
+    font-size: 0.8rem;
+    color: #777;
+    padding: 0.3rem 0;
+    border-bottom: .5px solid #eee;
+}
+.head-menu nav:last-child {
+    border: none;
+}

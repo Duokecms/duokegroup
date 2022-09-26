@@ -1,0 +1,40 @@
+{extend name="iframe" /}
+
+{block name="body"}
+<div class="layui-form" lay-filter="layuiadmin-app-form-list" id="layuiadmin-app-form-list" style="padding: 20px 30px 0 0;">
+    <form action="{:request()->url()}" method="post" class="xn_ajax" data-type="open">
+        <div class="layui-form-item">
+            <label class="layui-form-label">分类名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="title" lay-verify="required" placeholder="" autocomplete="off" class="layui-input" value="{$info.title}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">分类图</label>
+            <div class="layui-input-block" >
+                {:xn_upload_one($info['image'],'image',0)}
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-inline">
+                <input type="text" name="sort" lay-verify="required" placeholder="" autocomplete="off" class="layui-input" value="{$info.sort}">
+                <div class="layui-form-mid layui-word-aux">
+                                        <span>数字越小排在越前</span>
+                                    </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-inline">
+                <input type="checkbox" lay-verify="required" lay-filter="status" name="status" lay-skin="switch" lay-text="正常|禁止" value="1" {if condition="$info['status'] eq 1"}checked{/if} >
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" lay-submit class="layui-btn">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+{/block}

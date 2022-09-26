@@ -1,0 +1,80 @@
+{extend name="main" /}
+
+{block name="body"}
+{include file="breadcrumb" /}
+<div class="layui-fluid">
+    <table class="layui-table" style="margin-top: 0;">
+        <tr>
+            <th><b>勋章名称</b></th>
+            <th><b>勋章图片</b></th>
+            <th><b>获取条件</b></th>
+            <th><b>条件数量</b></th>
+            <th><b>领取数量</b></th>
+            <th style="padding: 0 15px;line-height: 40px;"><b>操作</b> <span style="float: right"><a href="{:url('add')}" data-width="600px" data-height="650px" class="layui-btn layui-btn-sm xn_open" title="添加勋章">添加勋章</a></span> </th>
+        </tr>
+
+        <tbody>
+        {foreach name="list" item="vo"}
+        <tr>
+            <td>{$vo.title}</td>
+            <td><a href="javascript:;" onClick="showImg(this)" data-href="{$vo.image}" ><img src="{$vo.image}" width="50"></a></td>
+            <td>
+                <a class="layui-btn layui-btn-sm show_type">{$vo.type}</a>
+            </td>
+            <td class="layui-form">
+                {$vo.meet_num}
+            </td>
+            <td>
+                {$vo.has_num}
+            </td>
+            <td>
+                <a href="{:url('edit',array('id'=>$vo['id']))}" data-width="600px" data-height="650px" title="修改标签" class="layui-btn layui-btn-normal layui-btn-xs xn_open">
+                    <i class="layui-icon layui-icon-edit"></i>修改
+                </a>
+                <a href="{:url('showFollow',array('id'=>$vo['id']))}" data-width="1000px" data-height="650px" title="查看拥有" class="layui-btn layui-btn-normal layui-btn-xs xn_open">
+                    查看拥有
+                </a>
+                {if condition="$vo['id'] neq 1"}
+                <a href="{:Url('delete',array('id'=>$vo['id']))}" title="确认要删除【{$vo.title}】吗？" class="layui-btn layui-btn-danger layui-btn-xs xn_delete">
+                    <i class="layui-icon layui-icon-delete"></i>删除
+                </a>
+                {/if}
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+    <div style="margin:0 auto;text-align: center;display: none;" id="showType0">
+        <img class="show_images" src="/static/admin/images/bigimage.png">
+    </div>
+    <div style="margin:0 auto;text-align: center;display: none;" id="showType1">
+        <img class="show_images" src="/static/admin/images/shupai.png">
+    </div>
+    <div style="margin:0 auto;text-align: center;display: none;" id="showType2">
+        <img class="show_images" src="/static/admin/images/hengpai.png">
+    </div>
+</div>
+{/block}
+
+{block name="js"}
+<script>
+    layui.form.on('switch(status)', function(data){
+        //layer.tips('开关checked：'+ (this.checked ? 'true' : 'false'), data.othis)
+        var val = this.checked ? 1 : 0;
+        var id = $(this).attr('data-id');
+        var url = "{:url('edit')}";
+        $.post(url,{id:id,status:val},function (res) {
+            console.log(res);
+            layer.tips(res.msg, data.othis);
+        },'json')
+    });
+    // $('.show_type').hover(
+    //     function(){
+    //         var id = $(this).attr('data-id');
+    //         $('#showType'+id).show();
+    //     },function(){
+    //         $('#showType'+id).hide();
+    //     }
+    // );
+</script>
+{/block}

@@ -1,0 +1,21 @@
+{extend name="iframe" /}
+
+{block name="body"}
+<div class="layui-form" lay-filter="layuiadmin-app-form-list" id="layuiadmin-app-form-list" style="padding: 20px 30px 0 0;">
+    <form action="{:request()->url()}" method="post" class="xn_ajax" data-type="open">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">操作名</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" lay-verify="required" placeholder="操作名" autocomplete="off" class="layui-input" value="{$data.title}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" lay-submit class="layui-btn">保存</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+{/block}

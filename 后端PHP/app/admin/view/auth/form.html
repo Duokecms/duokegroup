@@ -1,0 +1,106 @@
+{extend name="iframe" /}
+
+{block name="body"}
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-form" lay-filter="layuiadmin-app-form-list" id="layuiadmin-app-form-list">
+            <form action="{:request()->url()}" method="post" class="xn_ajax" data-type="open">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">上级ID</label>
+                    <div class="layui-input-block">
+                        <select name="pid" lay-verify="required">
+                            <option value="0">顶级分类</option>
+                            {foreach name="list" item="vo"}
+                            <option value="{$vo.id}" {if condition="$pid eq $vo['id']"}selected{/if} >{$vo._name}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">操作名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="title" lay-verify="required" placeholder="操作名" autocomplete="off" class="layui-input" value="{$data.title}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">控制器</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" placeholder="模块/控制器/方法" autocomplete="off" class="layui-input" value="{$data.name}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">设为菜单</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" lay-verify="required" lay-filter="is_menu" name="is_menu" lay-skin="switch" lay-text="显示|隐藏" value="1" {if condition="$data['is_menu'] eq 1"}checked{/if} >
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">生成CURD</label>
+                    <div class="layui-input-block">
+                        <input type="checkbox" lay-verify="required" lay-filter="is_curd" name="is_curd" lay-skin="switch" lay-text="生成|不生成" value="1" >
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">
+                        自动添加以下3个权限:add、eidt、delete
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">菜单icon</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="icon" placeholder="" autocomplete="off" class="layui-input" value="{$data.icon}">
+                    </div>
+                    <div class="layui-form-mid layui-word-aux">
+                        layui字体图标 <a href="http://layui.funadmin.com/web/doc/element/icon.html" target="_blank" style="color: #1E9FFF">前往>></a>
+                    </div>
+                </div>
+                {if condition="$data.pid eq 92"}
+                <div class="layui-form-item">
+                    <label class="layui-form-label">图标颜色</label>
+                    <div class="layui-input-inline">
+                        <div class="layui-input-inline" style="width: 120px;">
+                            <input type="text" name="color" value="{$data.color}" placeholder="请选择颜色" class="layui-input" id="color-input">
+                        </div>
+                        <div class="layui-inline" style="left: -11px;">
+                             <div id="color"></div>
+                        </div>
+                    </div>
+                </div>
+                {/if}
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button type="submit" lay-submit class="layui-btn">保存</button>
+                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{/block}
+{block name="js"}
+<script>
+    layui.use([ 'element', 'jquery', 'colorpicker', 'layer' ], function() {
+       var $ = layui.jquery;
+       var element = layui.element;
+       var colorpicker = layui.colorpicker;
+       var layer = layui.layer;
+       //常规使用
+       colorpicker.render({
+            elem : '#web_color',
+            change : function(color) { //颜色改变的回调
+                layer.tips('选择了：' + color, this.elem, {
+                    tips : 1
+                });
+            }
+       });
+       colorpicker.render({
+            elem: '#color'
+            ,color: '{$data.color}'
+            ,done: function(color){
+                $('#color-input').val(color);
+            }
+        });
+       
+  });
+    
+</script>
+{/block}

@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover" />
+    <meta name="description" content="驭圈">
+    <meta name="keywords" content="驭圈">
+    <title>多客-兴趣交友神器</title>
+    <link rel="shortcut icon" href="resources/bitbug_16.ico" type="image/x-icon" />
+    <link rel="icon" href="resources/bitbug_32.ico">
+    <script type="text/javascript" src="/static/index/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/index/js/common.js"></script>
+    <link rel="stylesheet" href="/static/index/css/index.style.css">
+    <script src="/static/index/js/jweixin-1.2.0.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/index/js/a75ea34a1d2d44b6928ce6570134c4bb.js"></script>
+</head>
+
+<body>
+    <video id="videoBackground" src="//china-img.soulapp.cn/admin/2020-06-24/302e6662-a360-4cdd-8a87-966ed18c4554.mp4" type="video/mp4" poster="resources/yuba_bg_img.png" data-object-fit="cover" loop="loop" muted="muted" preload="auto" autoplay="autoplay" playsinline="true"
+        webkit-playsinline="true" x5-video-player-type="h5" x5-playsinline="" x-webkit-airplay="allow"></video>
+    <div class="main-container">
+        <div class="nav-bar">
+            <div class="left">
+                <div class="text">
+                    <div style="font-weight: bold;font-size: 48px">{$site.sys_name}</div>
+                </div>
+            </div>
+            <div class="right" style="display: none;">
+                <div class="item" onclick="toUpdatePwd()">
+                    <img alt="修改密码" class="icon" src="picture/pc_updatepwd.png">
+                </div>
+            </div>
+            <div class="right-mobile" style="display: none;" onclick="handleMenu()">
+                <img class="icon" src="/static/index/picture/ic_burger_menu.png">
+                <div class="content">
+                    <img class="arrow" src="picture/ic_menu_content_arrow.png">
+                    <div class="item" onclick="toUpdatePwd()">
+                        <img src="picture/phone_updatepwd.png">
+                        <div>修改密码</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="block">
+            <img class="slogan" src="/static/index/picture/yuba_slogan.png">
+            <div class="slogan-subtitle">{$site.slogan}</div>
+            <div class="download-mobile" onclick="androindDownload()">立即下载</div>
+            <div class="button-block">
+                <div id="iosDownload" onclick="iosDownload()">
+                    <div class="main">
+                        <img src="/static/index/picture/ic_ios_active.png">
+                        <div>App Store</div>
+                    </div>
+                </div>
+                <div id="androidDownload" onclick="androindDownload()">
+                    <div class="main">
+                        <img src="/static/index/picture/ic_android_active.png">
+                        <div>Android</div>
+                    </div>
+                </div>
+                <!-- <div class="simple">
+                    <div class="main">
+                        <img src="picture/ic_qrcode.png">
+                        <img class="qrcode" src="picture/img_download_qrcode.png">
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <div class="bottom-info">Copyright © 2018 - 2023 {$site.sys_name}
+            <div class="bottom-br"></div>
+            <a style="color: #fff" rel="nofollow" href="http://beian.miit.gov.cn" target="_blank">{$site.sitebeian}</a></div>
+    </div>
+
+    <script type="text/javascript">
+        isPC((err, res) => {
+            var mp4Url;
+            if (res) {
+                mp4Url = 'http://china-img.soulapp.cn/admin/2020-06-24/302e6662-a360-4cdd-8a87-966ed18c4554.mp4';
+            } else {
+                mp4Url = 'http://china-img.soulapp.cn/admin/2020-06-24/302e6662-a360-4cdd-8a87-966ed18c4554.mp4';
+                $(".main-container").addClass("mobile");
+            }
+            $("#videoBackground").attr("src", mp4Url)
+        })
+
+        function iosDownload() {
+            window.open('https://apps.apple.com/cn/app/id1513072539').location;
+        }
+        
+        function toUpdatePwd(){
+        	document.location.href = 'resetPwd.html';
+        }
+
+        function androindDownload() {
+        	var u = navigator.userAgent;
+        	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+        	if(isiOS){
+        		document.location.href = '{$site.app_ios}';
+        	}else{
+        		document.location.href = '{$site.app_android}';
+        	}       	
+        }
+
+        function toWechat() {
+            // window.open('http://a.app.qq.com/o/simple.jsp?pkgname=com.lmf.yuba').location;
+        }
+
+        function toWeibo() {
+            window.open('https://weibo.com/u/7325246667').location;
+        }
+
+        function isPC(callback) {
+            var userAgentInfo = navigator.userAgent;
+            var Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
+            var flag = true;
+            for (var v = 0; v < Agents.length; v++) {
+                if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                    flag = false;
+                    break;
+                }
+            }
+            callback(null, flag);
+        }
+        document.getElementById('videoBackground').controls = false;
+
+        document.addEventListener("WeixinJSBridgeReady", function() {
+            document.getElementById('videoBackground').play();
+        }, false);
+        document.addEventListener("touchstart", function() {
+            document.getElementById('videoBackground').play();
+        }, false);
+        document.onclick = function() {
+            document.getElementById('videoBackground').play();
+        }
+
+        var rightMobileVisible = false;
+
+        function handleMenu() {
+            if (rightMobileVisible) {
+                $(".right-mobile").removeClass("active");
+                rightMobileVisible = false;
+            } else {
+                $(".right-mobile").addClass("active");
+                rightMobileVisible = true;
+            }
+        }
+
+        /*document.addEventListener("touchstart", function() {
+            if (rightMobileVisible) {
+                $(".right-mobile").removeClass("active")
+            }
+        }, false);*/
+
+        window.onload = function() {
+            // 阻止双击放大
+            var lastTouchEnd = 0;
+            document.addEventListener('touchstart', function(event) {
+                if (event.touches.length > 1) {
+                    event.preventDefault();
+                }
+            });
+            document.addEventListener('touchend', function(event) {
+                var now = (new Date()).getTime();
+                if (now - lastTouchEnd <= 300) {
+                    event.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, false);
+        }
+    </script>
+</body>
+
+</html>

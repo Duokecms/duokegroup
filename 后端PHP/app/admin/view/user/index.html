@@ -1,0 +1,136 @@
+{extend name="main" /}
+
+{block name="body"}
+{include file="breadcrumb" /}
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class=" layui-card-header layuiadmin-card-header-auto">
+            <form class="layui-form" method="get">
+                <input type="hidden" name="bcid" value="{:input('bcid')}"><!--保留当前位置的bcid参数-->
+                <input type="hidden" name="parent_id" value="{:input('parent_id')}">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">手机号</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="mobile" value="{:input('mobile')}" placeholder="请输入手机号" autocomplete="off" class="layui-input" >
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">昵称</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="nickname" value="{:input('nickname')}" placeholder="请输入昵称" autocomplete="off" class="layui-input" >
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">开始日期</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="start_date" id="start_date" value="{:input('start_date')}" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input" >
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">截止日期</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="end_date" id="end_date" value="{:input('end_date')}" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    
+                    <div class="layui-inline">
+                        <button class="layui-btn">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="layui-card-body">
+            <table class="layui-table">
+                <tr>
+                    <th><b>ID</b></th>
+                    <th><b>手机号</b></th>
+                    <th><b>昵称</b></th>
+                    <th><b>头像</b></th>
+                    <th><b>粉丝数</b></th>
+                    <th><b>注册时间</b></th>
+                    <th><b>来路</b></th>
+                    <th><b>IP</b></th>
+                    <th><b>地区</b></th>
+                    <th><b>是否禁言</b></th>
+                    <th><b>操作</b></th>
+                </tr>
+
+                <tbody>
+                {foreach name="list" item="vo"}
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.mobile | default="..."}</td>
+                    <td>{$vo.nickname | default="..."}</td>
+                    <td><a href="javascript:;" onClick="showImg(this)" data-href="{$vo.avatar}" ><img src="{$vo.avatar}" width="50"></a></td>
+                    
+                    <td>{$vo.fans_num}</td>
+                    <td>{$vo.create_time}</td>
+                    <td>{$vo.platform}</td>
+                    <td>{$vo.ip}</td>
+                    <td>{$vo.city}</td>
+                    <td class="layui-form">
+                        <input type="checkbox" lay-verify="required" lay-filter="status" name="status" data-id="{$vo.id}"
+                               lay-skin="switch" lay-text="是|否" value="1" {if condition="$vo['status'] eq 1"}checked{/if} >
+                    </td>
+                    <td>
+                        <a href="{:url('showSon',array('id'=>$vo['id']))}" data-width="90%" data-height="90%" title="查看粉丝" class="layui-btn layui-btn-normal xn_open">
+                            查看粉丝
+                        </a>
+                        <a href="{:url('/admin/message/add',array('user_id'=>$vo['id']))}" data-width="90%" data-height="90%" title="发送消息" class="layui-btn layui-btn-normal xn_open">
+                            发送消息
+                        </a>
+                        <a href="{:Url('delete',array('id'=>$vo['id']))}" title="确认要删除【{$vo.username}】吗？" class="layui-btn layui-btn-danger xn_delete">
+                            <i class="layui-icon layui-icon-delete"></i>删除
+                        </a>
+                    </td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="pages">{$list|raw}</div>
+</div>
+{/block}
+
+{block name="js"}
+<script>
+    layui.form.on('switch(is_zhuan)', function(data){
+        //layer.tips('开关checked：'+ (this.checked ? 'true' : 'false'), data.othis)
+        var val = this.checked ? 1 : 0;
+        var id = $(this).attr('data-id');
+        var url = "{:url('edit')}";
+        $.post(url,{id:id,is_zhuan:val},function (res) {
+            console.log(res);
+            layer.tips(res.msg, data.othis);
+        },'json')
+    });
+    layui.form.on('switch(status)', function(data){
+        //layer.tips('开关checked：'+ (this.checked ? 'true' : 'false'), data.othis)
+        var val = this.checked ? 1 : 0;
+        var id = $(this).attr('data-id');
+        var url = "{:url('edit')}";
+        $.post(url,{id:id,status:val},function (res) {
+            console.log(res);
+            layer.tips(res.msg, data.othis);
+        },'json')
+    });
+</script>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#start_date'
+        });
+        laydate.render({
+            elem: '#end_date'
+        });
+    });
+
+</script>
+{/block}

@@ -1,0 +1,70 @@
+{extend name="main" /}
+
+{block name="body"}
+{include file="breadcrumb" /}
+<div class="layui-fluid">
+    <table class="layui-table" style="margin-top: 0;">
+        <tr>
+            <th><b>分类名称</b></th>
+            <th><b>分类图片</b></th>
+            <th><b>排序</b></th>
+
+            <th style="padding: 0 15px;line-height: 40px;"><b>操作</b> <span style="float: right"><a href="{:url('add_cate')}" data-width="1000px" data-height="650px" class="layui-btn layui-btn-sm xn_open" title="添加分类">添加分类</a></span> </th>
+        </tr>
+
+        <tbody>
+        {foreach name="list" item="vo"}
+        <tr>
+            <td>{$vo.title}</td>
+            <td></td>
+            <td>{$vo.sort}</td>
+
+            <td>
+                <a href="{:url('edit_cate',array('id'=>$vo['id']))}" data-width="1000px" data-height="650px" title="修改分类信息" class="layui-btn layui-btn-normal layui-btn-xs xn_open">
+                    <i class="layui-icon layui-icon-edit"></i>修改
+                </a>
+                <a href="{:url('add_cate',['fid'=>$vo.id])}" data-width="1000px" data-height="650px" class="layui-btn layui-btn-xs xn_open" title="添加分类">添加下级</a>
+                {if condition="$vo['id'] neq 1"}
+                <a href="{:Url('delete_cate',array('id'=>$vo['id']))}" title="确认要删除【{$vo.title}】吗？" class="layui-btn layui-btn-danger layui-btn-xs xn_delete">
+                    <i class="layui-icon layui-icon-delete"></i>删除
+                </a>
+                {/if}
+            </td>
+        </tr>
+            {foreach name="vo.son" item="vo2"}
+            <tr>
+                <td>-----{$vo2.title}</td>
+                <td><a href="javascript:;" onClick="showImg(this)" data-href="{$vo2.image}" ><img src="{$vo2.image}" width="50"></a></td>
+                <td>{$vo.sort}</td>
+                <td>
+                    <a href="{:url('edit_cate',array('id'=>$vo2['id']))}" data-width="1000px" data-height="650px" title="修改分类信息" class="layui-btn layui-btn-normal layui-btn-xs xn_open">
+                        <i class="layui-icon layui-icon-edit"></i>修改
+                    </a>
+                    {if condition="$vo2['id'] neq 1"}
+                    <a href="{:Url('delete_cate',array('id'=>$vo2['id']))}" title="确认要删除【{$vo2.title}】吗？" class="layui-btn layui-btn-danger layui-btn-xs xn_delete">
+                        <i class="layui-icon layui-icon-delete"></i>删除
+                    </a>
+                    {/if}
+                </td>
+            </tr>
+            {/foreach}
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+{/block}
+
+{block name="js"}
+<script>
+    layui.form.on('switch(status)', function(data){
+        //layer.tips('开关checked：'+ (this.checked ? 'true' : 'false'), data.othis)
+        var val = this.checked ? 1 : 0;
+        var id = $(this).attr('data-id');
+        var url = "{:url('edit')}";
+        $.post(url,{id:id,status:val},function (res) {
+            console.log(res);
+            layer.tips(res.msg, data.othis);
+        },'json')
+    });
+</script>
+{/block}

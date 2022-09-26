@@ -1,0 +1,17 @@
+{if condition="!empty($breadcrumb)"}
+<div class="layui-card layadmin-header">
+    <div class="layui-breadcrumb" lay-filter="breadcrumb" style="visibility: visible;">
+    	{if condition="input('bcid') eq '000'"}
+        <a href="{:url('admin/index/home')}">主页</a>
+        <a href="{:url('admin/apply/index')}">应用</a>
+        <a><cite>{:input('title')}</cite></a>
+        {/if}
+        {if condition="input('bcid') neq '000'"}
+        <a href="{:url('admin/index/home')}">主页</a>
+        {foreach name="breadcrumb" item="vo"}
+        <a><cite>{$vo.title}</cite></a>
+        {/foreach}
+        {/if}
+    </div>
+</div>
+{/if}

@@ -1,0 +1,84 @@
+{extend name="main" /}
+
+{block name="body"}
+{include file="breadcrumb" /}
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">贫困信息</div>
+                <div class="layui-card-body" pad15="">
+                    <form action="{:request()->url()}" class="xn_ajax" data-type="open">
+                        <div class="layui-form" wid100="" lay-filter="">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">姓名</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="user_name" lay-verify="" value="{$user_data.user_name}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">电话</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="phone" lay-verify="" value="{$user_data.phone}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">身份证</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="card_id" lay-verify="" value="{$user_data.card_id}" class="layui-input">
+                                </div>
+                            </div>
+                            
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">年龄</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="ping_age" lay-verify="" value="{$user_data.ping_age}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">贫困类型</label>
+                                <div class="layui-input-inline">
+                                    <select name="level" lay-verify="required">
+                                        <option value="1" {if condition="$user_data.level eq 1"}selected{/if}>特困</option>
+                                        <option value="2" {if condition="$user_data.level eq 2"}selected{/if}>贫困</option>
+                                        <option value="3" {if condition="$user_data.level eq 3"}selected{/if}>一般困</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button lay-submit class="layui-btn" lay-filter="set_website">确认保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--编辑器-->
+<script src="/static/admin/ueditor/ueditor.config.js"></script>
+<script src="/static/admin/ueditor/ueditor.all.min.js"></script>
+<script src="/static/admin/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script>
+    UE.getEditor('content',{
+        initialFrameWidth :800,// 设置编辑器宽度
+        initialFrameHeight:200,// 设置编辑器高度
+        scaleEnabled:true
+    });
+</script>
+<script>
+    function miaodian_zuobiao(){
+        layer.open({
+            type: 2,
+            skin: 'layui-layer-black',
+            area: ['950px', '600px'],
+            fixed: false, //不固定
+            maxmin: true,
+            content: "{:Url('map')}"
+        });
+
+    }
+</script>
+{/block}

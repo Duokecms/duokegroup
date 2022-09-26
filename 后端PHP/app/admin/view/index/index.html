@@ -1,0 +1,219 @@
+{extend name="main" /}
+{block name="body"}
+<div id="LAY_app" class="layadmin-tabspage-none">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <!-- 头部区域 -->
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item layadmin-flexible" lay-unselect="">
+                    <a href="javascript:;" class="even_flexible" title="侧边伸缩">
+                        <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
+                    </a>
+                </li>
+                
+                <li class="layui-nav-item layui-hide-xs" lay-unselect="">
+                    <a href="/" target="_blank" title="前台">
+                        <i class="layui-icon layui-icon-website"></i>
+                    </a>
+                </li>
+                <li class="layui-nav-item" lay-unselect="">
+                    <a href="javascript:document.getElementById('content-iframe').contentWindow.location.reload();" layadmin-event="refresh" title="刷新">
+                        <i class="layui-icon layui-icon-refresh-3"></i>
+                    </a>
+                </li>
+
+                <span class="layui-nav-bar" style="left: 198px; top: 48px; width: 0px; opacity: 0;"></span>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item layui-hide-xs layui-hide-sm layui-show-md-inline-block">
+                  <a href="http://www.51duoke.cn" title="" target="_blank">
+                    多客官网
+                  </a>
+                </li>
+                <li class="layui-nav-item layui-hide-xs layui-hide-sm layui-show-md-inline-block">
+                  <a href="http://bbs.siyibang.com" title="" target="_blank">
+                    多客社区
+                  </a>
+                </li>
+                <li class="layui-nav-item layui-hide-xs layui-hide-sm layui-show-md-inline-block">
+                  <a href="http://www.51duoke.cn/doc/" title="" target="_blank">
+                    开发文档
+                  </a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">{$admin_data.username}</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="{:url('admin/info',['id'=>$admin_data['id']])}" target="right_content">修改资料</a></dd>
+                        <dd><a href="{:url('login/logout',['id'=>$admin_data['id']])}">退出登录</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-hide-xs" lay-unselect="">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-more-vertical"></i></a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 侧边菜单 -->
+        <div class="layui-side layui-side-menu">
+            <div class="layui-side-scroll">
+                <div class="layui-logo">
+                    <span>{~echo xn_cfg('base.sys_name')}</span>
+                </div>
+
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+                    {foreach name="menu" item="vo"}
+                    {if condition="!empty($vo['_data'])"}
+                    <li data-name="" data-jump="" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="{$vo.title}">
+                            <i class="layui-icon {$vo.icon}"></i> <cite>{$vo.title}</cite>
+                            <span class="layui-nav-more"></span>
+                        </a>
+
+                        <dl class="layui-nav-child">
+                            {foreach name="vo._data" item="vv"}
+                            <dd>
+                                {if condition="!empty($vv['_data'])"}
+                                <a href="javascript:;" target="right_content">{$vv.title}</a>
+                                <dl class="layui-nav-child">
+                                    {foreach name="vv._data" item="v"}
+                                    <dd>
+                                        <a href="{:url($v['name'])}?bcid={$vo.id}_{$vv.id}_{$v.id}" target="right_content" class="close_shade">{$v.title}</a>
+                                    </dd>
+                                    {/foreach}
+                                </dl>
+                                {else/}
+                                <a href="{:url($vv['name'])}?bcid={$vo.id}_{$vv.id}" target="right_content" class="close_shade">{$vv.title}</a>
+                                {/if}
+                            </dd>
+                            {/foreach}
+                        </dl>
+                    </li>
+                    {else/}
+                    <li class="layui-nav-item">
+                        <a href="{:url($vo['name'])}?bcid={$vo.id}" target="right_content" lay-tips="{$vo.title}" class="close_shade">
+                            <i class="layui-icon {$vo.icon}"></i>
+                            <cite>{$vo.title}</cite>
+                        </a>
+                    </li>
+                    {/if}
+                    {/foreach}
+                </ul>
+            </div>
+        </div>
+
+        <!-- 主体内容 -->
+        <div class="layui-body" id="LAY_app_body" style="overflow-y: hidden">
+            <iframe id="content-iframe" src="{:url('home')}" frameborder="0" width="100%" height="100%" name="right_content" scrolling="auto" frameborder="0" scrolling="no"></iframe>
+        </div>
+
+        <!-- 辅助元素，一般用于移动设备下遮罩 -->
+        <div class="layadmin-body-shade" layadmin-event="shade"></div>
+
+    </div>
+
+</div>
+<div id="bdtts_div_id">
+  </div>
+{/block}
+
+{block name="js"}
+<script>
+
+    $(function () {
+            
+        // var idss = setInterval(function(){
+        //     $.get('/admin/order/getTotal',function(res){
+        //         //$('#totalOrder').text(res)
+        //         res = JSON.parse(res);
+        //         console.log(res);
+                
+        //         var ttsDiv = document.getElementById('bdtts_div_id');
+        //         ttsText='您有新的订单，请及时处理!';
+        //         if(res.tuikuan > 0){
+        //             ttsText='您有新的退款订单，请及时处理!';
+        //         }
+        //         zhText = encodeURI(ttsText);
+            
+        //         if(res.tuikuan > 0 || res.order > 0 ){
+        //             var au1 = '<audio id="tts_autio_id" autoplay="autoplay">';
+        //             var sss = '<source id="tts_source_id" src="https://tts.baidu.com/text2audio?tex=' + zhText + '&cuid=baike&lan=ZH&ctp=1&pdt=301&vol=9&rate=32&per=0" type="audio/mpeg">';
+        //             var eee = '<embed id="tts_embed_id" height="0" width="0" src="">';
+        //             var au2 = '</audio>';
+
+        //             ttsDiv.innerHTML = au1 + sss + eee + au2;
+        //         }
+        //     })
+        // }, 1000 * 10);
+        
+
+
+
+
+    });
+
+
+    // 点按钮触发
+    $('.even_flexible').click(function () {
+        sideFlexible();
+    });
+    //点遮罩触发
+    $('.layadmin-body-shade').click(function () {
+        sideFlexible();
+    });
+    //点菜单触发
+    $('.layui-side-menu').click(function () {
+        if( $('#LAY_app').attr('class').indexOf('layadmin-side-shrink')!=-1 ) {
+            sideFlexible();
+        }
+    });
+    // 屏幕大小改变时触发
+    $(window).resize(function(){
+        //sideFlexible();
+    });
+    //侧边伸缩
+    function sideFlexible(){
+        var app = $('#LAY_app'),
+            APP_FLEXIBLE = 'LAY_app_flexible',
+            iconElem =  $('#'+ APP_FLEXIBLE),
+            APP_SPREAD_SM = 'layadmin-side-spread-sm',
+            ICON_SHRINK = 'layui-icon-shrink-right',
+            ICON_SPREAD = 'layui-icon-spread-left',
+            SIDE_SHRINK = 'layadmin-side-shrink',
+            screen = $(window).width(),
+            isSpread = iconElem.hasClass(ICON_SPREAD);
+        // console.log(isSpread);
+        if(isSpread){
+            //切换到展开状态的 icon，箭头：←
+            iconElem.removeClass(ICON_SPREAD).addClass(ICON_SHRINK);
+            //移动：从左到右位移；PC：清除多余选择器恢复默认
+            if(screen < 992){
+                app.addClass(APP_SPREAD_SM);
+            } else {
+                app.removeClass(APP_SPREAD_SM);
+            }
+            app.removeClass(SIDE_SHRINK)
+        } else {
+            //切换到搜索状态的 icon，箭头：→
+            iconElem.removeClass(ICON_SHRINK).addClass(ICON_SPREAD);
+            //移动：清除多余选择器恢复默认；PC：从右往左收缩
+            if(screen < 992){
+                app.removeClass(SIDE_SHRINK);
+            } else {
+                app.addClass(SIDE_SHRINK);
+            }
+            app.removeClass(APP_SPREAD_SM)
+        }
+    }
+
+    if( $(window).width() < 992 ) {
+        sideFlexible();
+    }
+
+    $('.close_shade').click(function () {
+        if( $(window).width() < 992 ) {
+            sideFlexible();
+        }
+    })
+</script>
+{/block}

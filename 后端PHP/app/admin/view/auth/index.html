@@ -1,0 +1,70 @@
+{extend name="main" /}
+
+{block name="css"}
+<style>
+    .layui-form-switch{margin-top: 0;}
+</style>
+{/block}
+
+{block name="body"}
+{include file="breadcrumb" /}
+<div class="layui-fluid">
+    <form action="{:url('sort')}" method="post">
+    <table class="layui-table" style="margin-top: 0;">
+        <tr>
+            <th style="width: 45px;"><b>排序</b></th>
+            <th><b>权限名</b></th>
+            <th><b>权限</b></th>
+            <th><b>菜单显示</b></th>
+            <th style="padding: 0 15px;line-height: 40px;"><b>操作</b> <span style="float: right"><a href="{:url('add')}" data-width="600px" data-height="450px" class="layui-btn layui-btn-sm xn_open" title="添加权限">添加权限</a></span> </th>
+        </tr>
+
+        <tbody>
+        {foreach name="list" item="vo"}
+        <tr>
+            <td><input type="text" name="{$vo.id}" placeholder="排序" autocomplete="off" class="layui-input" value="{$vo.sort}" style="width: 45px;height:24px;line-height:24px;color: #999;"></td>
+            <td>{$vo._name}</td>
+            <td>{$vo.name}</td>
+            <td class="layui-form">
+                <input type="checkbox" lay-verify="required" lay-filter="is_menu" name="is_menu" data-id="{$vo.id}"
+                       lay-skin="switch" lay-text="显示|隐藏" value="1" {if condition="$vo['is_menu'] eq 1"}checked{/if} >
+            </td>
+            <td>
+                <a href="{:url('add',array('pid'=>$vo['id']))}" data-width="600px" data-height="450px" class="layui-btn layui-btn-xs xn_open" title="添加子权限">
+                    <i class="layui-icon layui-icon-addition"></i>添加子权限
+                </a>
+                <a href="{:url('edit',array('id'=>$vo['id']))}" data-width="600px" data-height="450px" title="{$vo.title}" class="layui-btn layui-btn-normal layui-btn-xs xn_open">
+                    <i class="layui-icon layui-icon-edit"></i>修改
+                </a>
+                <a href="{:url('delete',array('id'=>$vo['id']))}" title="确认要删除【{$vo.title}】吗？" class="layui-btn layui-btn-danger layui-btn-xs xn_delete">
+                    <i class="layui-icon layui-icon-delete"></i>删除
+                </a>
+            </td>
+        </tr>
+        {/foreach}
+        <tr>
+            <td colspan="5">
+                <button type="submit" class="layui-btn">排序</button>
+                <span style="float: right"><a href="{:url('add')}" data-width="600px" data-height="450px" class="layui-btn layui-btn-sm xn_open" title="添加权限">添加权限</a></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </form>
+</div>
+{/block}
+
+{block name="js"}
+<script>
+    layui.form.on('switch(is_menu)', function(data){
+        //layer.tips('开关checked：'+ (this.checked ? 'true' : 'false'), data.othis)
+        var val = this.checked ? 1 : 0;
+        var id = $(this).attr('data-id');
+        var url = "{:url('edit')}";
+        $.post(url,{id:id,is_menu:val},function (res) {
+            console.log(res);
+            layer.tips(res.msg, data.othis);
+        },'json')
+    });
+</script>
+{/block}

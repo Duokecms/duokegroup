@@ -1,0 +1,146 @@
+{extend name="main" /}
+
+{block name="body"}
+{include file="breadcrumb" /}
+<div class="layui-fluid">
+    <div class="layui-card">
+        <ul class="layui-nav layui-bg-green">
+            <li class="layui-nav-item layui-this"><a href="">分销员列表</a></li>
+            <!-- <li class="layui-nav-item"><a href="{:Url('addPing')}" class="xn_open">添加分销员</a></li> -->
+        </ul>
+        <div class=" layui-card-header layuiadmin-card-header-auto">
+            <form class="layui-form" method="get">
+                <input type="hidden" name="bcid" value="{:input('bcid')}"><!--保留当前位置的bcid参数-->
+                <input type="hidden" name="parent_id" value="{:input('parent_id')}">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">用户名</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="username" value="{:input('username')}" placeholder="请输入用户名" autocomplete="off" class="layui-input" >
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">手机号</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="mobile" value="{:input('mobile')}" placeholder="请输入手机号" autocomplete="off" class="layui-input" >
+                        </div>
+                    </div>
+                    
+                    <div class="layui-inline">
+                        <button class="layui-btn">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="layui-card-body">
+            <table class="layui-table">
+                <tr>
+                    <th><b>ID</b></th>
+                    <th><b>手机号</b></th>
+                    <th><b>昵称</b></th>
+                    <th><b>邀请方手机号</b></th>
+                    <th><b>下级个数</b></th>
+                    <th><b>订单数</b></th>
+                    <th><b>状态</b></th>
+                    <th><b>操作</b></th>
+                </tr>
+
+                <tbody>
+                {foreach name="list" item="vo"}
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.mobile | default="..."}</td>
+                    <td>{$vo.nickname | default="..."}</td>
+                    <td>{$vo.user.mobile}</td>
+                    <td>
+                        <a href="{:url('showSon',array('mobile'=>$vo['mobile']))}" data-width="90%" data-height="90%" title="查看下级" class="layui-btn layui-btn-sm xn_open">
+                            {$vo.son_num}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{:url('showOrder',array('mobile'=>$vo['mobile']))}" data-width="90%" data-height="90%" title="查看订单" class="layui-btn layui-btn-sm xn_open">
+                            {$vo.son_order_num}
+                        </a>
+                    </td>
+                    <td>
+                        {if condition="$vo.is_daren eq 2"}
+                        <a data-width="90%" data-height="90%" title="" class="layui-btn layui-btn-sm">
+                            未审核
+                        </a>
+                        {/if}
+                        {if condition="$vo.is_daren eq 1"}
+                        <a data-width="90%" data-height="90%" title="" class="layui-btn layui-btn-sm">
+                            已审核
+                        </a>
+                        {/if}
+                    </td>
+                    <td>
+                        {if condition="$vo.is_daren eq 2"}
+                        <a onclick="edit({$vo.id},1)" data-width="800px" data-height="90%" title="用户详情" class="layui-btn layui-btn-normal layui-btn-sm xn_ajax">
+                            <i class="layui-icon layui-icon-edit"></i>通过
+                        </a>
+                        {else}
+                        <a onclick="edit({$vo.id},3)" data-width="800px" data-height="90%" title="用户详情" class="layui-btn layui-btn-normal layui-btn-sm xn_ajax">
+                            <i class="layui-icon layui-icon-edit"></i>取消资格
+                        </a>
+                        {/if}
+                    </td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="pages">{$list|raw}</div>
+</div>
+{/block}
+
+{block name="js"}
+<script>
+    layui.form.on('switch(is_zhuan)', function(data){
+        //layer.tips('开关checked：'+ (this.checked ? 'true' : 'false'), data.othis)
+        var val = this.checked ? 1 : 0;
+        var id = $(this).attr('data-id');
+        var url = "{:url('edit')}";
+        $.post(url,{id:id,is_zhuan:val},function (res) {
+            console.log(res);
+            layer.tips(res.msg, data.othis);
+        },'json')
+    });
+    layui.form.on('switch(status)', function(data){
+        //layer.tips('开关checked：'+ (this.checked ? 'true' : 'false'), data.othis)
+        var val = this.checked ? 1 : 0;
+        var id = $(this).attr('data-id');
+        var url = "{:url('edit')}";
+        $.post(url,{id:id,status:val},function (res) {
+            console.log(res);
+            layer.tips(res.msg, data.othis);
+        },'json')
+    });
+    function edit(id,is_daren){
+        var url = "{:url('edit')}";
+        $.post(url,{id:id,is_daren:is_daren},function (res) {
+            console.log(res);
+            layer.msg(res.msg,{time:2000},function(){
+                window.location.reload();
+            });
+        },'json')
+    }
+</script>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#start_date'
+        });
+        laydate.render({
+            elem: '#end_date'
+        });
+    });
+
+</script>
+{/block}

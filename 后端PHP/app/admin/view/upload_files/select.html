@@ -1,0 +1,47 @@
+{extend name="iframe" /}
+{block name="css"}
+<style>
+    #select-image-list{}
+    #select-image-list .layui-card{position: relative;width: 120px;height: 120px;overflow: hidden;cursor: pointer;}
+    #select-image-list img {width: 120px;position: absolute;}
+    #select-image-list .layui-card span{display: none;}
+    #select-image-list .layui-card.active span{display:block;position: absolute;width: 100%;height: 100%;background: rgba(0,0,0,0.5);text-align: center;padding-top: 30px;box-sizing: border-box;}
+    #select-image-list .layui-card.active span i{font-size: 60px;color: #00ffa1;}
+</style>
+{/block}
+{block name="body"}
+<div class="layui-fluid" id="LAY-component-grid-list">
+    <div class="layui-row layui-col-space10" id="select-image-list">
+        {foreach name="list" item="vo"}
+        <div class="layui-col-sm2 layui-col-md2 layui-col-lg2">
+            <div class="layui-card">
+                <img src="{$vo.url}">
+                <span><i class="layui-icon layui-icon-ok"></i></span>
+            </div>
+        </div>
+        {/foreach}
+    </div>
+    <div class="pages">{$list|raw}</div>
+</div>
+{/block}
+{block name="js"}
+<script>
+    var num = {$num};
+    if( num == 1 ) {
+        $('.layui-card').click(function () {
+            $('#select-image-list .layui-card').removeClass('active');
+            $(this).addClass('active');
+        })
+    } else {
+        $('.layui-card').click(function () {
+            var class_name = $(this).attr('class');
+            if( class_name.indexOf('active') ===-1 ) {
+                $(this).addClass('active');
+            } else {
+                $(this).removeClass('active');
+            }
+        })
+    }
+
+</script>
+{/block}

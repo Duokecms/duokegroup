@@ -1,0 +1,116 @@
+{extend name="main" /}
+
+{block name="body"}
+{include file="breadcrumb" /}
+<div class="layui-fluid">
+    <div class="layui-card">
+        <ul class="layui-nav layui-bg-green">
+            <li class="layui-nav-item layui-this"><a href="">菜谱列表</a></li>
+            <li class="layui-nav-item"><a href="{:Url('add')}">添加菜谱</a></li>
+        </ul>
+        <div class=" layui-card-header layuiadmin-card-header-auto">
+            <form class="layui-form" method="get">
+                <input type="hidden" name="bcid" value="{:input('bcid')}"><!--保留当前位置的bcid参数-->
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">关键字</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="keywords" value="{:input('keywords')}" placeholder="请输入关键字" autocomplete="off" class="layui-input" >
+                        </div>
+                        
+                    </div>
+
+                    <div class="layui-inline">
+                        <label class="layui-form-label">添加时间</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="start_date" id="start_date" value="{:input('start_date')}" placeholder="开始时间" autocomplete="off" class="layui-input" >
+
+                        </div>
+                        <div class="layui-input-inline">
+                            <input type="text" name="end_date" id="end_date" value="{:input('end_date')}" placeholder="结束时间" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <button class="layui-btn">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="layui-card-body">
+            <table class="layui-table">
+                <tr>
+                    <th><b>菜谱名称</b></th>
+                    <th><b>关键词</b></th>
+                    <th><b>制作时长</b></th>
+                    <th><b>难度</b></th>
+                    <th><b>点赞数</b></th>
+                    <th><b>收藏数</b></th>
+                    <th><b>创建时间</b></th>
+                    <th><b>状态</b></th>
+                    <th><b>操作</b></th>
+                </tr>
+
+                <tbody>
+                {foreach name="list" item="vo"}
+                <tr>
+                    <td>{$vo.title}</td>
+                    <td>{$vo.keywords}</td>
+                    <td>{$vo.zhizuo_time}</td>
+                    <td>{$vo.nandu}</td>
+                    <td>{$vo.zan}</td>
+                    <td>{$vo.collect}</td>
+                    <td>{:date('Y-m-d H:i:s',$vo.create_time)}</td>
+                    <td class="layui-form">
+                        <input type="checkbox" lay-verify="required" lay-filter="status" name="status" data-id="{$vo.id}"
+                               lay-skin="switch" lay-text="启用|冻结" value="1" {if condition="$vo['status'] eq 1"}checked{/if} >
+                    </td>
+                    <td>
+                        <a href="{:url('edit',array('id'=>$vo['id']))}"  title="修改菜谱" class="layui-btn layui-btn-normal layui-btn-xs">
+                            <i class="layui-icon layui-icon-edit"></i>修改
+                        </a>
+                        {if condition="$vo['id'] neq 1"}
+                        <a href="{:Url('delete',array('id'=>$vo['id']))}" title="确认要删除【{$vo.title}】吗？" class="layui-btn layui-btn-danger layui-btn-xs xn_delete">
+                            <i class="layui-icon layui-icon-delete"></i>删除
+                        </a>
+                        {/if}
+                    </td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="pages">{$list|raw}</div>
+</div>
+{/block}
+
+{block name="js"}
+<script>
+    layui.form.on('switch(status)', function(data){
+        //layer.tips('开关checked：'+ (this.checked ? 'true' : 'false'), data.othis)
+        var val = this.checked ? 1 : 0;
+        var id = $(this).attr('data-id');
+        var url = "{:url('edit')}";
+        $.post(url,{id:id,status:val},function (res) {
+            console.log(res);
+            layer.tips(res.msg, data.othis);
+        },'json')
+    });
+</script>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#start_date'
+        });
+        laydate.render({
+            elem: '#end_date'
+        });
+    });
+
+</script>
+{/block}

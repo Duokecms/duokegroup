@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{block name="title"}{$site.basic.admin_title} {/block}</title>
+    {load href="/static/element/plus/css/index.css,/static/backend/css/backend.css" /}
+    {$plugin_css ? $plugin_css|raw :''}
+</head>
+<body>
+<div id="app"  v-cloak>
+    <el-container>
+        {block name="aside"}{include file="common/pub/aside" /}{/block}
+        <el-container>
+            <el-header>
+                {block name="header"}{include file="common/pub/header" /}{/block}
+            </el-header>
+            <el-main>
+                {block name="main"}{/block}
+            </el-main>
+        </el-container>
+    </el-container>
+</div>
+</body>
+</html>
+{load href="/static/vue/3.0.11/vue.global.js,/static/element/plus/js/index.full.js,/static/js/axios.min.js" /}
+{$plugin_script ? $plugin_script|raw :''}
+{block name="script"}{/block}
+<script>
+    const common_data = {
+        isCollapse: false,
+        squareUrl: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+        search_menu: '',
+        aside_width: '230px',
+        dialogFormVisible:false,
+        multipleSelection: [],
+        data:[],
+        page:1,
+        count:0,
+        ids:[],
+        page_size:20,
+    }
+
+    const plugin_data = {plugins_data:{$plugin_data ? $plugin_data|raw :'{literal}{}{/literal}' }};
+
+    function common_f() {
+        return {
+            hideAside: function () {
+                this.isCollapse = true
+                this.aside_width = '60px'
+            },
+            showAside: function () {
+                this.isCollapse = false
+                this.aside_width = '230px'
+            },
+            onLogout:function () {
+                let _this = this
+                axios.post('{:url("Login/logout")}',{id:1}).then(function (response) {
+                    if(response.data.code == 200){
+                        _this.$message.error('退出成功')
+                        setTimeout(function () {
+                            window.location.href='{:url("login/index")}'
+                        },2000)
+                    }else{
+                        _this.$message.error('初始化数据失败')
+                    }
+                })
+            },
+            init:function (page) {
+                if(!page){page = 1}
+                let _this = this
+                _this.page = page
+                axios.post('',{search:_this.search,page:_this.page,page_size:_this.page_size}).then(function (response) {
+                    if(response.data.code == 200){
+                        _this.data = response.data.data.list
+                        _this.count = response.data.data.count
+                    }else{
+                        _this.$message.error('初始化数据失败')
+                    }
+                }).catch(function (error) {
+                    console.log(error)
+                });
+            },
+            onImageSuccess:function (res, file) {
+                let _this = this
+                let str = "_this.form."+res.data.key+"=res.data.files[0]"
+                eval(str)
+            }
+        }
+    }
+
+    function plugin_f(){
+        return {
+        {$plugin_func ? $plugin_func|raw :''}
+    }
+    }
+
+    const App = {
+        data: function () {
+            console.log(plugin_data)
+            return Object.assign(common_data, data, plugin_data)
+        },
+        methods: Object.assign(common_f(), f(),plugin_f()),
+        mounted:function () {
+            this.init()
+            {$plugin_mon ? $plugin_mon|raw :''}
+        }
+    };
+
+    const app = Vue.createApp(App);
+    app.use(ElementPlus, {size: 'mini', zIndex: 3000});
+    app.mount("#app");
+</script>

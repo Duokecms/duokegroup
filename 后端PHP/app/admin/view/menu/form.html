@@ -1,0 +1,159 @@
+{extend name="main" /}
+
+{block name="body"}
+{include file="breadcrumb" /}
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <ul class="layui-nav layui-bg-green">
+            <li class="layui-nav-item "><a href="{:Url('index')}">菜谱列表</a></li>
+            <li class="layui-nav-item layui-this"><a href="">添加菜谱</a></li>
+        </ul>
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">基本信息</div>
+                <div class="layui-card-body" pad15="">
+                    <form action="{:request()->url()}" method="post" class="xn_ajaxx">
+                        <div class="layui-form" wid100="" lay-filter="">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">菜谱分类</label>
+                                <div class="layui-input-inline">
+                                    <select name="cate_id" id="cateId" lay-filter="cate_id">
+                                        <option value="0">请选择分类</option>
+                                        {foreach name="category" item="v"}
+                                        <option value='{$v.id}' {if condition="$data.cate_id eq $v.id"}selected{/if}>{$v.title}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">菜谱名称</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="title" lay-verify="required" value="{$data.title}" class="layui-input">
+                                </div>
+                            </div>
+                            
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">关键词</label>
+                                <div class="layui-input-inline" style="width: 300px;">
+                                    <input type="text" name="keywords" lay-verify="required" value="{$data.keywords}" class="layui-input">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">
+                                    <span>用于匹配产品推荐</span>
+                                </div>
+                            </div>
+                            <!-- <div class="layui-form-item">
+                                <label class="layui-form-label">所属类别</label>
+                                <div class="layui-input-inline">
+                                    <select name="cate_id" lay-verify="required">
+                                        {foreach name="category" item="vo"}
+                                        <option value="{$vo.id}" {if condition="$data.cate_id eq $vo['id']"}selected{/if} >{$vo.title}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+                            </div> -->
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">制作时长</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="zhizuo_time" lay-verify="required" value="{$data.zhizuo_time}" class="layui-input">
+                                    
+                                </div>
+                                <div class="layui-form-mid layui-word-aux">
+                                    <span>分钟</span>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">难度</label>
+                                <div class="layui-input-inline">
+                                    <select name="nandu" lay-verify="required">
+                                        <option value="初级" {if condition="$data.nandu eq $vo['id']"}selected{/if} >初级</option>
+                                        <option value="中级" {if condition="$data.nandu eq $vo['id']"}selected{/if} >中级</option>
+                                        <option value="高级" {if condition="$data.nandu eq $vo['id']"}selected{/if} >高级</option>
+                                        <option value="大神" {if condition="$data.nandu eq $vo['id']"}selected{/if} >大神</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">封面图</label>
+                                <div class="layui-input-block">
+                                    {:xn_upload_multi($data['images'],'images',0)}
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">详情介绍</label>
+                                <div class="layui-input-block">
+                                    <textarea name="detail" id="content">{$data.detail}</textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit="" lay-filter="set_website">确认保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+<!--编辑器-->
+{block name="js"}
+<script src="/static/admin/ueditor/ueditor.config.js"></script>
+<script src="/static/admin/ueditor/ueditor.all.min.js"></script>
+<script src="/static/admin/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script>
+    UE.getEditor('content',{
+        initialFrameWidth :800,// 设置编辑器宽度
+        initialFrameHeight:200,// 设置编辑器高度
+        scaleEnabled:true
+    });
+</script>
+<script>
+    $(function(){
+        var jiesuan_type = $('#jiesuan_type').val();
+        if(jiesuan_type == 1){
+            $('.banck').show();
+            $('.wechat').hide();
+        }else{
+            $('.banck').hide();
+            $('.wechat').show();
+        }
+    })
+    function miaodian_zuobiao(){
+        layer.open({
+            type: 2,
+            skin: 'layui-layer-black',
+            area: ['950px', '600px'],
+            fixed: false, //不固定
+            maxmin: true,
+            content: "{:Url('map')}"
+        });
+
+    }
+    layui.form.on('radio(jiesuan_type)', function(data){
+        console.log(data.elem); //得到radio原始DOM对象
+        console.log(data.value); //被点击的radio的value值
+        var level = data.value;//被点击的radio的value值
+        //TODO 下面是我具体业务的处理代码，可忽略 ...
+        if(level == 1){
+            $('.banck').show();
+            $('.wechat').hide();
+        }else{
+            $('.banck').hide();
+            $('.wechat').show();
+        }
+    });
+    layui.form.on('switch(jiesuan_type)', function(data){
+        //layer.tips('开关checked：'+ (this.checked ? 'true' : 'false'), data.othis)
+        var val = this.checked ? 1 : 2;
+        if(val == 1){
+            $('.banck').show();
+            $('.wechat').hide();
+        }else{
+            $('.banck').hide();
+            $('.wechat').show();
+        }
+    });
+</script>
+{/block}

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>环境检测</title>
+  {load href="/static/element/plus/css/index.css,/static/install/css/style.css" /}
+</head>
+<body>
+<div id="app"  v-cloak>
+
+    <div class="el-install-header">
+        多客生鲜超市 安装向导
+        <span class="el-install-right">v1.0.0</span>
+    </div>
+
+    <div class="el-install-main">
+      <el-steps  :active="active" finish-status="success">
+        <el-step title="环境检测"></el-step>
+        <el-step title="创建数据"></el-step>
+        <el-step title="安装完成"></el-step>
+      </el-steps>
+
+        <div v-if="active==1">
+            <el-table :data="step1_env" style="width: 100%">
+                <el-table-column prop="name" label="环境检测"></el-table-column>
+                <el-table-column prop="record" label="推荐配置"></el-table-column>
+                <el-table-column  label="当前状态"  #default="scope">
+                    <i class="el-icon-check" v-if="scope.row.status == true"> {{scope.row.current}} </i>
+                    <i class="el-icon-close" v-if="scope.row.status == false"> {{scope.row.current}} </i>
+                </el-table-column>
+                <el-table-column prop="low" label="最低要求"></el-table-column>
+            </el-table>
+
+
+            <el-table :data="step1_ext" style="width: 100%">
+                <el-table-column prop="name" label="扩展检测"></el-table-column>
+                <el-table-column prop="record" label="推荐配置"></el-table-column>
+                <el-table-column  label="当前状态"  #default="scope">
+                    <i class="el-icon-check" v-if="scope.row.status == true"> {{scope.row.current}} </i>
+                    <i class="el-icon-close" v-if="scope.row.status == false"> {{scope.row.current}} </i>
+                </el-table-column>
+                <el-table-column prop="low" label="最低要求"></el-table-column>
+            </el-table>
+
+            <el-table :data="step1_paths" style="width: 100%">
+                <el-table-column prop="name" label="文件权限检测" #default="scope">{{scope.row.name}}({{scope.row.path}})</el-table-column>
+                <el-table-column prop="record" label="推荐配置"></el-table-column>
+                <el-table-column  label="当前状态"  #default="scope">
+                    <i class="el-icon-check" v-if="scope.row.status == true"> {{scope.row.current}} </i>
+                    <i class="el-icon-close"  v-if="scope.row.status == false"> {{scope.row.current}} </i>
+                </el-table-column>
+                <el-table-column prop="low" label="最低要求"></el-table-column>
+            </el-table>
+        </div>
+
+
+        <div v-if="active==2 && show == false">
+            <div id="install-mysql" style="height: 500px; overflow-y: auto;"></div>
+
+        </div>
+        <div v-if="active==2 && show == true">
+            <h4>数据库配置</h4>
+            <el-form :model="form" :rules="rules" ref="form" label-width="auto" class="demo-ruleForm">
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item label="数据库服务器" prop="hostname">
+                                <el-input v-model="form.hostname" @blur="onCheckDatabase"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                    <el-col :span="12"><div class="grid-content bg-purple-light">数据库服务器地址，本地一般为127.0.0.1或者localhost</div></el-col>
+                </el-row>
+
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item label="数据库端口" prop="hostport">
+                                <el-input v-model="form.hostport"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                    <el-col :span="12"><div class="grid-content bg-purple-light">一般为3306</div></el-col>
+                </el-row>
+
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item label="数据库用户名" prop="username">
+                                <el-input v-model="form.username"  @blur="onCheckDatabase"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                    <el-col :span="12"><div class="grid-content bg-purple-light"></div></el-col>
+                </el-row>
+
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item label="数据库密码" prop="password">
+                                <el-input type="password" v-model="form.password"  @blur="onCheckDatabase"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                    <el-col :span="12"><div class="grid-content bg-purple-light" id="bg-purple-light"></div></el-col>
+                </el-row>
+
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item label="数据库名称" prop="database">
+                                <el-input  v-model="form.database"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                    <el-col :span="12"><div class="grid-content bg-purple-light">一般使用英文小写组成</div></el-col>
+                </el-row>
+
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item label="数据表前缀" prop="prefix">
+                                <el-input  v-model="form.prefix"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                    <el-col :span="12"><div class="grid-content bg-purple-light"></div></el-col>
+                </el-row>
+
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item label="数据库编码" prop="charset">
+                                <el-select v-model="form.charset" placeholder="请选择活动区域">
+                                    <el-option label="utf8" value="utf8"></el-option>
+                                    <el-option label="utf8mb4" value="utf8mb4"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                    <el-col :span="12"><div class="grid-content bg-purple-light"></div></el-col>
+                </el-row>
+
+                <h4>数据库配置</h4>
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item label="后台系统名称" prop="admin_title">
+                                <el-input  v-model="form.admin_title"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                    <el-col :span="12"><div class="grid-content bg-purple-light"></div></el-col>
+                </el-row>
+
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item label="网站名称" prop="title">
+                                <el-input  v-model="form.title"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                    <el-col :span="12"><div class="grid-content bg-purple-light"></div></el-col>
+                </el-row>
+
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item label="网站关键词" prop="keywords">
+                                <el-input  v-model="form.keywords"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                    <el-col :span="12"><div class="grid-content bg-purple-light"></div></el-col>
+                </el-row>
+
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item label="网站描述" prop="description">
+                                <el-input type="textarea"  v-model="form.description"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                    <el-col :span="12"><div class="grid-content bg-purple-light"></div></el-col>
+                </el-row>
+
+                <h4>超级管理员信息</h4>
+
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item label="管理员账号" prop="admin_username">
+                                <el-input   v-model="form.admin_username"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                    <el-col :span="12"><div class="grid-content bg-purple-light">超级管理员账号拥有网站所有管理权限</div></el-col>
+                </el-row>
+
+                <el-row :gutter="20">
+                    <el-col :span="12">
+                        <div class="grid-content bg-purple">
+                            <el-form-item label="管理员密码" prop="admin_password">
+                                <el-input type="password"  v-model="form.admin_password"></el-input>
+                            </el-form-item>
+                        </div>
+                    </el-col>
+                    <el-col :span="12"><div class="grid-content bg-purple-light">超级管理员账号拥有网站所有管理权限</div></el-col>
+                </el-row>
+
+                <div style="width: 100%; text-align: center;">
+                    <el-button style="margin-top: 12px;" type="danger" @click="up" v-if="active > 1">上一步</el-button>
+                    <el-button style="margin-top: 12px;" type="primary" @click="onSubmit('form')">创建数据</el-button>
+                </div>
+            </el-form>
+        </div>
+
+        <div v-if="active==3">
+            <div class="el-install-step3">
+                <h3>恭喜您，安装成功</h3>
+                <div class="el-install-content">
+                    <p>为了站点安全，建议您删除安装程序。</p>
+                    <p>1、删除app/install目录</p>
+                    <p>2、建议备份database.php,安装将覆盖该文件</p>
+                    <p>3、安装完成建议更改/config/database.php权限</p>
+                </div>
+                <div class="el-install-button">
+                    <a href="/admin/login/index"><el-button>进入后台</el-button></a>
+                    &nbsp; &nbsp; &nbsp;
+                    <a href="/home/index/index"><el-button>进入首页</el-button></a>
+                </div>
+            </div>
+        </div>
+
+        <div style="width: 100%; text-align: center;">
+            <el-button style="margin-top: 12px;" type="primary" @click="next" v-if="active == 1">下一步</el-button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+{load href="/static/vue/3.0.11/vue.global.js,/static/element/plus/js/index.full.js,/static/js/axios.min.js,/static/element/plus/js/index.full.js,/static/js/jquery-3.3.1.min.js" /}
+<script>
+
+  const App = {
+    data: function () {
+      return {
+          active: 1,
+          step1_env: [],
+          step1_ext:[],
+          step1_paths:[],
+          step1_is_next:false,
+          step2_is_next:false,
+          sql_count:0,
+          show:true,
+          sql_error_count:0,
+          finish:false,
+          form:{
+              hostname:'127.0.0.1',
+              hostport:'3306',
+              database:'',
+              username:'root',
+              password:'',
+              charset:'utf8',
+              prefix:'xn_',
+              title:'多客生鲜商城',
+              keywords:'多客生鲜商城',
+              description:'多客生鲜商城',
+              admin_title:'多客生鲜商城',
+              admin_username:'admin',
+              admin_password:''
+          },
+          rules:{
+              hostname:[
+                  { required: true, message: '请输入数据库服务器', trigger: 'blur' },
+              ],
+              hostport:[
+                  { required: true, message: '请输入数据库端口号', trigger: 'blur' },
+              ],
+              username:[
+                  { required: true, message: '请输入数据库用户名', trigger: 'blur' },
+              ],
+              password:[
+                  { required: true, message: '请输入数据库密码', trigger: 'blur' },
+              ],
+              database:[
+                  { required: true, message: '请输入数据库名称', trigger: 'blur' },
+              ],
+              charset:[
+                  { required: true, message: '请选择数据库编码', trigger: 'blur' },
+              ],
+              prefix:[
+                  { required: true, message: '请输入表前缀', trigger: 'blur' },
+              ],
+              admin_title:[
+                  { required: true, message: '请输入系统名称', trigger: 'blur' },
+              ],
+              title:[
+                  { required: true, message: '请输入网站名称', trigger: 'blur' },
+              ],
+              admin_username:[
+                  { required: true, message: '请输入超级管理员账号', trigger: 'blur' },
+              ],
+              admin_password:[
+                  { required: true, message: '请输入超级管理员密码', trigger: 'blur' },
+                  { min: 6, max: 20, message: '长度在 6 到 20 个字符', trigger: 'blur' }
+              ],
+          },
+          api:{
+              check:"/install/index/check",
+              install:"/install/index/install",
+              step1:"/install/index/step1",
+              site:"/install/index/site",
+              admin:"/install/index/admin",
+              database:"/install/index/database",
+              block:"/install/index/block"
+          },
+      }
+    },
+    methods: {
+        onCheckDatabase:function () {
+            let _this = this
+            if(_this.form.hostname && _this.form.hostport && _this.form.username && _this.form.password){
+                axios.post(_this.api.check,{
+                    username:_this.form.username,
+                    password:_this.form.password,
+                    hostname:_this.form.hostname,
+                    hostport:_this.form.hostport,
+                    charset:_this.form.charset,
+                    action:'check'
+                }).then(function (response) {
+                    _this.step2_is_next = response.data.data.next
+                    document.getElementById('bg-purple-light').innerHTML = '<span style="color:red">'+response.data.msg+'</span>';
+                });
+            }
+        },
+        onInstall:function (i) {
+            let _this = this
+            i++
+            axios.post(_this.api.install,{sql_index:i}).then(function (response) {
+                if(response.data.code == 200){
+                    $("#install-mysql").append( '<p>'+response.data.data.message+'</p>')
+                    if(response.data.data.sql_error && response.data.data.sql_error > 0){
+                        $("#install-mysql").append( '<p>一共'+response.data.data.sql_error+'条sql执行错误；</p>')
+                    }else{
+                        if(i < _this.sql_count){
+                            _this.onInstall(i)
+                        }else{
+                            _this.onFinish(0)
+                        }
+                    }
+                }else {
+                    $("#install-mysql").append( '<p>配置异常请检查数据库配置或者联系开发者</p>')
+                }
+            });
+        },
+
+        onFinish:function (i) {
+            let _this = this
+            let apis = ["database","site","admin","block"];
+            axios.post(_this.api[apis[i]],{id:1}).then(function (response) {
+                if(response.data.code == 200){
+                    $("#install-mysql").append( '<p>'+response.data.data.message+'</p>')
+                    i++
+                    if(i<4){
+                        _this.onFinish(i)
+                    }
+                    if(i==3){
+                        setTimeout(function () {
+                            _this.active = 3
+                        },2000)
+                    }
+                }else{
+                    $("#install-mysql").append( '<p>'+response.data.msg+'</p>')
+                }
+            });
+        },
+        onSubmit:function (form) {
+            let _this = this
+            this.$refs[form].validate((valid) => {
+                if (valid) {
+                    axios.post(_this.api.check,_this.form).then(function (response) {
+                        if(response.data.code == 200){
+                            _this.sql_count = response.data.data.sql_count
+                            _this.show = false
+                            _this.onInstall(-1)
+                        }
+                    });
+                } else {
+                    return false;
+                }
+            });
+        },
+        up:function () {
+            if (this.active-- < 1) this.active = 1;
+        },
+        next:function() {
+            let _this = this
+            if(_this.step1_is_next == false && _this.active == 1){
+                return  _this.$message.error('请修改错误的配置项，再进入下一步')
+            }
+            if(_this.step2_is_next == false &&_this.active == 2 ){
+                return  _this.$message.error('数据库链接错误')
+            }
+            if (_this.active++ > 2) _this.active = 1;
+        }
+    },
+    mounted:function () {
+        let _this = this
+        axios.post(_this.api.step1, {id:1}).then(function (response) {
+            if(response.data.code == 200){
+                _this.step1_env = response.data.data.env
+                _this.step1_ext = response.data.data.ext
+                _this.step1_paths = response.data.data.paths
+                _this.step1_is_next = response.data.data.is_next
+            }else{
+                _this.$message.error('加载环境变量失败')
+            }
+        })
+    }
+  };
+  const app = Vue.createApp(App);
+  app.use(ElementPlus, {size: 'mini', zIndex: 3000});
+  app.mount("#app");
+</script>

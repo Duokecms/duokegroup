@@ -1,0 +1,125 @@
+
+
+<!-- 规格常规操作 -->
+<div>
+    <span class="business-operations-submit specifications-nav-title-add">+添加规格</span>
+    <span class="business-operations-submit am-margin-left-sm specifications-nav-set-all am-icon-cogs" data-am-modal="{target: '#spec-popup-all-operation'}"> 高级批量设置</span>
+</div>
+<div class="goods-specifications am-padding-top-sm">
+    <!-- 规格列表 -->
+    <div class="specifications-container am-scrollable-horizontal">
+        <table class="am-table am-table-bordered am-table-centered specifications-table am-margin-bottom-sm am-table-striped am-table-hover table-thead-beautify am-margin-bottom-0">
+            <thead class="title-nav">
+                <tr>
+                    {{if !empty($specifications['type'])}}
+                        {{foreach $specifications.type as $type_v}}
+                            <th class="table-title table-title-{{$type_v.id}}">
+                                <i class="am-close title-nav-remove" data-index="{{$type_v.id}}">×</i>
+                                <input type="text" name="specifications_name_{{$type_v.id}}" placeholder="规格名" value="{{$type_v.name}}" data-validation-message="请填写规格名" required />
+                            </th>
+                        {{/foreach}}
+                    {{/if}}
+                    <th class="title-start">
+                        <span>价格(元)</span>
+                        <i class="am-icon-edit"></i>
+                    </th>
+                    <th>
+                        <span>重量(kg)</span>
+                        <i class="am-icon-edit"></i>
+                    </th>
+                    <th>
+                        <span>规格编码</span>
+                        <i class="am-icon-edit"></i>
+                    </th>
+                    <th>
+                        <span>条形码</span>
+                        <i class="am-icon-edit"></i>
+                    </th>
+                    <th>
+                        <span>原价(元)</span>
+                        <i class="am-icon-edit"></i>
+                    </th>
+                    <th class="extend-btn">扩展</th>
+                    <th class="operation-btn">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{if empty($specifications['value'])}}
+                    <tr class="line-0" data-line-tag=".line-0">
+                        <td class="am-text-middle value-start">
+                            <input type="text" name="specifications_price[]" placeholder="价格" class="am-radius" pattern="{{$default_price_regex}}" data-validation-message="请填写有效的销售金额" required />
+                        </td>
+                        <td class="am-text-middle">
+                            <input type="number" name="specifications_weight[]" placeholder="重量" class="am-radius" maxlength="80" min="0.00" max="100000000.00" step="0.01" data-validation-message="规格重量 0.00~100000000.00" />
+                        </td>
+                        <td class="am-text-middle">
+                            <input type="text" name="specifications_coding[]" placeholder="编码" class="am-radius" maxlength="80" data-validation-message="规格编码最多80个字符" />
+                        </td>
+                        <td class="am-text-middle">
+                            <input type="text" name="specifications_barcode[]" placeholder="条形码" class="am-radius" maxlength="80" data-validation-message="条形码最多80个字符" />
+                        </td>
+                        <td class="am-text-middle">
+                            <input type="text" name="specifications_original_price[]" placeholder="原价" class="am-radius" pattern="{{$default_price_regex}}" data-validation-message="请填写有效的原价" />
+                        </td>
+                        <td class="am-text-middle">
+                            <input type="hidden" name="specifications_extends[]" value="" class="line-extend-input" />
+                            <a href="javascript:;" class="am-text-xs am-text-secondary line-extend-btn">编辑</a>
+                        </td>
+                        <td class="am-text-middle">
+                            <a href="javascript:;" class="am-text-xs am-text-secondary am-margin-right-sm line-move" data-type="top">上移</a>
+                            <a href="javascript:;" class="am-text-xs am-text-secondary am-margin-right-sm line-move" data-type="bottom">下移</a>
+                            <a href="javascript:;" class="am-text-xs am-text-secondary am-margin-right-xs line-copy">复制</a>
+                            <a href="javascript:;" class="am-text-xs am-text-danger line-remove">移除</a>
+                        </td>
+                    </tr>
+                {{/if}}
+
+                {{if !empty($specifications['value'])}}
+                    {{foreach $specifications.value as $line_k=>$line_v}}
+                        <tr class="line-{{$line_k}} {{if $line_k gt 0}} line-not-first{{/if}}" data-line-tag=".line-{{$line_k}}">
+                        {{foreach $line_v as $v}}
+                            {{if isset($v['data_type'])}}
+                                
+                            {{/if}}
+                        {{/foreach}}
+                        </tr>
+                    {{/foreach}}
+                {{/if}}
+            </tbody>
+        </table>
+    </div>
+    <div class="am-margin-top-sm">
+        <span class="business-operations-submit specifications-line-add">+添加一行</span>
+    </div>
+    <div class="spec-images-list">
+        <div class="am-alert am-radius">
+            规格名称与规格值保持一致，相同规格名称添加一次即可，重复添加则后面覆盖前面，顺序不影响前端展示效果。
+            <span class="business-operations-submit specifications-line-images-add">+添加规格图片</span>
+            <span class="business-operations-submit specifications-line-images-auto-add am-margin-left-sm am-icon-dot-circle-o"> 第<input type="text" class="am-inline-block am-text-center am-margin-horizontal-xs am-radius" value="1" />列规格自动生成</span>
+        </div>
+        <ul class="spec-images-content">
+            {{if !empty($specifications['type'])}}
+                {{foreach $specifications.type as $type}}
+                    {{if !empty($type['value'])}}
+                        {{foreach $type.value as $spec_key=>$spec}}
+                            {{if !empty($spec['images'])}}
+                                <li class="spec-images-items spec-images-items-{{$type.id}}{{$spec_key}}">
+                                    <input type="text" name="spec_images_name[{{$type.id}}{{$spec_key}}]" placeholder="规格名称" class="am-radius t-c" data-validation-message="请填写规格名称" value="{{$spec.name}}" required >
+                                    <ul class="plug-file-upload-view spec-images-view-{{$type.id}}{{$spec_key}}" data-form-name="spec_images[{{$type.id}}{{$spec_key}}]" data-max-number="1" data-delete='0' data-dialog-type="images">
+                                        <li>
+                                            <input type="hidden" name="spec_images[{{$type.id}}{{$spec_key}}]" value="{{$spec.images_old}}" data-validation-message="请上传规格图片" required />
+                                            <img src="{{$spec.images}}" />
+                                            <i>×</i>
+                                        </li>
+                                    </ul>
+                                    <div class="plug-file-upload-submit" data-view-tag="ul.spec-images-view-{{$type.id}}{{$spec_key}}">+上传图片</div>
+                                </li>
+                            {{/if}}
+                        {{/foreach}}
+                    {{/if}}
+                {{/foreach}}
+            {{/if}}
+        </ul>
+    </div>
+</div>
+

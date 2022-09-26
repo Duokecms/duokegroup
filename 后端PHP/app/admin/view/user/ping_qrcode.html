@@ -1,0 +1,38 @@
+{extend name="main" /}
+
+{block name="body"}
+{include file="breadcrumb" /}
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <img src="{$image}"  height="700px" width="100%">
+            </div>
+        </div>
+    </div>
+</div>
+<!--编辑器-->
+<script src="/static/admin/ueditor/ueditor.config.js"></script>
+<script src="/static/admin/ueditor/ueditor.all.min.js"></script>
+<script src="/static/admin/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script>
+    UE.getEditor('content',{
+        initialFrameWidth :800,// 设置编辑器宽度
+        initialFrameHeight:200,// 设置编辑器高度
+        scaleEnabled:true
+    });
+</script>
+<script>
+    function miaodian_zuobiao(){
+        layer.open({
+            type: 2,
+            skin: 'layui-layer-black',
+            area: ['950px', '600px'],
+            fixed: false, //不固定
+            maxmin: true,
+            content: "{:Url('map')}"
+        });
+
+    }
+</script>
+{/block}

@@ -1,0 +1,39 @@
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+.clearfix{*+height:1%;}
+
+/*分页*/
+.pages{}
+.pages:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+.pages{*+height:1%;}
+.pages ul{margin-top:10px;}
+.pages ul li{display:inline-block;height:28px;border:1px solid #e2e2e2;background-color:#fff;color:#333;font-size:14px;line-height:28px;margin-left: -1px;float: left;}
+.pages ul li a,.pages ul li span{display:block;padding:0 15px;}
+.pages ul li.disabled{color:#d2d2d2;}
+.pages ul li.active{color:#fff;border:1px solid #009688;background-color:#009688;}
+
+
+/*上传图片通用样式*/
+.upload-ul{ position: relative;  display: inline-block; *display: inline; *zoom:1; max-width: 520px; }
+.upload-ul li{ position: relative; float: left; display: inline-block; width: 120px; height: 90px; margin: 0 10px 10px 0; padding: 0; border: none; cursor: pointer; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; overflow: hidden; }
+.upload-pick{ background: url(../images/upload-bj.png) no-repeat 0 0; }
+.upload-pick:hover{ background: url(../images/upload-bj.png) no-repeat 0 -90px; }
+.webuploader-pick{position: relative;display: inline-block;vertical-align: top; width: 100%; height: 100%;}
+.webuploader-container{ position: relative; width: 100%; height: 100%; }
+.webuploader-container label{position: absolute;left: 0;top: 0;width: 100%;}
+.webuploader-element-invisible{opacity: 0;width: 100%;height: 100%;clip: rect(1px 1px 1px 1px);clip: rect(1px,1px,1px,1px);}
+.viewThumb{ position:relative;width: 100%;height: 100%;overflow:hidden;border-radius: .3rem;}
+.viewThumb img{ width: 100%;/*height: 100%*/}
+.diyBar{ position: absolute; display:none; top: 0;left: 0;width: 100%;height: 100%;background: url(../images/bgblack.png);z-index: 3;}
+.diyProgress{ position: absolute; left: 0;top: 33px;width: 100%;height: 24px;line-height:24px;font-size: 14px;text-align: center;color: #FFF;background:rgba(10,168,241,.7); z-index: 3;}
+.diyControl{ position: absolute; display:none; left: 0;bottom: 0;width: 100%;height: 24px;line-height:24px;font-size: 14px;background: url(../images/bgblack.png); z-index: 3; }
+.viewThumb:hover .diyControl{ display: block; }
+.diyControl span{ display: inline-block; padding: 6.5px 13px; width: 12px; height: 11px; }
+.diyControl span i{ display: block; width: 12px; height: 11px; opacity: .7; }
+.diyControl span i:hover{ opacity: 1; cursor: pointer; }
+.diyLeft{ margin-left: 3px; }
+.diyLeft{ margin-right: 3px; }
+.diyLeft i{ margin-left: 3px; background: url(../images/upload-icon1.png) no-repeat 0 0; }
+.diyCancel i{ background: url(../images/upload-icon1.png) no-repeat 0 -11px; }
+.diyRight i{ margin-right: 3px; background: url(../images/upload-icon1.png) no-repeat 0 -22px; }
+.goods-edit .upload-tip{ font: 12px/23px "Microsoft YaHei"; color: #a3a3a3;vertical-align: top; }
+.xn-upload-box .t{padding-bottom: 10px;}

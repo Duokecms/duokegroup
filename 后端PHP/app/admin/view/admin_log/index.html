@@ -1,0 +1,85 @@
+{extend name="main" /}
+
+{block name="body"}
+{include file="breadcrumb" /}
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class=" layui-card-header layuiadmin-card-header-auto">
+            <form class="layui-form" method="get">
+                <input type="hidden" name="bcid" value="{:input('bcid')}"><!--保留当前位置的bcid参数-->
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">开始日期</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="start_date" id="start_date" value="{:input('start_date')}" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input" >
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">截止日期</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="end_date" id="end_date" value="{:input('end_date')}" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <button class="layui-btn">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        </button>
+                    </div>
+                    <div class="layui-inline">
+                        <a href="{:url('clear',['day'=>7])}" class="layui-btn xn_delete" title="确定要清空7天前的数据吗？">
+                            <i class="layui-icon layui-icon-delete layuiadmin-button-btn"></i>清空7天前数据
+                        </a>
+                        <a href="{:url('clear',['day'=>30])}" class="layui-btn xn_delete" title="确定要清空30天前的数据吗？">
+                            <i class="layui-icon layui-icon-delete layuiadmin-button-btn"></i>清空30天前数据
+                        </a>
+                        <a href="{:url('clear')}" class="layui-btn xn_delete" title="确定要清空全部数据吗？">
+                            <i class="layui-icon layui-icon-delete layuiadmin-button-btn"></i>清空全部
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="layui-card-body">
+            <table class="layui-table">
+                <tr>
+                    <th><b>ID</b></th>
+                    <th><b>操作人</b></th>
+                    <th><b>操作备注</b></th>
+                    <th><b>URL</b></th>
+                    <th><b>IP地址</b></th>
+                    <th><b>时间</b></th>
+                </tr>
+
+                <tbody>
+                {foreach name="list" item="vo"}
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.admin.username}</td>
+                    <td>{$vo.remark}</td>
+                    <td>{$vo.url}</td>
+                    <td>{$vo.ip}</td>
+                    <td>{$vo.create_time}</td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="pages">{$list|raw}</div>
+</div>
+{/block}
+
+{block name="js"}
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#start_date'
+        });
+        laydate.render({
+            elem: '#end_date'
+        });
+    });
+</script>
+{/block}

@@ -1,0 +1,135 @@
+/*聊天列表*/
+.chat-page .chat-list{
+    padding: 0.2rem;
+    border-bottom: 1px solid #ddd;
+}
+.chat-page .chat-info{
+    width: 100%;
+}
+.chat-page .chat-list .chat-img{
+    width: 1.333333rem;
+    height: 1.333333rem;
+    margin-right: 0.266667rem;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    border-radius: 0.1rem;
+    flex-shrink: 0;
+    position: relative;
+}
+.chat-page .chat-list .chat-info .chat-merch{
+    justify-content: space-between;
+}
+.chat-page .chat-list .chat-info .chat-merch .title{
+    margin-bottom: 0.3rem;
+}
+.chat-page .chat-list .chat-info .chat-merch .time{
+    margin-top: 0.05rem;
+    color: #888;
+}
+.chat-page .chat-list .chat-info .chat-text{
+    width: 84%;
+}
+/*聊天细节*/
+.chatDetail-page .chat-header{
+    height: 1.2rem;
+    padding: 0 0.2rem;
+    position: relative;
+    line-height: 1.2rem;
+    z-index: 2;
+    box-shadow: 0 0 0.266667rem 0 rgba(155,143,143,0.6);
+    -webkit-box-shadow: 0 0 0.266667rem 0 rgba(155,143,143,0.6);
+}
+.chatDetail-page .chat-header .shop-titlte{
+    padding-left: 0.5rem;
+}
+.chatDetail-page .chat-header .into-shop{
+    position: absolute;
+    right: 0.266rem;
+    padding: 0 0.2rem;
+    height: 0.6rem;
+    background-color: #3AB034;
+    top: 50%;
+    margin-top: -0.3rem;
+    line-height: 0.6rem;
+    border-radius: 0.3rem;
+}
+.chatDetail-page .chat-header .into-shop a{
+    color: #fff;
+}
+.chatDetail-page .chat-content{
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    height: 100%;
+    background-color: #F5F7F9;
+}
+.chatDetail-page .fix-send{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    align-items: center;
+    width: 100%;
+    padding:0.3rem 0.2rem;
+}
+.chatDetail-page .fix-send .send-input{
+    width: 63%;
+    border: none;;
+    border-bottom: 1px solid #ddd;
+    margin:0 0.2rem;
+    overflow: scroll;
+    padding: 0.1rem 0;
+}
+.chatDetail-page  .fix-send .icon{
+    margin:0 0.1rem;
+}
+.chatDetail-page .fix-send .send-btn{
+    text-align: center;
+    padding: 0.15rem 0.22rem;
+    line-height: 0.4rem;
+    background-color: #3ab034;
+    color: #fff;
+    border-radius: 0.053333rem;
+}
+.chatDetail-page .chat-content .chat-time{
+    text-align: center;
+    margin: 0.2rem 0;
+}
+.chatDetail-page .chat-content .section-left{
+    justify-content: flex-start;
+}
+.chatDetail-page .chat-content .section-right{
+    justify-content: flex-end;
+}
+.chatDetail-page .chat-content .chat-text{
+    margin-bottom: 0.5rem;
+}
+.chatDetail-page .chat-content .char-img{
+    width: 1.066667rem;
+    height: 1.066667rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 0.053333rem;
+    margin:0 0.2rem;
+}
+.chatDetail-page .chat-content .text{
+    display: inline-block;
+    max-width: 78%;
+    height: auto;
+    background: #fff;
+    padding:0.1rem .2rem 0.2rem 0.2rem;
+    border-radius: 0.04rem;
+    position: relative;
+    margin: 0 0.1rem;
+}
+.chatDetail-page .chat-content .chat-text .icon{
+    position: absolute;
+    top: 0.1rem;
+    color: #fff;
+}
+.chatDetail-page .chat-content .section-left .icon{
+    left: -0.2rem;
+}
+.chatDetail-page .chat-content .section-right .icon{
+    right: -0.2rem;
+}

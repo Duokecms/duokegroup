@@ -1,0 +1,20 @@
+<el-aside id="el-aside" class="el-aside" :width="aside_width">
+  <div class="block">
+    <el-avatar class="el-left"  :size="40" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+
+    <div class="el-left">
+      <span v-if="isCollapse === false" style="padding-left: 10px">admin </span>
+      <span v-if="isCollapse === true">admin </span>
+      <span style="font-size: 5px; color: #888;">在线</span>
+    </div>
+
+    <div class="el-search" v-if="isCollapse === false">
+      <a style="color: #409EFF; text-decoration: none;" href="{:url('/admin/index/index')}">{$site.basic.admin_title}</a>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+
+  <el-menu default-active="{$current_route_id}" class="el-menu-vertical-demo" background-color="#222d32"  text-color="#FFFFFF" :collapse="isCollapse">
+    {$aside_html|raw}
+  </el-menu>
+</el-aside>

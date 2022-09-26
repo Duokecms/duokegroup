@@ -1,0 +1,180 @@
+{extend name="common/pub/base" /}
+{block name="main"}
+    {include file="common/pub/breadcrumb" /}
+
+    <!--在此位置渲染查询-->
+<el-form label-width="auto">
+    <div class="el-search-main">
+        {$search_html|raw}
+        {if in_array('search',$button)}
+            <div class="el-form-item"><el-button type="primary" size="mini" @click="onSearch(1)">查询</el-button></div>
+        {/if}
+        {if in_array('reset',$button)}
+            <div class="el-form-item"><el-button type="warning" size="mini" @click="onReset">重置</el-button></div>
+        {/if}
+    </div>
+</el-form>
+
+<!--load plugins html--->
+{$plugin_html ? $plugin_html|raw:'' }
+
+{if in_array('add',$button)}
+    <el-button type="primary" @click="onAdd" icon="el-icon-plus">添加</el-button>
+{/if}
+
+{if in_array('deletes',$button)}
+    <el-popconfirm title="这是一段内容确定删除吗？"  @confirm="onDeletes">
+        <template #reference>
+            <el-button type="danger"   icon="el-icon-delete">批量删除</el-button>
+        </template>
+    </el-popconfirm>
+{/if}
+
+    <el-dialog title="添加/修改" v-model="dialogFormVisible" @open="onDialogOpen">
+        {$form_html|raw}
+        <!--事件按钮-->
+        <template #footer>
+            <span class="dialog-footer">
+                  <el-button @click="dialogFormVisible = false">取 消</el-button>
+                  <el-button type="primary" @click="onSubmit('form')">确 定</el-button>
+            </span>
+        </template>
+    </el-dialog>
+
+    <div class="el-table-main">
+        {$table_html|raw}
+        <div class="el-page-main">
+            <!--<el-pagination
+                    background
+                    layout="prev, pager, next"
+                    :total="count"
+                    :page-size="20"
+                    @current-change="init">
+            </el-pagination>-->
+
+            <el-pagination
+                    background
+                    @size-change="handleSizeChange"
+                    @current-change="init"
+                    :page-sizes="[10,20, 30, 50, 100]"
+                    :page-size="page_size"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="count">
+            </el-pagination>
+        </div>
+    </div>
+{/block}
+
+{block name="script"}
+<script>
+    const data = {
+        form:{$form|raw},
+        search:{$search|raw},
+        rules:{$rules|raw},
+        api:{
+            post:'{:url("$controller/post")}',
+            delete:'{:url("$controller/delete")}',
+            deletes:'{:url("$controller/deletes")}',
+            index:'{:url("$controller/index")}',
+        }
+    }
+    function f(){
+        return {
+            handleSizeChange:function (value) {
+                let _this = this
+                _this.page_size = value
+                _this.init()
+            },
+            onDialogOpen:function(e){},
+            onAdd:function () {
+                let _this = this
+                _this.dialogFormVisible = true
+                _this.form = {$form|raw}
+            },
+            onSubmit:function (form) {
+                let _this = this
+                this.$refs[form].validate((valid) => {
+                    if (valid) {
+                        axios.post(_this.api.post,_this.form).then(function (response) {
+                            if(response.data.code == 200){
+                                _this.$message.success({message:response.data.msg,type:'success'})
+                                _this.init()
+                                _this.dialogFormVisible = false
+                            }else{
+                                _this.$message.error(response.data.msg)
+                            }
+                        })
+                    } else {
+                        return false
+                    }
+                });
+            },
+            onEdit:function (row) {
+                this.form = row
+                this.dialogFormVisible = true
+            },
+            onDelete:function (id) {
+                let _this = this
+                axios.post(_this.api.delete, {"{$pk}":id}).then(function (response) {
+                    if(response.data.code == 200){
+                        _this.$message.success({message:response.data.msg,type:'success'})
+                        _this.init()
+                    }else{
+                        _this.$message.error(response.data.msg)
+                    }
+                })
+            },
+            //批量删除
+            onDeletes:function () {
+                let _this = this
+                if(this.multipleSelection.length > 0){
+                    this.multipleSelection.forEach(function (row) {
+                        _this.ids.push(row.{$pk})
+                    })
+                }
+                axios.post(_this.api.deletes, {ids:_this.ids}).then(function (response) {
+                    if(response.data.code == 200){
+                        _this.$message.success({message:response.data.msg,type:'success'})
+                        _this.init()
+                        _this.multipleSelection = []
+                    }else{
+                        _this.$message.error(response.data.msg)
+                    }
+                })
+            },
+            onSearch:function (page){
+                let _this = this
+                if(!page){
+                    page = 1
+                }
+                _this.page = page
+                axios.post(_this.api.index, {search:_this.search,page:_this.page}).then(function (response) {
+                    if(response.data.code == 200){
+                        _this.$message.success({message:response.data.msg,type:'success'})
+                        _this.data = response.data.data.list
+                        _this.count = response.data.data.count
+                    }else{
+                        _this.$message.error(response.data.msg)
+                    }
+                })
+            },
+            onReset:function () {
+                let _this = this
+                _this.search = {$search|raw}
+            },
+            toggleSelection(rows) {
+                if (rows) {
+                    rows.forEach(function (row) {
+                        this.$refs.multipleTable.toggleRowSelection(row)
+                    });
+                } else {
+                    this.$refs.multipleTable.clearSelection()
+                }
+            },
+            handleSelectionChange(val) {
+                this.multipleSelection = val
+            },
+        }
+    }
+</script>
+{/block}

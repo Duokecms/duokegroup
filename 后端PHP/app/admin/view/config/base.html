@@ -1,0 +1,327 @@
+{extend name="main" /}
+
+{block name="body"}
+{include file="breadcrumb" /}
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">系统设置</div>
+                <div class="layui-card-body" pad15="">
+                    <form action="{:request()->url()}" method="post" class="xn_ajax">
+                        <div class="layui-form" wid100="" lay-filter="">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">系统名称</label>
+                                <div class="layui-input-inline" style="width: 500px;">
+                                    <input type="text" name="sys_name" value="{$data.sys_name}" class="layui-input">
+                                </div>
+                            </div>                          
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">后台名称</label>
+                                <div class="layui-input-inline" style="width: 500px;">
+                                    <input type="text" name="sitename" value="{$data.sitename}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">网站域名</label>
+                                <div class="layui-input-inline" style="width: 500px;">
+                                    <input type="text" name="siteurl" value="{$data.siteurl}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">备案号</label>
+                                <div class="layui-input-inline" style="width: 500px;">
+                                    <input type="text" name="sitebeian" value="{$data.sitebeian}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">安卓下载地址</label>
+                                <div class="layui-input-inline" style="width: 500px;">
+                                    <input type="text" name="app_android" value="{$data.app_android}" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">IOS地址</label>
+                                <div class="layui-input-inline" style="width: 500px;">
+                                    <input type="text" name="app_ios" value="{$data.app_ios}" class="layui-input">
+                                </div>
+                            </div>
+                        <!-- <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                            <legend>小程序设置</legend>
+                        </fieldset>  -->
+                        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                            <legend>会员等级设置</legend>
+                        </fieldset> 
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">发帖子获经验</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="add_goods_score" value="{$data.add_goods_score}" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">发圈子获经验</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="add_category_score" value="{$data.add_category_score}" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">发活动获经验</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="add_active_score" value="{$data.add_active_score}" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">等级提升需积分</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="user_leve_once" value="{$data.user_leve_once}" class="layui-input">
+                            </div>
+                        </div>
+                        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                            <legend>全局设置</legend>
+                        </fieldset> 
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">发布帖子审核</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="add_goods_sh" value="1" {if condition="$data['add_goods_sh'] eq 1"} checked{/if} lay-skin="switch" lay-text="直接通过|需要审核">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">发布圈子审核</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="add_category_sh" value="1" {if condition="$data['add_category_sh'] eq 1"} checked{/if} lay-skin="switch" lay-text="直接通过|需要审核">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">发布活动审核</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="add_active_sh" value="1" {if condition="$data['add_active_sh'] eq 1"} checked{/if} lay-skin="switch" lay-text="直接通过|需要审核">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">slogan</label>
+                            <div class="layui-input-inline" style="width: 500px;">
+                                <input type="text" name="slogan" value="{$data.slogan}" autocomplete="off" class="layui-input">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">一句话口号，很多页面会用到</div>
+                        </div>
+
+
+
+                            <div class="layui-form-item">
+                            <label class="layui-form-label">热门搜索</label>
+                            <div class="layui-input-inline" style="width: 500px;">
+                                <input type="text" name="sitekey" value="{$data.sitekey}" autocomplete="off" class="layui-input">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">请用@分开关键词</div>
+                        </div>
+
+
+
+
+
+
+                         <div class="layui-form-item">
+                                <label class="layui-form-label">客服电话</label>
+                               <div class="layui-input-inline">
+                                    <input type="text" name="kefu_tel" value="{$data.kefu_tel}" class="layui-input">
+                                </div>
+                            </div>
+                       
+                     
+                     
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">主题配色</label>
+                            <div class="layui-input-block">
+                                <!-- <input type="radio" name="web_site_color" lay-filter="radio_storage" class="radio_storage" value="1" title="红色" {if condition="$data['web_site_color'] eq 1"}checked=""{/if}>
+                                <input type="radio" name="web_site_color" lay-filter="radio_storage" class="radio_storage" value="2" title="粉色" {if condition="$data['web_site_color'] eq 2"}checked=""{/if}>
+                                <input type="radio" name="web_site_color" lay-filter="radio_storage" class="radio_storage" value="3" title="紫色" {if condition="$data['web_site_color'] eq 3"}checked=""{/if}>
+                                <input type="radio" name="web_site_color" lay-filter="radio_storage" class="radio_storage" value="4" title="蓝色" {if condition="$data['web_site_color'] eq 4"}checked=""{/if}>
+                                <input type="radio" name="web_site_color" lay-filter="radio_storage" class="radio_storage" value="5" title="绿色" {if condition="$data['web_site_color'] eq 5"}checked=""{/if}> -->
+                                <input type="radio" name="web_site_color" lay-filter="radio_storage" class="radio_storage" value="6" title="黄色" {if condition="$data['web_site_color'] eq 6"}checked=""{/if}>
+                                <!-- <input type="radio" name="web_site_color" lay-filter="radio_storage" class="radio_storage" value="7" title="灰色" {if condition="$data['web_site_color'] eq 7"}checked=""{/if}> -->
+                            </div>
+                        </div>
+                        <!-- <div class="layui-form-item">
+                            <label class="layui-form-label">主题颜色</label>
+                            <div class="layui-input-inline">
+                                <div class="layui-input-inline" style="width: 120px;">
+                                    <input type="text" name="web_site_color" value="{$data.web_site_color}" placeholder="请选择颜色" class="layui-input" id="test-form-input">
+                                </div>
+                                <div class="layui-inline" style="left: -11px;">
+                                     <div id="test-form"></div>
+                                </div>
+                            </div>
+                           
+                            
+                        </div> -->
+                        <div class="layui-form-item">
+                                <label class="layui-form-label">默认个人背景图</label>
+                                <div class="layui-input-block">
+                                    {:xn_upload_one($data['fenxiao_image'],'fenxiao_image',0)}
+                                </div>
+                                 
+                            </div>
+                      
+                        
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">LOGO图</label>
+                                <div class="layui-input-block">
+                                    {:xn_upload_one($data['site_logo'],'site_logo',0)}
+                                </div>
+                                 
+                            </div>
+                        
+                        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                            <legend>小程序配置</legend>
+                        </fieldset>
+                     <!--    <div class="layui-form-item">
+                            <label class="layui-form-label">腾讯地图key</label>
+                            <div class="layui-input-inline" style="width: 500px;">
+                                <input type="text" name="tx_map_key" value="{$data.tx_map_key}" autocomplete="off" class="layui-input">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">小程序域名配置增加：https://apis.map.qq.com/</div>
+                        </div> -->
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">小程序名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="xcx_title" value="{$data.xcx_title}" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">APPID</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="xcx_appid" value="{$data.xcx_appid}" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">SECRET</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="xcx_secret" value="{$data.xcx_secret}" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">原始ID</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="xcx_original_id" value="{$data.xcx_original_id}" class="layui-input">
+                            </div>
+                        </div>
+                         <div class="layui-form-item">
+                                <label class="layui-form-label">小程序审核</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="xcx_sh" value="1" {if condition="$data['xcx_sh'] eq 1"} checked{/if} lay-skin="switch" lay-text="通过|审核期">
+                                </div>
+                            </div>
+                               <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                            <legend>H5和APP短信配置</legend>
+                        </fieldset>
+                     <!--    <div class="layui-form-item">
+                            <label class="layui-form-label">腾讯地图key</label>
+                            <div class="layui-input-inline" style="width: 500px;">
+                                <input type="text" name="tx_map_key" value="{$data.tx_map_key}" autocomplete="off" class="layui-input">
+                            </div>
+                            <div class="layui-form-mid layui-word-aux">小程序域名配置增加：https://apis.map.qq.com/</div>
+                        </div> -->
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">阿里短信ID</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="sms_aliid" value="{$data.sms_aliid}" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">阿里短信KEY</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="sms_alikey" value="{$data.sms_alikey}" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">短信模板ID</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="sms_alimobanid" value="{$data.sms_alimobanid}" class="layui-input">
+                            </div>
+                        </div>
+                         <div class="layui-form-item">
+                            <label class="layui-form-label">短信签名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="sms_signname" value="{$data.sms_signname}" class="layui-input">
+                            </div>
+                        </div>
+                        
+                         <div class="layui-form-item">
+                                <label class="layui-form-label">短信配置</label>
+                                <div class="layui-input-block">
+                                    <input type="checkbox" name="sms_is" value="1" {if condition="$data['sms_is'] eq 1"} checked{/if} lay-skin="switch" lay-text="发送短信|不发直接提示验证码">
+                                </div>
+                            </div>
+                       <!--  <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                            <legend>微信支付配置</legend>
+                        </fieldset>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">支付商户号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="pay_shanghu" value="{$data.pay_shanghu}" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">支付密钥</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="pay_scret" value="{$data.pay_scret}" class="layui-input">
+                            </div>
+                        </div>
+                
+                         <div class="layui-form-item">
+                            <label class="layui-form-label">支付证书</label>
+                            <div class="layui-input-block">
+                               请手动把微信支付生成的apiclient_cert.pem和apiclient_key.pem放到网站根目录下的\extend\wechat\cert文件夹里。（用于自动退款）
+                            </div>
+                        </div> -->
+                        
+          
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit="" lay-filter="set_website">确认保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block name="js"}
+<script>
+    layui.use([ 'element', 'jquery', 'colorpicker', 'layer' ], function() {
+       var $ = layui.jquery;
+       var element = layui.element;
+       var colorpicker = layui.colorpicker;
+       var layer = layui.layer;
+       //常规使用
+       colorpicker.render({
+            elem : '#web_color',
+            change : function(color) { //颜色改变的回调
+                layer.tips('选择了：' + color, this.elem, {
+                    tips : 1
+                });
+            }
+       });
+       colorpicker.render({
+            elem: '#test-form'
+            ,color: '{$data.web_site_color}'
+            ,done: function(color){
+                $('#test-form-input').val(color);
+            }
+         });
+        colorpicker.render({
+            elem: '#web_site_text_color-form'
+            ,color: '{$data.web_site_text_color}'
+            ,done: function(color){
+                $('#web_site_text_color-input').val(color);
+            }
+        });
+       
+  });
+    
+</script>
+{/block}

@@ -1,0 +1,22 @@
+官方网址：http://www.51duoke.cn
+
+
+====运行环境====
+PHP >= 7.1.0
+
+
+====运行WEB目录====
+public
+
+====数据库====
+导入目录下的  db.sql 文件
+修改目录下的  .env 数据库配置
+
+
+====初始账号密码====
+admin
+123456
+
+
+ThinkPHP6.0完全开发手册
+https://www.kancloud.cn/manual/thinkphp6_0/

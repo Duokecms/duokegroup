@@ -1,0 +1,75 @@
+{extend name="main" /}
+
+{block name="body"}
+{include file="breadcrumb" /}
+<div class="layui-fluid">
+    <table class="layui-table" style="margin-top: 0;">
+        <tr>
+            <th><b>ID</b></th>
+            <th><b>帖子ID</b></th>
+            <th><b>作者</b></th>
+            <th><b>举报内容</b></th>
+            <th><b>举报人</b></th>
+            <th><b>举报时间</b></th>
+            <th style="padding: 0 15px;line-height: 40px;"><b>操作</b> </th>
+        </tr>
+
+        <tbody>
+        {foreach name="list" item="vo"}
+        <tr>
+            <td>{$vo.id}</td>
+            <td>{$vo.goods_id}</td>
+            <td><a href="javascript:;"  onClick="showImg(this)" data-href="{$vo.user.avatar}" ><img style="border-radius:50%" src="{$vo.user.avatar}" width="50" height="50"></a>&nbsp;&nbsp;&nbsp;{$vo.user.nickname}</td>
+            <td class="layui-form">
+                {$vo.content}
+            </td>
+            <td><a href="javascript:;"  onClick="showImg(this)" data-href="{$vo.faUser.avatar}" ><img style="border-radius:50%" src="{$vo.faUser.avatar}" width="50" height="50"></a>&nbsp;&nbsp;&nbsp;{$vo.faUser.nickname}</td>
+            <td>{$vo.create_time}</td>
+            <td>
+                <!-- <a href="{:url('edit',array('id'=>$vo['id']))}" data-width="600px" data-height="650px" title="修改标签" class="layui-btn layui-btn-normal layui-btn-xs xn_open">
+                    <i class="layui-icon layui-icon-edit"></i>修改
+                </a> -->
+                {if condition="$vo['id'] neq 1"}
+                <a href="{:Url('delete',array('id'=>$vo['id']))}" title="确认要删除【{$vo.title}】吗？" class="layui-btn layui-btn-danger layui-btn-xs xn_delete">
+                    <i class="layui-icon layui-icon-delete"></i>删除
+                </a>
+                {/if}
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+    <div style="margin:0 auto;text-align: center;display: none;" id="showType0">
+        <img class="show_images" src="/static/admin/images/bigimage.png">
+    </div>
+    <div style="margin:0 auto;text-align: center;display: none;" id="showType1">
+        <img class="show_images" src="/static/admin/images/shupai.png">
+    </div>
+    <div style="margin:0 auto;text-align: center;display: none;" id="showType2">
+        <img class="show_images" src="/static/admin/images/hengpai.png">
+    </div>
+</div>
+{/block}
+
+{block name="js"}
+<script>
+    layui.form.on('switch(status)', function(data){
+        //layer.tips('开关checked：'+ (this.checked ? 'true' : 'false'), data.othis)
+        var val = this.checked ? 1 : 0;
+        var id = $(this).attr('data-id');
+        var url = "{:url('edit')}";
+        $.post(url,{id:id,status:val},function (res) {
+            console.log(res);
+            layer.tips(res.msg, data.othis);
+        },'json')
+    });
+    // $('.show_type').hover(
+    //     function(){
+    //         var id = $(this).attr('data-id');
+    //         $('#showType'+id).show();
+    //     },function(){
+    //         $('#showType'+id).hide();
+    //     }
+    // );
+</script>
+{/block}

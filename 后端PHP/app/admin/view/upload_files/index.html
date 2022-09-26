@@ -1,0 +1,147 @@
+{extend name="main" /}
+
+{block name="body"}
+{include file="breadcrumb" /}
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class=" layui-card-header layuiadmin-card-header-auto">
+            <form class="layui-form" method="get">
+                <input type="hidden" name="bcid" value="{:input('bcid')}"><!--保留当前位置的bcid参数-->
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">存储位置</label>
+                        <div class="layui-input-inline">
+                            <select name="storage">
+                                <option value="">不限</option>
+                                <option value="0" {if condition="input('storage')!='' and (input('storage') eq 0)" } selected="selected" {/if}>本地</option>
+                                <option value="1" {if condition="input('storage')!='' and (input('storage') eq 1)" } selected="selected" {/if}>OSS</option>
+                                <option value="2" {if condition="input('storage')!='' and (input('storage') eq 2)" } selected="selected" {/if}>七牛</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">开始日期</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="start_date" id="start_date" value="{:input('start_date')}" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input" >
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">截止日期</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="end_date" id="end_date" value="{:input('end_date')}" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <button class="layui-btn">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="layui-card-body">
+            <table class="layui-table">
+                <tr>
+                    <th><b>图片</b></th>
+                    <th><b>存储位置</b></th>
+                    <th width="15%"><b>图片路径</b></th>
+                    <th><b>应用</b></th>
+                    <th><b>大小</b></th>
+                    <th><b>创建时间</b></th>
+                    <th><b>操作</b></th>
+                </tr>
+
+                <tbody>
+                {foreach name="list" item="vo"}
+                <tr>
+                    <td><a href="javascript:;" onClick="showImg(this)" data-href="{$vo.url}" ><img src="{$vo.url}" width="80"></a></td>
+                    <td>{$vo.storage}</td>
+                    <td>{$vo.url}</td>
+                    <td>{$vo.app}</td>
+                    <td>{$vo.file_size}</td>
+                    <td>{$vo.create_time}</td>
+                    <td>
+                        <a href="{:Url('delete',array('id'=>$vo['id']))}" title="删除记录的同时将删除图片文件，确定要删除吗？"
+                           class="layui-btn layui-btn-danger layui-btn-xs xn_delete">
+                            <i class="layui-icon layui-icon-delete"></i>删除
+                        </a>
+                    </td>
+                </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="pages">{$list|raw}</div>
+</div>
+{/block}
+
+{block name="js"}
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#start_date'
+        });
+        laydate.render({
+            elem: '#end_date'
+        });
+    });
+
+    function showImg(obj){
+        var url = $(obj).data('href');
+        var thisimg = $(obj).siblings().find('img')
+        var img = "<img src='" + url + "'  />";
+        var setting = {
+            type: 1,
+            title: false,
+            closeBtn: 0,
+            skin: 'layui-layer-nobg', //没有背景色
+            shadeClose: true,
+            shade: 0.6, //遮罩透明度
+            content: img
+        }
+
+        var windowH = $(window).height();
+        var windowW = $(window).width();
+
+        getImageWidth(url,function(w,h){
+            //console.log("win:"+windowH+","+windowW);
+            //console.log("img:"+h+","+w);
+            // 调整图片大小
+            if(w>windowW || h>windowH){
+                if(w>windowW && h>windowH){
+                    w = thisimg .width()*3;
+                    h = thisimg .height()*3;
+                    setting.area = [w+"px",h+"px"];
+                }else if(w>windowW){
+                    setting.area = [windowW+"px",windowW*0.5/w*h+"px"];
+                }else{
+                    setting.area = [w+"px",windowH+"px"];
+                }
+            }else{
+                setting.area = [w+"px",h+"px"];
+            }
+            // 设置layer
+            layer.open(setting);
+        });
+    }
+
+    function getImageWidth(url,callback){
+        var img = new Image();
+        img.src = url;
+
+        // 如果图片被缓存，则直接返回缓存数据
+        if(img.complete){
+            callback(img.width, img.height);
+        }else{
+            // 完全加载完毕的事件
+            img.onload = function(){
+                callback(img.width, img.height);
+            }
+        }
+
+    }
+</script>
+{/block}

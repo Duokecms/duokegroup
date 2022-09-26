@@ -1,0 +1,48 @@
+.page-rank {margin: 0; background: #138ed2;}
+/* 橙色主题 */
+.page-rank.orange {background: #f57a19;}
+.page-rank.orange .rankhead {background-color: #ff8f30;}
+.page-rank.orange .rankhead .title {background: #f4791d url(../images/rank_line_orange.jpg) repeat-x; background-size: 0.6rem;}
+.page-rank.orange .rankline .left {background: url(../images/rank_line_left_orange.jpg) no-repeat left; background-size: auto 100%;}
+.page-rank.orange .rankline .right {background: url(../images/rank_line_right_orange.jpg) no-repeat right; background-size: auto 100%;}
+.page-rank.orange .rankline .center {height: 1rem; background: url(../images/rank_line_center_orange.jpg) repeat-x 0.4rem 0; background-size: auto 100%;}
+/* 黄色主题 */
+.page-rank.yellow {background: #ffcc03;}
+.page-rank.yellow .rankhead {background-color: #ff6a5c;}
+.page-rank.yellow .rankhead .title {background: #ffcc03 url(../images/rank_line_yellow.jpg) repeat-x; background-size: 0.6rem;}
+.page-rank.yellow .rankline .left {background: url(../images/rank_line_left_yellow.jpg) no-repeat left; background-size: auto 100%;}
+.page-rank.yellow .rankline .right {background: url(../images/rank_line_right_yellow.jpg) no-repeat right; background-size: auto 100%;}
+.page-rank.yellow .rankline .center {height: 1rem; background: url(../images/rank_line_center_yellow.jpg) repeat-x 0.4rem 0; background-size: auto 100%;}
+
+.page-rank .rankhead {height: auto; background: #40bbff url(../images/rank_head_bg.png) no-repeat center -1.5rem; background-size: 90%; color: #fff;}
+.page-rank .rankhead .title {height: 2.4rem; background: #138ed2 url(../images/rank_line.jpg) repeat-x; background-size: 0.6rem; color: inherit; font-size: 0.6rem; text-align: center; line-height: 2.6rem;}
+.page-rank .rankhead .head {height: 7rem; text-align: center; display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; flex-wrap: nowrap; }
+.page-rank .rankhead .head .child {height: 7rem; width: 28%; padding-top: 2.4rem;}
+.page-rank .rankhead .head .child.gold {width: 44%; padding-top: 1.8rem; background: url(../images/rank_icon_gold.png) no-repeat center 0.8rem; background-size: 9rem;}
+.page-rank .rankhead .head .child.gold span {color: #fb3e27; font-size: 1rem;}
+.page-rank .rankhead .head .child.gold .text {height: 1.6rem; font-size: 0.8rem; line-height: 2rem;}
+.page-rank .rankhead .head .child span {color: #fef31f;}
+.page-rank .rankhead .head .child .text {color: inherit; font-size: 0.6rem;}
+
+.page-rank .rankline {height: 1rem; padding: 0 0.5rem;}
+.page-rank .rankline .left {height: 1rem; width: 0.4rem; background: url(../images/rank_line_left.jpg) no-repeat left; background-size: auto 100%; float: left;}
+.page-rank .rankline .right {height: 1rem; width: 0.4rem; background: url(../images/rank_line_right.jpg) no-repeat right; background-size: auto 100%; float: right;}
+.page-rank .rankline .center {height: 1rem; background: url(../images/rank_line_center.jpg) repeat-x 0.3rem 0; background-size: auto 100%;}
+
+.page-rank .ranklist {height: auto; padding: 0 0.5rem; padding-bottom:1rem;}
+.page-rank .ranklist .main {height: auto; background: #fff;padding-bottom: .01rem;}
+.page-rank .ranklist .main .line {height: auto; display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; flex-wrap: nowrap;  border-top: 1px solid #e5e5e5;}
+.page-rank .ranklist .main .line.title {border: 0;}
+.page-rank .ranklist .main .line.title .col {height: 2rem; font-size: 0.6rem; border: 0; line-height: 2rem; text-align: center; padding:0}
+.page-rank .ranklist .main .line .col {height: 2.5rem; width: 57%; font-size: 0.7rem; color: #666; line-height: 2.5rem; border-right: 1px solid #e5e5e5; text-align: left; padding: 0.25rem 0.5rem;}
+.page-rank .ranklist .main .line .col:first-child {width: 20%; text-align: center; padding: 0;}
+.page-rank .ranklist .main .line .col:last-child {width: 23%; text-align: center; padding: 0; border: 0;}
+.page-rank .ranklist .main .line .col .face, .page-rank .ranklist .main .line .col .face img {height: 2rem; width: 2rem; border-radius: 2rem; float: left;}
+.page-rank .ranklist .main .line .col .name {height: 2rem; line-height: 2rem; padding-left: 0.2rem; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; -webkit-text-overflow: ellipsis;}
+.page-rank .ranklist .main .line .col.index-1 {color: #ffcc03;}
+.page-rank .ranklist .main .line .col.index-2 {color: #aac3d2;}
+.page-rank .ranklist .main .line .col.index-3 {color: #c7a1a5;}
+
+.page-rank .ranklist .main .line .col.icon-1 {background: url(../images/rank_list_icon_1.png) no-repeat center; background-size: 50%;}
+.page-rank .ranklist .main .line .col.icon-2 {background: url(../images/rank_list_icon_2.png) no-repeat center; background-size: 50%;}
+.page-rank .ranklist .main .line .col.icon-3 {background: url(../images/rank_list_icon_3.png) no-repeat center; background-size: 50%;}

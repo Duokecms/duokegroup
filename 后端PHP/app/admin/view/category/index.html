@@ -1,0 +1,81 @@
+{extend name="main" /}
+
+{block name="body"}
+{include file="breadcrumb" /}
+<div class="layui-fluid">
+    <table class="layui-table" style="margin-top: 0;">
+        <tr>
+            <th><b>ID</b></th>
+            <th><b>圈子名称</b></th>
+            <th><b>圈子简介</b></th>
+            <th><b>圈子图片</b></th>
+            <th><b>背景图片</b></th>
+            <th><b>关注人数</b></th>
+            <th><b>排序</b></th>
+            <th><b>是否推荐</b></th>
+            <th><b>是否审核</b></th>
+            <th style="padding: 0 15px;line-height: 40px;"><b>操作</b> <span style="float: right"><a href="{:url('add')}" data-width="1000px" data-height="650px" class="layui-btn layui-btn-sm xn_open" title="添加圈子">添加圈子</a></span> </th>
+        </tr>
+
+        <tbody>
+        {foreach name="list" item="vo"}
+        <tr>
+            <td>{$vo.id}</td>
+            <td>{$vo.title}</td>
+            <td>{$vo.title_sub}</td>
+            <td><a href="javascript:;" onClick="showImg(this)" data-href="{$vo.image}" ><img src="{$vo.image}" width="50"></a></td>
+            <td><a href="javascript:;" onClick="showImg(this)" data-href="{$vo.banner}" ><img src="{$vo.banner}" width="50"></a></td>
+            <td>{$vo.follow_num}</td>
+            <td>{$vo.sort}</td>
+            <td class="layui-form">
+                <input type="checkbox" lay-verify="required" lay-filter="is_tui" name="is_tui" data-id="{$vo.id}"
+                       lay-skin="switch" lay-text="是|否" value="1" {if condition="$vo['is_tui'] eq 1"}checked{/if} >
+            </td>
+            <td class="layui-form">
+                <input type="checkbox" lay-verify="required" lay-filter="is_sh" name="is_sh" data-id="{$vo.id}"
+                       lay-skin="switch" lay-text="是|否" value="1" {if condition="$vo['is_sh'] eq 1"}checked{/if} >
+            </td>
+            <td>
+                <a href="{:url('edit',array('id'=>$vo['id']))}" data-width="1000px" data-height="650px" title="修改分类信息" class="layui-btn layui-btn-normal layui-btn-xs xn_open">
+                    <i class="layui-icon layui-icon-edit"></i>修改
+                </a>
+                <a href="{:url('showFollow',array('id'=>$vo['id']))}" data-width="1000px" data-height="650px" title="查看关注" class="layui-btn layui-btn-normal layui-btn-xs xn_open">
+                    查看关注
+                </a>
+                {if condition="$vo['id'] neq 1"}
+                <a href="{:Url('delete',array('id'=>$vo['id']))}" title="确认要删除【{$vo.title}】吗？" class="layui-btn layui-btn-danger layui-btn-xs xn_delete">
+                    <i class="layui-icon layui-icon-delete"></i>删除
+                </a>
+                {/if}
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+{/block}
+
+{block name="js"}
+<script>
+    layui.form.on('switch(is_sh)', function(data){
+        //layer.tips('开关checked：'+ (this.checked ? 'true' : 'false'), data.othis)
+        var val = this.checked ? 1 : 0;
+        var id = $(this).attr('data-id');
+        var url = "{:url('edit')}";
+        $.post(url,{id:id,is_sh:val},function (res) {
+            console.log(res);
+            layer.tips(res.msg, data.othis);
+        },'json')
+    });
+    layui.form.on('switch(is_tui)', function(data){
+        //layer.tips('开关checked：'+ (this.checked ? 'true' : 'false'), data.othis)
+        var val = this.checked ? 1 : 0;
+        var id = $(this).attr('data-id');
+        var url = "{:url('edit')}";
+        $.post(url,{id:id,is_tui:val},function (res) {
+            console.log(res);
+            layer.tips(res.msg, data.othis);
+        },'json')
+    });
+</script>
+{/block}

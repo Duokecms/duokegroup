@@ -1,0 +1,60 @@
+{extend name="iframe" /}
+
+{block name="body"}
+<style type="">
+    .hide{
+        display: none;
+    }
+</style>
+<div class="layui-form" lay-filter="layuiadmin-app-form-list" id="layuiadmin-app-form-list" style="padding: 20px 30px 0 0;">
+    <form action="{:request()->url()}" method="post" class="xn_ajax" data-type="open">
+        <div class="layui-form-item">
+            <label class="layui-form-label">勋章名称</label>
+            <div class="layui-input-inline">
+                <input type="text" name="title" lay-verify="required" placeholder="" autocomplete="off" class="layui-input" value="{$info.title}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">条件类型</label>
+            <div class="layui-input-block">
+                {foreach name="type" item="vo" key="keys"}
+                <input type="radio" name="type" lay-filter="radio_storage" class="radio_storage" value="{$keys}" title="{$vo}" {if condition="$info['type'] eq $keys"}checked=""{/if}>
+                {/foreach}
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">条件数量</label>
+            <div class="layui-input-inline">
+                <input type="text" name="meet_num" lay-verify="required" placeholder="" autocomplete="off" class="layui-input" value="{$info.meet_num}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">勋章图片</label>
+            <div class="layui-input-block">
+                {:xn_upload_one_unselect($info['image'],'image',0)}
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" lay-submit class="layui-btn">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+{/block}
+
+{block name="js"}
+<script>
+    layui.use(['form','jquery'], function () {
+        var form = layui.form;
+        var $ = layui.jquery;
+        //点击勾选
+        form.on('radio(radio_storage)', function (data) {
+            var value = $(this).val();
+            $('.hide').hide();
+            $('.type' + value).show();
+            form.render('radio');
+        });
+    });
+</script>
+{/block}

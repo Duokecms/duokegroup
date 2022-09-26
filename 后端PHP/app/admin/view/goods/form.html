@@ -1,0 +1,219 @@
+{extend name="main" /}
+
+{block name="body"}
+{include file="breadcrumb" /}
+<style type="">
+</style>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-header">帖子信息</div>
+                <div class="layui-card-body" pad15="">
+                    <form action="{:request()->url()}" method="post" class="xn_ajax" data-type="open">
+                        <div class="layui-form" wid100="" lay-filter="">
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">用户ID</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" name="user_id" lay-verify="required" placeholder="" autocomplete="off" class="layui-input" value="">
+                                </div>
+                            </div>
+                            <div class="layui-form-item layui-form-text">
+                                <label class="layui-form-label">帖子内容</label>
+                                <div class="layui-input-block">
+                                    <textarea name="content" placeholder="请输入内容" class="layui-textarea">{$data.content}</textarea>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">圈子</label>
+                                <div class="layui-input-inline">
+                                    <select name="cate_id" >
+                                        <option value="0">请选择圈子</option>
+                                        {foreach name="cateOne" item="v"}
+                                        <option value='{$v.id}' {if condition="$data.cate_id eq $v.id"}selected{/if}>{$v.title}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">话题</label>
+                                <div class="layui-input-block">
+                                    {foreach name="tags" item="v"}
+                                    <input class="xb-icheck" type="checkbox" name="tags_ids[]" value="{$v.id}" {in name="v.id" value="$data.tags_ids"} checked="checked" {/in} title="{$v.title}" lay-skin="primary">
+                                    {/foreach}
+                                </div>
+                            </div>
+
+                            
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">图片</label>
+                                <div class="layui-input-block">
+                                    {:xn_upload_multi($data['images'],'images',0)}
+                                </div>
+                            </div>
+                            
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn" lay-submit="" lay-filter="set_website">确认保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{/block}
+<!--编辑器-->
+
+{block name="js"}
+<script src="/static/admin/ueditor/ueditor.config.js"></script>
+<script src="/static/admin/ueditor/ueditor.all.min.js"></script>
+<script src="/static/admin/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script>
+    UE.getEditor('content',{
+        initialFrameWidth :800,// 设置编辑器宽度
+        initialFrameHeight:200,// 设置编辑器高度
+        scaleEnabled:true
+    });
+</script>
+<script>
+    $(function(){
+        var duotaocan = $('#is_duotaocan').val();
+        if(duotaocan == 1)
+        {
+         $('.duotaocan').show();
+         $('.dan').hide();
+         console.log($('.taocanBody').children().length)
+        if ($('.taocanBody').children().length < 1){
+         addTaocan();
+        }
+
+        }
+        else
+        {
+         $('.duotaocan').hide();
+         $('.dan').show();   
+        }
+    })
+    function miaodian_zuobiao(){
+        layer.open({
+            type: 2,
+            skin: 'layui-layer-black',
+            area: ['950px', '600px'],
+            fixed: false, //不固定
+            maxmin: true,
+            content: "{:Url('map')}"
+        });
+
+    }
+</script>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        laydate.render({
+            elem: '#begin_date',
+            type: 'datetime'
+        });
+        laydate.render({
+            elem: '#end_date',
+            type: 'datetime'
+        });
+    });
+    layui.form.on('switch(duotaocan)', function(data){
+        //layer.tips('开关checked：'+ (this.checked ? 'true' : 'false'), data.othis)
+        var val = this.checked ? 1 : 0;
+        if(val == 0){
+            $('.dan').show();
+             $('.duotaocan').hide();
+        }else{
+
+            $('.duotaocan').show();
+            $('.dan').hide();
+            if ($('.taocanBody').children().length < 1){
+                addTaocan();
+            }
+        }
+    });
+    layui.form.on('select(cate_id)', function(data){
+        console.log(data.value);//得到被选中的值
+        $.get("{:Url('getOption')}?id="+data.value,function(data,status){
+            $('#cateTwoId').html(data);
+            layui.form.render("select");
+        });
+    })
+    function delTaocan(id,obj)
+    {
+        layer.confirm('你确定要删除该套餐吗?', {icon: 3, title:'提示'}, function(index){
+            if(id == 0){
+                $(obj).parent().parent().parent().remove();
+                layer.close(index);
+                layer.msg('删除成功')
+            }else{
+                var url = "{:url('del_taocan')}";
+                $.post(url,{id:id},function (res) {
+                    $(obj).parent().parent().parent().remove();
+                    layer.close(index);
+                    layer.msg('删除成功')
+                },'json')
+            }
+        });
+    }
+
+    function addTaocan(){
+        var html = '<tr>\
+            <td>\
+                <div class="layui-input-inline" style="width: 110px;">\
+                    <input type="text" name="taocan_title[]" lay-verify="required" value="" placeholder="规格名" class="layui-input">\
+                </div>\
+            </td>\
+            <td>\
+                <div class="layui-input-inline" style="width: 110px;">\
+                    <input type="text" name="taocan_price[]" lay-verify="required" value="" placeholder="价格" class="layui-input">\
+                </div>\
+            </td>\
+            <td>\
+                <div class="layui-input-inline" style="width: 110px;">\
+                    <input type="text" name="taocan_old_price[]" lay-verify="required" value="" placeholder="原价" class="layui-input">\
+                </div>\
+            </td>\
+            <td>\
+                <div class="layui-input-inline" style="width: 110px;">\
+                    <input type="text" name="taocan_vip_price[]" lay-verify="required" value="" placeholder="会员价" class="layui-input">\
+                </div>\
+            </td>\
+            <td>\
+                <div class="layui-input-inline" style="width: 110px;">\
+                    <input type="text" name="taocan_daren_money[]" lay-verify="required" value="" placeholder="达人佣金" class="layui-input">\
+                </div>\
+            </td>\
+            <td>\
+                <div class="layui-input-inline" style="width: 110px;">\
+                    <input type="text" name="taocan_kucun[]" lay-verify="required" value="10000" placeholder="库存" class="layui-input">\
+                </div>\
+            </td>\
+            <td>\
+                <div class="layui-input-inline" style="width: 110px;">\
+                    <input type="text" name="taocan_unit[]" lay-verify="required" value="" class="layui-input" placeholder="单位">\
+                </div>\
+            </td>\
+            <td>\
+                <div class="layui-input-inline" style="width: 110px;">\
+                    <input type="text" name="taocan_limit_num[]" lay-verify="required" value="0" placeholder="限购" class="layui-input">\
+                </div>\
+            </td>\
+            <td>\
+                <div class="layui-input-inline" style="width: 110px;">\
+                    <input type="hidden" name="taocan_id[]" value="0">\
+                    <span style="cursor: pointer;" onclick="delTaocan(0,$(this))">删除</span>\
+                </div>\
+            </td>\
+        </tr>';
+
+        $('.taocanBody').append(html);
+    }
+</script>
+{/block}

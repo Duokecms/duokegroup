@@ -1,3 +1,34 @@
+
+![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan/head2.jpg)
+
+
+<h3 align="center">多客圈子社区系统开源版1.2.1版</h3> 
+
+  
+
+ - 她是谁？？？ 她是一款全开源支持免费商用的圈子社区论坛系统；是的!对!没看错! 她就是我们技术宅男的女神，我们为她熬夜伤肝，我们为她牵肠挂肚，我们为她彻夜难眠！
+ 
+ - 多客开源团队（www.51duoke.cn)2022年伤肝之作！系统基于TP6+Uni-app框架开发；客户移动端采用uni-app开发，管理后台TH6开发。
+
+ - 系统支持微信公众号端、微信小程序端、H5端、PC端多端账号同步，可快速打包生成APP；
+
+ - 我们为你准备了完善的后台管理，不需要你懂PHP，按照教程3分钟安装完即可使用，堪比深夜的杜蕾斯还方便。
+
+ - 我们为你准备漂亮的UI前端，导入UNI,2分钟编译为小程序，3分钟编译为安卓app，5分钟编译为ios系统。
+
+ 
+
+ - 如果，我是说如果，你啥都不会，服务器不会假设，数据库也不会操作，打包也不会，联系我们即可。
+
+ - 我们提供一整套安装调试上架服务。
+
+ - 当然我们后续也会有商业版出品plus版，增加各种酷炫功能。
+ 
+ - 当然我们也会接二次定制开发的版本，只要你想，你就可以拥有。
+
+
+ ![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan/quanhanner.jpg)
+
 后端程序目录
 ===============
 
@@ -7,40 +38,27 @@
 - MySQL >= 5.6.3
 - Redis
 
-## 安装
+## uniapp安装
 
-## 快速安装
+将前端UNI目录导入到你的HBuilder里
 
-> 第一步：安装代码
+修改tools/siteinfo.js 里的域名为你的域名即可
 
-```
-git clone https://gitee.com/multi-customer-open-source/multi-social.git
-```
-```
-再使用composer安装 composer install
-```
-
-## 一键安装
-上传你的代码，站点入口目录设置/public
-在浏览器中输入你的域名或IP（例如：www.yourdomain.com）,
-安装程序会自动执行安装。期间系统会提醒你输入数据库信息以完成安装，安装完成后建议删除app\install目录。
-
-后台访问地址：
-1.域名/admin
-2.域名/index.php/admin
-3.域名/index.php?s=/admin
+如果打包小程序及app 请参考uniapp官方文档
 
 
-安装过程中请牢记您的账号密码！
 
-## 重新安装
-1. 清除数据库
-2. 删除/public/install.lock 文件
-3. 执行：域名/install/ 按照提示进行安装
-## 手动安装
-1.创建数据库，倒入数据库文件
-数据库文件目录/app/install/data/install.sql
-2.修改数据库连接文件
+
+## 后端安装
+将后端php代码放到你的网站根目录即可
+
+====运行WEB目录====
+public
+
+====数据库====
+导入目录下的  db.sql 文件
+修改目录下的  .env 数据库配置
+
 配置文件路径/.env
 ~~~
 APP_DEBUG = true
@@ -70,11 +88,24 @@ SELECT = 0 #数据库
 3.修改目录权限（linux系统）777
 /public
 /runtime
-4.后台登录：
+
+====后台登陆====
 http://域名/admin
 默认账号：admin 密码：123456
 
-## 功能简介
+## 后台功能简介
+
+
+进入后台后，请在基础配置里配置你的参数即可。
+
+H5和APP是手机号登陆，如果需要发送验证码，已经集成了阿里云的sms
+
+上传集成阿里云oss和七牛云，也可以本地储存
+
+内容监控和屏蔽，采用七牛云，请在上传配置出配置name和key
+
+
+
  
  ```
  Admin（后台功能）
@@ -102,29 +133,86 @@ http://域名/admin
  |  └─ 勋章管理 - ....
  ├─ ......
  ```
+ ### 前端页面展示
+
+ **首页和广场**
+![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan/qianduan/1.jpg)
+
+**圈子和帖子**
+
+![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan/qianduan/2.jpg)
+
+**个人主页**
+
+![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan/qianduan/3.jpg)
+
 
 ### 页面展示
-![输入图片说明](ReadmeImages/1.jpg)
-![输入图片说明](ReadmeImages/2.jpg)
-![输入图片说明](ReadmeImages/3.jpg)
-![输入图片说明](ReadmeImages/4.jpg)
-![输入图片说明](ReadmeImages/5.jpg)
-![输入图片说明](ReadmeImages/6.jpg)
-![输入图片说明](ReadmeImages/7.jpg)
-![输入图片说明](ReadmeImages/8.jpg)
-![输入图片说明](ReadmeImages/9.jpg)
-![输入图片说明](ReadmeImages/10.jpg)
-![输入图片说明](ReadmeImages/11.jpg)
-![输入图片说明](ReadmeImages/12.jpg)
-![输入图片说明](ReadmeImages/13.jpg)
-![输入图片说明](ReadmeImages/14.jpg)
-![输入图片说明](ReadmeImages/15.jpg)
-![输入图片说明](ReadmeImages/16.jpg)
+![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//1.jpg)
+![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//2.jpg)
+![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//3.jpg)
+![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//4.jpg)
+![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//5.jpg)
+![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//6.jpg)
+![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//7.jpg)
+![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//8.jpg)
+![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//9.jpg)
+![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//10.jpg)
+![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//11.jpg)
+![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//12.jpg)
+![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//13.jpg)
+![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//14.jpg)
+![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//15.jpg)
+![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//16.jpg)
 
 ## 文档
 
 [TP6开发手册](https://www.kancloud.cn/manual/thinkphp6_0/content)
 
+[uniapp开发手册](https://uniapp.dcloud.net.cn/)
 
-## 参与开发
 
+![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan/quanhanner.jpg)
+
+## 更新计划
+
+多客圈子社交系统商业版 1.3.0版升级计划
+
+本次版本计划偏向于社交属性。适合做婚恋、交友等。
+
+1、即时聊天功能，对方未回复，只能发送最多3条记录。支持发送语音 图片 文字。
+
+2、增加音乐随声听，后台管理音乐库，用户可选择播放和关闭，播放器。
+
+3、发布帖子增加仅自己可见和@关注的好友。
+
+4、增加生成个人主页海报并附上小程序二维码。
+
+5、个人资料增加 年龄、标签。
+
+6、增加派对频道，增加聊天房间（文字聊天室），可邀请好友加入，或用户主动进入。
+
+7、其他更多等你来提意见
+
+
+## 特别鸣谢
+
+排名不分先后，感谢这些软件的开发者：thinkphp、小牛admin、图鸟UI、vue、mysql、redis、uniapp等！
+
+
+## 开源版使用须知
+
+1.允许用于个人学习、毕业设计、教学案例、公益事业、商业使用;
+
+2.如果商用必须保留版权信息，请自觉遵守;
+
+3.禁止将本项目的代码和资源进行任何形式的出售，产生的一切任何后果责任由侵权者自负。
+
+## 版权信息
+
+
+版权所有Copyright © 2016-2022 by 四川掌上时代科技有限公司旗下多客开源事业部 (http://www.51duoke.cn   http://www.siyibang.com)
+
+All rights reserved。
+
+著作权所有者为四川掌上时代科技有限公司。

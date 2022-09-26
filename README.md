@@ -90,7 +90,7 @@ SELECT = 0 #数据库
 ~~~
 3.修改目录权限（linux系统）777
 /public
-/runtime
+
 
 ====后台登陆====
 http://域名/admin

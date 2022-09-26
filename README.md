@@ -161,7 +161,7 @@ H5和APP是手机号登陆，如果需要发送验证码，已经集成了阿里
 ![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//11.jpg)
 ![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//12.jpg)
 ![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//13.jpg)
-![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//14.jpg)
+
 ![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//15.jpg)
 ![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//16.jpg)
 

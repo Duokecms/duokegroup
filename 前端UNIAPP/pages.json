@@ -1,0 +1,181 @@
+{
+  "easycom": {
+    "^tn-(.*)": "@/tuniao-ui/components/tn-$1/tn-$1.vue"
+  },
+  "pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+    {
+      "path": "pages/index",
+      "style": {
+		  
+        "mp-weixin": {
+          "disableScroll": true
+        },
+        "app-plus": {
+          "bounce": "none"
+        },
+        "mp-alipay": {
+          "allowsBounceVertical": "NO"
+        },
+        "mp-baidu": {
+          "disableScroll": true
+        }
+      }
+    }
+	, {
+		"path": "pages/login/login",
+		"style": {
+			"navigationBarTitleText": "登录",
+			"disableScroll": true
+		}
+	}
+  ],
+  "subPackages": [{
+    "root": "homePages",
+    "pages": [{
+        "path": "about",
+        "style": {
+          "navigationBarTitleText": "关于我们",
+          "enablePullDownRefresh": false
+        }
+      },
+      {
+        "path": "search",
+        "style": {
+          "navigationBarTitleText": "全局搜索",
+          "enablePullDownRefresh": false
+        }
+      }
+      
+    ]
+  }, {
+    "root": "circlePages",
+    "pages": [     
+      {
+        "path": "group_fans",
+        "style": {
+          "navigationBarTitleText": "粉丝列表",
+          "enablePullDownRefresh": false
+        }
+      },
+      {
+        "path": "group",
+        "style": {
+          "navigationBarTitleText": "圈子详情",
+          "enablePullDownRefresh": false
+        }
+      },
+	  {
+	    "path": "tags_list",
+	    "style": {
+	      "navigationBarTitleText": "话题列表",
+	      "enablePullDownRefresh": false
+	    }
+	  },
+	  {
+	    "path": "group_list",
+	    "style": {
+	      "navigationBarTitleText": "圈子列表",
+	      "enablePullDownRefresh": false
+	    }
+	  },
+	  {
+	    "path": "edit_quan",
+	    "style": {
+	      "navigationBarTitleText": "圈子列表",
+	      "enablePullDownRefresh": false
+	    }
+	  },
+      {
+        "path": "fans",
+        "style": {
+          "navigationBarTitleText": "粉丝列表",
+          "enablePullDownRefresh": false
+        }
+      },         
+      {
+        "path": "blogger_other",
+        "style": {
+          "navigationBarTitleText": "博主_Ta",
+          "enablePullDownRefresh": false
+        }
+      },
+      {
+        "path": "details",
+        "style": {
+          "navigationBarTitleText": "圈子详情",
+          "enablePullDownRefresh": false
+        }
+      },
+      {
+        "path": "reserve",
+        "style": {
+          "navigationBarTitleText": "活动详情",
+          "enablePullDownRefresh": false
+        }
+      },
+	  {
+	    "path": "medal",
+	    "style": {
+	      "navigationBarTitleText": "勋章",
+	      "enablePullDownRefresh": false
+	    }
+	  },
+      {
+        "path": "edit",
+        "style": {
+          "navigationBarTitleText": "编辑发布",
+          "enablePullDownRefresh": false
+        }
+      },
+      {
+        "path": "create",
+        "style": {
+          "navigationBarTitleText": "活动创建",
+          "enablePullDownRefresh": false
+        }
+      },
+      {
+        "path": "build",
+        "style": {
+          "navigationBarTitleText": "创建圈子",
+          "enablePullDownRefresh": false
+        }
+      }
+    ]
+  },{
+    "root": "minePages",
+    "pages": [{
+        "path": "set",
+        "style": {
+          "navigationBarTitleText": "设置",
+          "enablePullDownRefresh": false
+        }
+      },{
+        "path": "my_group",
+        "style": {
+          "navigationBarTitleText": "我的圈子",
+          "enablePullDownRefresh": false
+        }
+      },{
+        "path": "my_msg",
+        "style": {
+          "navigationBarTitleText": "我的消息",
+          "enablePullDownRefresh": false
+        }
+      },{
+        "path": "my_star",
+        "style": {
+          "navigationBarTitleText": "我的点赞",
+          "enablePullDownRefresh": false
+        }
+      }
+    ]
+  }],
+  "globalStyle": {
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  }
+}

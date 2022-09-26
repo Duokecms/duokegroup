@@ -29,6 +29,9 @@
 
  ![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan/quanhanner.jpg)
 
+
+后端下载地址：https://gitee.com/multi-customer-open-source/multi-social
+
 后端程序目录
 ===============
 

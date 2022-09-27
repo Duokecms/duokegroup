@@ -126,7 +126,7 @@
 		position: relative;
 		z-index: 1;
 		// padding: 20rpx 30rpx;
-		margin-top: 120rpx;
+		margin-top: 160rpx;
 		border-radius: 80rpx 80rpx 0 0;
 	}
 

@@ -7,7 +7,10 @@
 				<text class='icon tn-icon-home-capsule-fill' @click="gohome"></text>
 			</view>
 		</tn-nav-bar>
-		<view class="after-dom" :style="{ background: configInfo.web_site_color }"></view>
+		<view class="after-dom" :style="{ background: configInfo.web_site_color,marginTop: vuex_custom_bar_height + 'px' }" > 
+			
+		
+		</view>
 
 		<view class="title zIndex10">
 			<view class="after" :style="{ background: configInfo.web_site_color }"></view>

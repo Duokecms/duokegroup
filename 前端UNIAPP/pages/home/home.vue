@@ -471,7 +471,8 @@
 			},
 			// tab选项卡切换
 			tabChange(index) {
-
+				 
+				 this.content=[]
 				if (index == 0) {
 					if (!uni.getStorageSync('token')) {
 						this.loginBoxFlag = true

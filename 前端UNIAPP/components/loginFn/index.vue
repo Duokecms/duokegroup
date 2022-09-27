@@ -214,30 +214,14 @@ export default {
 			}
 		},
 
-		// #ifdef H5
+		
 		gzhH5WxloginFn() {
 			let that = this;
 			that.navigateToFn({
 				url: `/pages/login/login`
-			});
-			return false;
-			
-			if (that.globalBrowserIsWx) {
-				let h5path = encodeURIComponent(`${host}/h5/#/pages/my/my`); // 获取完token再跳回到 h5 的路径
-				let href = `${host}/api/User/third?platform=officialAccount&path=${h5path}`;
-
-				// 登录时 把分享者的字符串带上
-				let sharerStr = uni.getStorageSync('sharer'); // 串
-				if (sharerStr) {
-					href += `&sharer=${sharerStr}`;
-				}
-				location.href = href;
-				return false;
-			}
-
-			
+			});			
 		}
-		// #endif
+	
 	}
 	// ↑↑↑↑↑ methods 结束
 };

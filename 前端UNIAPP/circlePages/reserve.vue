@@ -182,8 +182,8 @@
 		  
 		  if (this.body.lng){
         uni.openLocation({
-          longitude: this.body.lng,
-          latitude: this.body.lng,
+          longitude: Number(this.body.lng),
+          latitude: Number(this.body.lat),
           name: '活动举办地',
           address:this.body.address
         })

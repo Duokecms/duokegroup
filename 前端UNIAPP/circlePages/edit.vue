@@ -7,6 +7,18 @@
         <text class='icon tn-icon-left'></text>
        <text class='icon tn-icon-home-capsule-fill' @click="gohome"></text>
       </view>
+	  
+	  <view slot="right" @click="fabu()" style="margin-right: 10px;">
+	  <tn-button backgroundColor="#00FFC6"  width="80px" shadow fontBold>
+	  	<!-- <text class="tn-icon-light tn-padding-right-xs tn-color-black"></text> -->
+	  	<text class="tn-color-black">发布</text>
+		     <text class="tn-icon-camera tn-padding-left-xs tn-color-black"></text>
+	  					
+	  </tn-button>
+	  </view>
+	  
+	  
+	  
     </tn-nav-bar>
 		
     <view class="tn-safe-area-inset-bottom" :style="{paddingTop: vuex_custom_bar_height + 'px'}">
@@ -108,18 +120,7 @@
       </view>  
 
 	  
-	  
-
-      <!-- 悬浮按钮-->
-      <view class="tn-flex tn-footerfixed" @click="fabu()">
-        <view class="tn-flex-1 justify-content-item tn-margin-sm tn-text-center">
-          <tn-button backgroundColor="#00FFC6" padding="40rpx 0" width="60%" shadow fontBold>
-            <!-- <text class="tn-icon-light tn-padding-right-xs tn-color-black"></text> -->
-            <text class="tn-color-black">发 布</text>
-            <text class="tn-icon-camera tn-padding-left-xs tn-color-black"></text>
-          </tn-button>
-        </view>
-      </view>
+	
       
     </view>
     

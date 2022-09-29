@@ -65,7 +65,7 @@ class User extends Base
         $res = Db::name('goods')->strict(false)->insertGetId($param);
         if ($res) {
             Db::name('category')->where('id',$param['cate_id'])->inc('goods_num')->update();
-            Db::name('active')->where('id',$param['tags_ids'])->inc('goods_num')->update();
+            Db::name('tags')->where('id',$param['tags_ids'])->inc('goods_num')->update();
 
             addAfterLevel($request->loginInfo,'goods');//处理等级
             addAfterMedal($request->loginInfo,'goods');//处理勋章

@@ -141,7 +141,7 @@ function debounce(fn,wait){
 
 
 
-// ↓↓↓↓↓↓↓↓ 万象优鲜项目通用相关工具
+
 
 
 // 生成小时数据
@@ -570,11 +570,11 @@ function addSpecFilterItemActAttrFn(specFilterItem) {
 	})
 	return cloneSpecFilterItem;
 }
-// ↑↑↑↑↑↑↑↑ 万象优鲜项目通用相关工具
 
 
 
-// ↓↓↓↓↓↓↓↓ 万象优鲜项目页面里需要的工具函数
+
+
 /*
 	@description
 		检测头像图片路径是否正常 如果不带域名加上 siteInfo 里的host return 出去
@@ -940,7 +940,7 @@ let validateFn = {
 }
 
 
-// ↑↑↑↑↑↑↑↑ 万象优鲜项目页面里需要的工具函数
+
 
 export {
 	checkTypeFn,

@@ -307,7 +307,7 @@ class Index extends Base
         $param = $request->param();
         $userInfo = $request->loginInfo;
         
-        
+
         $where = [];
         $where2 = 'is_sh = 1';
         $order = 'id desc,date desc';
@@ -366,11 +366,11 @@ class Index extends Base
                 $item['mainImage'] = getImageUrlArr(explode(',',$item['mainImage']));
                 $tags = Db::name('tags')->where('id','IN',$item['tags_ids'])->select();
                 $label = [];              
-                if ($userInfo['id']==$item['user_id']){
-                $item['ziji'] =1;
+                if (isset($userInfo['id']) && $userInfo['id'] == $item['user_id']){
+                    $item['ziji'] =1;
                 }else{
-                $item['ziji'] =0;
-                 }
+                    $item['ziji'] =0;
+                }
           
                 $managecate = Db::name('category_follow')->where(['user_id'=>$userInfo['id'],'cate_id'=>$item['cate_id'],'is_manage' =>1])->find(); 
 

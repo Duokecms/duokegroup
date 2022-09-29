@@ -306,9 +306,8 @@ class Index extends Base
     {
         $param = $request->param();
         $userInfo = $request->loginInfo;
-        $myId = $request->loginInfo['id'];
-
-         //var_dump($userInfo);exit;      
+        
+        
         $where = [];
         $where2 = 'is_sh = 1';
         $order = 'id desc,date desc';
@@ -317,6 +316,7 @@ class Index extends Base
         }
 
         if (isset($param['to_id']) &&$param['to_id']==0) {
+            $myId = $request->loginInfo['id'];
             $where = 'user_id = '.$myId;
         }
         

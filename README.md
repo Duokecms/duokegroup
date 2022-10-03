@@ -181,7 +181,7 @@ H5和APP是手机号登陆，如果需要发送验证码，已经集成了阿里
 [uniapp开发手册](https://uniapp.dcloud.net.cn/)
 
 
-![输入图片说明](http://www.51duoke.cn/quanzi/images/)
+ ![输入图片说明](http://www.51duoke.cn/quanzi/images/quanhanner.jpg)
 
 ## 更新计划
 

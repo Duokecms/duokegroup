@@ -42,7 +42,10 @@ class User extends Base
     public function addNewGoods(Request $request)
     {
         $param = $request->param();
-        checkCloseSpeck($request->loginInfo['id']);
+         if ($request->loginInfo['status']==1);
+        {
+         return error(false,'你被禁言了');   
+        }   
         //images tags_ids cate_id content 
         $res = checkTextByQiniu($param['content']);
         if ($res['code'] == 0) {
@@ -91,8 +94,10 @@ class User extends Base
     {
         $param = $request->param();
 
-        //title detail images address  lat  lng  times
-        checkCloseSpeck($request->loginInfo['id']);
+        if ($request->loginInfo['status']==1);
+        {
+         return error(false,'你被禁言了');   
+        }   
         $res = checkTextByQiniu($param['title'].''.$param['detail']);
         if ($res['code'] == 0) {
             return error(false,$res['msg']);
@@ -122,9 +127,10 @@ class User extends Base
     public function addcategory(Request $request)
     {
         $param = $request->param();
-
-
-        checkCloseSpeck($request->loginInfo['id']);
+ if ($request->loginInfo['status']==1);
+        {
+         return error(false,'你被禁言了');   
+        }   
         $res = checkTextByQiniu($param['title'].''.$param['title_sub']);
         if ($res['code'] == 0) {
             return error(false,$res['msg']);
@@ -212,7 +218,10 @@ class User extends Base
     public function addGoodsComment(Request $request)
     {
         $param = $request->param();
-        checkCloseSpeck($request->loginInfo['id']);
+         if ($request->loginInfo['status']==1);
+        {
+         return error(false,'你被禁言了');   
+        }   
         $user_id = $request->loginInfo['id'];
         $goods_id = $param['goods_id'];
         $content = $param['content'];

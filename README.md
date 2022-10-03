@@ -1,5 +1,5 @@
 
-![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan/head2.jpg)
+![输入图片说明](http://www.51duoke.cn/quanzi/images/head2.jpg)
 
 
 <h3 align="center">多客圈子社区系统开源版1.2.1版</h3> 
@@ -27,7 +27,13 @@
  - 当然我们也会接二次定制开发的版本，只要你想，你就可以拥有。
 
 
- ![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan/quanhanner.jpg)
+ ![输入图片说明](http://www.51duoke.cn/quanzi/images/quanhanner.jpg)
+
+
+
+## 后端演示
+http://quan.51duoke.cn/admin
+账号demo  密码demo    （仅有查看权限）
 
 
 后端下载地址：https://gitee.com/multi-customer-open-source/multi-social
@@ -175,7 +181,7 @@ H5和APP是手机号登陆，如果需要发送验证码，已经集成了阿里
 [uniapp开发手册](https://uniapp.dcloud.net.cn/)
 
 
-![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan/quanhanner.jpg)
+![输入图片说明](http://www.51duoke.cn/quanzi/images/)
 
 ## 更新计划
 

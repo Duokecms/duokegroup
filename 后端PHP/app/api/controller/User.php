@@ -222,6 +222,10 @@ class User extends Base
         {
          return error(false,'你被禁言了');   
         }   
+          $res = checkTextByQiniu($param['content']);
+        if ($res['code'] == 0) {
+            return error(false,$res['msg']);
+        }
         $user_id = $request->loginInfo['id'];
         $goods_id = $param['goods_id'];
         $content = $param['content'];

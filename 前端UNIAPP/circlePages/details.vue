@@ -153,8 +153,8 @@
 
 					<!-- 按钮-->
 					<view class="tn-flex tn-flex-row-between" style="margin: 40rpx 0 60rpx 0;"
-						@click="dianzantiezi(id)">
-						<view class="tn-flex-1 justify-content-item tn-margin-xs tn-text-center">
+					>
+						<view class="tn-flex-1 justify-content-item tn-margin-xs tn-text-center" @click="dianzantiezi(id)">
 							<tn-button backgroundColor="#00FFC6" padding="40rpx 0" width="90%" shadow fontBold>
 								<text class="tn-icon-praise-fill tn-padding-right-xs "
 									:class="item.is_like?'':'tn-color-red'"></text>

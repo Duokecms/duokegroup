@@ -42,7 +42,7 @@ class User extends Base
     public function addNewGoods(Request $request)
     {
         $param = $request->param();
-         if ($request->loginInfo['status']==1);
+         if ($request->loginInfo['status']==1)
         {
          return error(false,'你被禁言了');   
         }   
@@ -94,7 +94,7 @@ class User extends Base
     {
         $param = $request->param();
 
-        if ($request->loginInfo['status']==1);
+        if ($request->loginInfo['status']==1)
         {
          return error(false,'你被禁言了');   
         }   
@@ -127,7 +127,7 @@ class User extends Base
     public function addcategory(Request $request)
     {
         $param = $request->param();
- if ($request->loginInfo['status']==1);
+ if ($request->loginInfo['status']==1)
         {
          return error(false,'你被禁言了');   
         }   
@@ -218,7 +218,7 @@ class User extends Base
     public function addGoodsComment(Request $request)
     {
         $param = $request->param();
-         if ($request->loginInfo['status']==1);
+         if ($request->loginInfo['status']==1)
         {
          return error(false,'你被禁言了');   
         }   

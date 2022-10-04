@@ -1,11 +1,8 @@
 <template>
 	<view class="template-create tn-safe-area-inset-bottom">
 		<!-- 顶部自定义导航 -->
-		<tn-nav-bar fixed alpha customBack>
-			<view slot="back" class='tn-custom-nav-bar__back'>
-				<text class='icon tn-icon-left' @click="goBack"></text>
-				<text class='icon tn-icon-home-capsule-fill' @click="gohome"></text>
-			</view>
+	<tn-nav-bar fixed :isBack="true">
+		资料修改			
 		</tn-nav-bar>
 
 
@@ -32,13 +29,14 @@
 		
 			
 			
-			
-			
-			
-			 
-			<okingtz-cropper  ref="touxiang" @uploadSuccess="uploadSuccess"></okingtz-cropper>
-
-			<view class="user-info__container tn-flex tn-flex-direction-column tn-flex-col-center tn-flex-row-center" @click="xuanze()">
+			<tn-cropper  v-show="show"
+			  :imageUrl="imageUrl"
+			  :isRound="isRound"			
+			  @cropper="cropperFinish"
+			  @closecopper="close"
+			></tn-cropper>
+					
+			<view class="user-info__container tn-flex tn-flex-direction-column tn-flex-col-center tn-flex-row-center" @click="chooseImage()">
 			  <view class="user-info__avatar  tn-flex tn-flex-col-center tn-flex-row-center" style="position: relative;">
 			  <view class="logo-pic tn-shadow">
 			  	<view class="logo-image">
@@ -88,7 +86,11 @@
 		name: 'TemplateCreate',
 		mixins: [template_page_mixin],
 		data() {
-			return {	
+			return {
+				truehead:'',
+				isRound: true,
+				imageUrl:'',
+				show:false,
 				avatar:'',
 				body:[],
 				action: '',	
@@ -104,9 +106,36 @@
 				
 		},
 		methods: {
-			xuanze(){
-			this.$refs.touxiang.getImage()
-			},
+	
+   // 选择图片
+   close(){
+	  this.show=false 
+   },
+   
+      chooseImage() {
+        uni.chooseImage({
+          count: 1,
+          sizeType: ['original', 'compressed'],
+          sourceType: ['album','camera'],
+          success: (res) => {
+            const tempFilePaths = res.tempFilePaths[0]
+            this.imageUrl = tempFilePaths
+			 this.show=true
+          }
+        })
+      },
+		// 裁剪完成
+		cropperFinish(res) {		
+		  if (res.url) {
+		    this.cropperImageUrl = res.url
+		  }
+		  if (res.base64) {
+		    this.cropperImageUrl = `${res.base64}`
+		  }
+		  this.avatar=this.cropperImageUrl
+		  this.show=false
+		  
+		},
 		
 		async info() {
 			let that = this;		
@@ -124,7 +153,9 @@
 					that.body = result.data.data.userinfo;
 					that.title=that.body.nickname
 					that.dec=that.body.dec
-					that.avatar=that.body.avatar			
+					that.avatar=that.body.avatar
+					that.truehead=that.body.truehead
+								
 					
 				} else {
 					uni.showToast({
@@ -141,15 +172,15 @@
 		
 		
 		},
-			uploadSuccess(tempFilePath) {
+		
+		
+			uploadSuccess() {
 				uni.showToast({
 					title: '上传成功'
-				})				
-				this.$refs.touxiang.guanbiisShowImg()				 
-		
+				})	
 					uni.uploadFile({
 					url: this.action, //仅为示例，非真实的接口地址
-					filePath: tempFilePath,
+					filePath: this.cropperImageUrl,
 					name: 'file',
 					formData: {
 						'token': uni.getStorageSync('token'),
@@ -157,29 +188,35 @@
 					},
 					success: (uploadFileRes) => {						
 						let data=JSON.parse(uploadFileRes.data)
-						this.avatar=host+data.data.file					
+						this.avatar=host+data.data.file
+						this.truehead=data.data.file	
+						this.post()
 					}
 				});
 		
 				
 			},
 
-			showCalendar() {
-				this.show = true
-			},
-		
 
-
-
-			async send() {
-
-
-				let that = this;
-
+			send(){
 				if (this.title == '') {
 					this.msg('请输入昵称')
 					return
-				}			
+				}	
+				 
+				 if (this.cropperImageUrl){
+					 this.uploadSuccess()
+				 }else{
+					 this.post()
+				 }
+				
+				
+			},
+
+			async post() {
+
+
+				let that = this;					
 
 				let result = await that.$request({
 					loading: 1,
@@ -188,30 +225,14 @@
 					data: {
 						nickname: that.title,
 						dec: that.dec,
-						avatar: that.avatar						
+						avatar: that.truehead						
 					}
 				});
 
 				if (result.statusCode == 200) {
 					if (result.data.code == 200) {
-
-						uni.hideLoading()
-						uni.showModal({
-							title: '提示',
-							content: result.data.msg,
-							confirmText: '知道了',
-							showCancel: false,
-							success: function(res) {
-								if (res.confirm) {
-									uni.navigateBack()
-								} else if (res.cancel) {
-									console.log('用户点击取消');
-								}
-							}
-						});
-
-						uni.$emit('group_ok', result.data.code)
-
+						uni.hideLoading()					
+						that.msg('修改成功')
 					} else {
 						uni.showToast({
 							icon: 'none',

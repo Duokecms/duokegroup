@@ -135,7 +135,11 @@ class Login extends Base
         $ip = Request::ip();
         $cityArr = ip2address($ip);
         $cityArr = json_decode($cityArr,true);
-        $city = isset($cityArr['city']) ? $cityArr['province'].'-'.$cityArr['city'] : '';
+        if ($cityArr['city']){
+                $city = isset($cityArr['city']) ? $cityArr['province'].'-'.$cityArr['city'] : '';
+         }else{
+             $city ="未知";
+         }
         if ($login_user){ //已注册
             $login_token = Jwt::encode([
                 'uid' => $login_user['id']
@@ -217,7 +221,11 @@ class Login extends Base
         $ip = Request::ip();
         $cityArr = ip2address($ip);
         $cityArr = json_decode($cityArr,true);
-        $city = isset($cityArr['city']) ? $cityArr['province'].'-'.$cityArr['city'] : '';
+        if ($cityArr['city']){
+                $city = isset($cityArr['city']) ? $cityArr['province'].'-'.$cityArr['city'] : '';
+         }else{
+             $city ="未知";
+         }
         $login_user = Db::name('user')->where('open_id',$openid)->find();
 
         $param['nickname']=mb_substr($param['nickname'], 0,6);

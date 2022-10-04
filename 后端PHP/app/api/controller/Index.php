@@ -372,7 +372,8 @@ class Index extends Base
                     $item['ziji'] =0;
                 }
           
-                $managecate = Db::name('category_follow')->where(['user_id'=>$userInfo['id'],'cate_id'=>$item['cate_id'],'is_manage' =>1])->find(); 
+                $myId = isset($userInfo['id']) ? $userInfo['id'] : 0;
+                $managecate = Db::name('category_follow')->where(['user_id'=>$myId,'cate_id'=>$item['cate_id'],'is_manage' =>1])->find(); 
 
 
 

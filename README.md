@@ -1,8 +1,11 @@
 
 ![输入图片说明](http://www.51duoke.cn/quanzi/images/head2.jpg)
 
+
+-----------------------------------------------------
+
 ###  **收费商业版已上市，演示请看二维码
-** 
+
 ![输入图片说明](http://www.51duoke.cn/quanzi/images/yanshi.jpg)
 ![输入图片说明](http://www.51duoke.cn/quanzi/images/d.jpg)
 

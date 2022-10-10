@@ -287,7 +287,6 @@ if (!-e  request_filename){ rewrite ^(.*)  /index.php?s=$1 last; break;
 
 ## 版权信息
 
-
 版权所有Copyright © 2016-2022 by 四川掌上时代科技有限公司旗下多客开源事业部 (http://www.51duoke.cn   http://www.siyibang.com)
 
 All rights reserved。

@@ -2,6 +2,9 @@
 {block name="body"}
 {load href="/static/element/plus/css/index.css,/static/backend/css/backend.css,/static/admin/css/element-plus.af9157cd.css,/static/admin/css/index.6fb45948.css" /}
 <style>
+body{
+    overflow: overlay !important;
+}
 .store-total-container {
     font-size: 14px;
     margin-bottom: 5px;
@@ -30,6 +33,17 @@
 
 </style>
 <div class="layui-fluid">
+    <div class="el-card is-never-shadow !border-none mb-4 flex-1" id="newVersion" style="display:none;">
+        <div class="el-card__header">
+            <div><span class="card-title">更新公告</span><span class="text-tx-secondary text-xs ml-4" id="updateTime"> 更新时间：{$total.one}</span>
+            </div>
+        </div>
+        <div class="el-card__body" style="">
+            <div class="flex flex-wrap" id="updateContent">
+                
+            </div>
+        </div>
+    </div>
     <div class="md:flex">
         <div class="el-card is-never-shadow !border-none mb-4 md:mr-4">
             <div class="el-card__header"><span class="card-title">版本信息</span></div>
@@ -37,7 +51,7 @@
                 <div>
                     <div class="flex leading-9">
                         <div class="w-20">当前版本</div>
-                        <span>1.2.1</span></div>
+                        <span>开原版：1.2.1</span></div>
                     <div class="flex leading-9">
                         <div class="w-20">基于框架</div>
                         <span>ThinkPhp6.0、Layui、MySQL</span></div>
@@ -46,7 +60,7 @@
                         <div><a href="http://www.51duoke.cn" target="_blank">
                             <button class="el-button el-button--success el-button--small" aria-disabled="false"
                                     type="button"><!--v-if--><span class="">官网</span></button>
-                        </a><a class="ml-3" href="http://bbs.siyibang.com/" target="_blank">
+                        </a><a class="ml-3" href="http://www.51duoke.cn/" target="_blank">
                             <button class="el-button el-button--danger el-button--small" aria-disabled="false"
                                     type="button"><!--v-if--><span class="">社区</span></button>
                         </a></div>
@@ -85,6 +99,8 @@
             </div>
         </div>
     </div>
+
+    
     <div class="function mb-4">
         <div class="el-card is-never-shadow flex-1 !border-none">
             <div class="el-card__header"><span>常用功能</span></div>
@@ -183,12 +199,12 @@
                             <div class="flex items-center pb-10 pt-10 border-b border-br">
                                 <div class="el-image flex-none" data-v-f49883a8=""
                                      style="width: 120px; height: 120px; border-radius: 0px;">
-                                     <img width="120" height="120" radius="0" src="/wechat.png" class="el-image__inner">
+                                     <img width="120" height="120" radius="0" src="/wechatroom.png" class="el-image__inner">
                                     <!--v-if--><!--v-if-->
                                 </div>
                                 <div class="ml-2">
-                                    <div>扫码进入QQ交流群</div>
-                                    <div class="text-tx-regular text-xs mt-4">疑难疑点 进入QQ群</div>
+                                    <div>扫码进入微信交流群</div>
+                                    <div class="text-tx-regular text-xs mt-4">疑难疑点 进入微信群</div>
                                 </div>
                             </div>
                         </div>
@@ -222,6 +238,18 @@
 {block name="js"}
 <script src="/static/admin/js/echarts.js"></script>
 <script>
+    $(function(){
+        var url = 'https://www.51duoke.cn/update/index/newVersion'
+        $.post(url,function (res) {
+            console.log(res)
+            if (res.isShow == 1) {
+                //res.str = res.str.replace(/br/, "<br>")
+                $('#newVersion').show();
+                $('#updateTime').text(res.updateTime)
+                $('#updateContent').html(res.str)
+            }
+        },'json')
+    });
     var myChart = echarts.init(document.getElementById('my_chart'));
     // var fatie = {$weeks};
     option = {

@@ -42,7 +42,9 @@ class User extends Base
     public function addNewGoods(Request $request)
     {
         $param = $request->param();
-         if ($request->loginInfo['status']==1)
+       return error([],'演示网站停止发帖，测试请自己行安装后台');
+
+        if ($request->loginInfo['status']==1)
         {
          return error(false,'你被禁言了');   
         }   
@@ -61,19 +63,23 @@ class User extends Base
 
         }
         
+
+
+
         $param['create_time'] = time();
         $param['tags_ids'] = ','.$param['tags_ids'].',';
         $param['user_id'] = $request->loginInfo['id'];
-        // unset($param['token']);
+  
         $res = Db::name('goods')->strict(false)->insertGetId($param);
         if ($res) {
             Db::name('category')->where('id',$param['cate_id'])->inc('goods_num')->update();
             Db::name('tags')->where('id',$param['tags_ids'])->inc('goods_num')->update();
 
             addAfterLevel($request->loginInfo,'goods');//处理等级
-            addAfterMedal($request->loginInfo,'goods');//处理勋章
-            return success($res,$msg);
+            addAfterMedal($request->loginInfo,'goods');//处理勋章      
+            return success([],$msg);
         }
+
         return error($res,'发布失败');
     }
 
@@ -93,8 +99,10 @@ class User extends Base
     public function addActive(Request $request)
     {
         $param = $request->param();
+        return error([],'演示网站停止发贴，测试请自己行安装后台');
 
-        if ($request->loginInfo['status']==1)
+        //title detail images address  lat  lng  times
+         if ($request->loginInfo['status']==1)
         {
          return error(false,'你被禁言了');   
         }   
@@ -127,7 +135,10 @@ class User extends Base
     public function addcategory(Request $request)
     {
         $param = $request->param();
- if ($request->loginInfo['status']==1)
+
+        return error([],'演示网站停止建圈子，测试请自己行安装后台');
+
+  if ($request->loginInfo['status']==1)
         {
          return error(false,'你被禁言了');   
         }   
@@ -222,7 +233,7 @@ class User extends Base
         {
          return error(false,'你被禁言了');   
         }   
-          $res = checkTextByQiniu($param['content']);
+         $res = checkTextByQiniu($param['content']);
         if ($res['code'] == 0) {
             return error(false,$res['msg']);
         }
@@ -731,6 +742,9 @@ class User extends Base
         //传图
     public function up_img(Request $request)
     {
+
+        return error('演示网站不允许传图，请自己安装后端传');
+        exit;
         Session::set('admin_auth.id',$this->webid);
         $folder_name = $request->param('folder_name/s','file');
         // var_dump($request->file());exit;

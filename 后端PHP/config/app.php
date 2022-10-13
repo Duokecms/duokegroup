@@ -34,4 +34,5 @@ return [
     'error_message'    => '页面错误！请稍后再试～',
     // 显示错误信息
     'show_error_msg'   => false,
+    'version_check_url'   => 'https://www.51duoke.cn/update/index/checkUpdate'
 ];

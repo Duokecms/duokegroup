@@ -377,7 +377,6 @@ class Index extends Base
 
 
 
-
                 if ($managecate){
                 $item['manage'] =1;
                 }else{

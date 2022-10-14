@@ -545,6 +545,7 @@ class Index extends Base
                 "userinfo" => [
                     "medal_list"=>$medal_list,
                     "avatar" => getImageUrl($userInfo['avatar'],'avatar'),
+                    "truehead" => $userInfo['avatar'],
                     "nickname" => $userInfo['nickname'],             
                     "city" => $userInfo['city'], 
                     "lv" => $userInfo['lv'],                     

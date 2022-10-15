@@ -42,8 +42,7 @@ class User extends Base
     public function addNewGoods(Request $request)
     {
         $param = $request->param();
-       return error([],'演示网站停止发帖，测试请自己行安装后台');
-
+ 
         if ($request->loginInfo['status']==1)
         {
          return error(false,'你被禁言了');   
@@ -99,7 +98,7 @@ class User extends Base
     public function addActive(Request $request)
     {
         $param = $request->param();
-        return error([],'演示网站停止发贴，测试请自己行安装后台');
+ 
 
         //title detail images address  lat  lng  times
          if ($request->loginInfo['status']==1)
@@ -136,7 +135,7 @@ class User extends Base
     {
         $param = $request->param();
 
-        return error([],'演示网站停止建圈子，测试请自己行安装后台');
+
 
   if ($request->loginInfo['status']==1)
         {
@@ -743,8 +742,7 @@ class User extends Base
     public function up_img(Request $request)
     {
 
-        return error('演示网站不允许传图，请自己安装后端传');
-        exit;
+  
         Session::set('admin_auth.id',$this->webid);
         $folder_name = $request->param('folder_name/s','file');
         // var_dump($request->file());exit;

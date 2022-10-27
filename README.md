@@ -2,47 +2,6 @@
 ![输入图片说明](http://www.51duoke.cn/quanzi/images/head2.jpg)
 
 
------------------------------------------------------
-
-###  **收费商业版已上市，演示请看二维码
-
-![输入图片说明](http://www.51duoke.cn/quanzi/images/d.jpg)
-
------------------------------------------------------
-
-## 收费商业版pro后端演示
-
-http://quanpro.51duoke.cn/admin
-
-账号demo  密码demo    （仅有查看权限）
-
- **商业版功能说明：** 
-
-1、增加发帖权限
-
-2、增加语音聊天房间，上麦下麦等。
-
-3、增加1v1私人聊天功能
-
-4、后端增加语音提醒功能，待审核信息会语音播报。
-
-5、增加表情管理
-
-6、增加附近的人查看，后台可开关。
-
-7、增加音乐播放器。可开关。
-
-8、后端在线更新功能。
-
-9、增加点赞和评论推送功能。
-
-10、小程序增加文字版聊天室。
-
-更多功能等你发现。。。。
-
------------------------------------------------------
-
-
 <h3 align="center">多客圈子社区系统免费开源版1.2.1版</h3> 
   
 
@@ -143,19 +102,29 @@ SELECT = 0 #数据库
 http://域名/admin
 默认账号：admin 密码：6192652
 
-## 后台功能简介
+## 功能简介
 
+1、采用uniapp开发前端，可打包成小程序、APP安卓、app苹果、支付宝小程序等。具体请到uniapp官网查看
 
-进入后台后，请在基础配置里配置你的参数即可。
+2、APP采用短信验证登录，小程序采用微信授权登录。
 
-H5和APP是手机号登陆，如果需要发送验证码，已经集成了阿里云的sms
+3、圈子支持后台建立和前台用户新建
 
-上传集成阿里云oss和七牛云，也可以本地储存
+4、用户发布帖子可选择圈子和话题，
 
-内容监控和屏蔽，采用七牛云，请在上传配置出配置name和key
+5、帖子可后台添加和审核，及推荐和热门等操作
 
+6、上传集成阿里云oss和七牛云，也可以本地储存
 
+7、发布内容自动安全检测，采用七牛内容检测接口。
 
+8、支持图片多图上传和拖动排序
+
+9、支持会员等级
+
+10、帖子支持圈子管理员前端推荐和置顶
+
+11、支持勋章和用户等级
  
  ```
  Admin（后台功能）
@@ -197,23 +166,15 @@ H5和APP是手机号登陆，如果需要发送验证码，已经集成了阿里
 ![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan/qianduan/3.jpg)
 
 
-### 页面展示
+### 后端部分页面展示
 ![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//1.jpg)
 ![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//2.jpg)
 ![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//3.jpg)
 ![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//4.jpg)
 ![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//5.jpg)
 ![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//6.jpg)
-![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//7.jpg)
-![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//8.jpg)
-![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//9.jpg)
-![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//10.jpg)
-![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//11.jpg)
-![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//12.jpg)
-![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//13.jpg)
 
-![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//15.jpg)
-![输入图片说明](http://guanwang.qiniu.51duoke.cn/quan//16.jpg)
+
 
 ## 文档
 
@@ -267,6 +228,27 @@ if (!-e  request_filename){ rewrite ^(.*)  /index.php?s=$1 last; break;
 
 
 不断更新中....
+
+
+
+
+
+-----------------------------------------------------
+
+###  **另外我们还提供商业版，更多功能哦 演示请看二维码
+
+![输入图片说明](http://www.51duoke.cn/quanzi/images/d.jpg)
+
+-----------------------------------------------------
+
+
+-----------------------------------------------------
+
+
+
+
+
+
 
 
 

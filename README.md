@@ -184,7 +184,6 @@ http://域名/admin
 
  ![输入图片说明](http://www.51duoke.cn/quanzi/images/quanhanner.jpg)
 
-![输入图片说明](http://www.51duoke.cn/quanzi/images/d.jpg)
 
 
 ## 安装使用常见问答

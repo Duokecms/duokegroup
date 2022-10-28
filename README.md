@@ -239,7 +239,8 @@ if (!-e  request_filename){ rewrite ^(.*)  /index.php?s=$1 last; break;
 ![输入图片说明](http://www.51duoke.cn/quanzi/images/d.jpg)
 
 -----------------------------------------------------
-![输入图片说明](http://www.51duoke.cn/quanzi/images/head2.jpg)
+
+ ![输入图片说明](http://www.51duoke.cn/quanzi/images/quanhanner.jpg)
 
 -----------------------------------------------------
 

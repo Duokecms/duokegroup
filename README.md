@@ -249,7 +249,7 @@ if (!-e  request_filename){ rewrite ^(.*)  /index.php?s=$1 last; break;
 
 
 
-
+ ![输入图片说明](http://www.51duoke.cn/quanzi/images/naotu.png)
 
 
 
